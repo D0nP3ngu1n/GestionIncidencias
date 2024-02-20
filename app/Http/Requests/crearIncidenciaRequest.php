@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class crearIncidenciaRequest extends FormRequest
+class CrearIncidenciaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,31 +15,52 @@ class crearIncidenciaRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
+     * Reglas de validacion a la hora de crear una incidencia
+     * @param none no recibe nada
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            'especie' => 'required|min:3',
-            'peso' => 'required',
-            'altura' => 'required',
-            'fechaNacimiento' => 'required',
-            'imagen' => 'required|image|mimes:jpeg,png,jpg,svg',
+            'nombrePersona' => 'required|max:25',
+            'apellido1' => 'required|max:25',
+            'apellido2' => 'required|max:25',
+            'nombreDepartamento' => 'required|max:45',
+            'tipoIncidencia' => 'required|in:Equipos,Cuentas,Wifi,Internet,Software',
+            'subtipoIncidencia' => 'required|in:PC,Altavoces,Monitor,Proyector,Pantalla interactiva,
+            Portatil, Impresoras, Educantabria, Google Classroom, Dominio, Yedra, IesMiguelHerrero,
+             WIECAN, Instalacion, Actualizacion',
+            'descripcion' => 'max:256',
+            'fichero' => 'mimes:jpg,pdf,csv,rtf',
         ];
     }
+
+    /**
+     * Mensajes de las reglas de validacion
+     * @param none no recibe nada
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
 
     public function messages(): array
     {
         return [
-            'especie.required' => 'El campo especie es obligatorio.',
-            'especie.min' => 'El campo especie debe tener al menos 3 caracteres.',
-            'peso.required' => 'El campo peso es obligatorio.',
-            'altura.required' => 'El campo altura es obligatorio.',
-            'fechaNacimiento.required' => 'El campo fecha de nacimiento es obligatorio.',
-            'imagen.required' => 'El campo imagen es obligatorio.',
-            'imagen.mimes' => 'El formato de la imagen debe ser jpeg, png, jpg o svg.',
+            'nombrePersona.required' => 'El campo nombre es obligatorio.',
+            'nombrePersona.max' => 'El campo nombre debe tener menos de 25 caracteres.',
+            'apellido1.required' => 'El campo apellido1 es obligatorio.',
+            'apellido2.required' => 'El campo apellido2 es obligatorio.',
+            'apellido1.required' => 'El campo apellido1 debe tener menos de 25 caracteres.',
+            'apellido2.required' => 'El campo apellido2 debe tener menos de 25 caracteres.',
+            'nombreDepartamento.required' => 'El campo departamento es obligatorio.',
+            'nombreDepartamento.max' => 'El campo departamento debe tener menos de 45 caracteres.',
+            'tipoIncidencia.required' => 'El campo tipo de incidencia es obligatorio.',
+            'tipoIncidencia.in' => 'Las posibles opciones de tipo de incidencia son:
+             Equipos,Cuentas,Wifi,Internet,Software.',
+            'subtipoIncidencia.required' => 'El campo subtipo de incidencia es obligatorio.',
+            'subtipoIncidencia.in' => 'Las posibles opciones de subtipo de incidencia son: PC,
+            Altavoces,Monitor,Proyector,Pantalla interactiva,Portatil, Impresoras, Educantabria,
+            Google Classroom, Dominio, Yedra, IesMiguelHerrero, WIECAN, Instalacion, Actualizacion.',
+            'descripcion.max' => 'El campo descripcion debe tener menos de 256 caracteres.',
+            'fichero.mimes' => 'El formato del fichero debe ser csv, jpg, rtf o pdf',
         ];
     }
 }
