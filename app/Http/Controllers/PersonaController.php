@@ -79,8 +79,8 @@ class PersonaController extends Controller
             $persona->apellido2 = $request->apellido2;
             $persona->direccion = $request->direccion;
             $persona->save();
-        } catch (PDOException $e) {
-            return $e->getMessage();
+        } catch (PDOException $ex) {
+            return $ex->getMessage();
         }
     }
 }
