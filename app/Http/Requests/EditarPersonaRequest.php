@@ -48,8 +48,6 @@ class ActualizarPersonaRequest extends FormRequest
             'nombrePersona.max' => 'El campo nombre debe tener menos de 25 caracteres.',
             'apellido1.required' => 'El campo apellido1 es obligatorio.',
             'apellido2.required' => 'El campo apellido2 es obligatorio.',
-            'apellido1.required' => 'El campo apellido1 debe tener menos de 25 caracteres.',
-            'apellido2.required' => 'El campo apellido2 debe tener menos de 25 caracteres.',
             'nombreDepartamento.required' => 'El campo departamento es obligatorio.',
             'nombreDepartamento.max' => 'El campo departamento debe tener menos de 45 caracteres.',
             'tipoIncidencia.required' => 'El campo tipo de incidencia es obligatorio.',
