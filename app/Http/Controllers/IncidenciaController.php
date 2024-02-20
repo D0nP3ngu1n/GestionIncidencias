@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\crearIncidenciaRequest;
 use Illuminate\Http\Request;
+use App\Http\Requests\crearIncidenciaRequest;
 use App\Models\Incidencia;
 use App\Http\Requests\EditarIncidenciaRequest;
 use Illuminate\Support\Facades\DB;
