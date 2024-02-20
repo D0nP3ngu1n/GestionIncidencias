@@ -42,6 +42,10 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw' => false,
+        ],'ficheros' => [
+            'driver' => 'local',
+            'root' => public_path('assets/ficheros'),
+            'visibility' => 'public',
         ],
 
         's3' => [
