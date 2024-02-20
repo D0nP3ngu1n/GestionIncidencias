@@ -44,7 +44,6 @@ class CrearPersonaRequest extends FormRequest
             'nombrePersona.required' => 'El campo nombre es obligatorio.',
             'nombrePersona.max' => 'El campo nombre debe tener menos de 25 caracteres.',
             'apellido1.required' => 'El campo apellido1 es obligatorio.',
-            'apellido1.required' => 'El campo apellido1 debe tener menos de 25 caracteres.',
         ];
     }
 }
