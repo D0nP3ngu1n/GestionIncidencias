@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class IncidenciaSubtipo extends Model
 {
     use HasFactory;
+    protected $table = "incidencias_subtipos";
 }
