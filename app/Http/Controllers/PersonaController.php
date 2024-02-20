@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ActualizarPersonaRequest;
 use App\Http\Requests\crearPersonaRequest;
 use App\Models\Persona;
 use Illuminate\Http\Request;
@@ -71,6 +72,12 @@ class PersonaController extends Controller
         }
     }
 
+    /**
+     * Metodo para editar la informacion de una persona en la base de datos
+     *
+     * @param mixed recibe una Clase Request para validar los datos y una persona a modificar
+     * @return mixed devuelve una redireccion a la vista detalle de la persona o un mensaje de error
+     */
     public function update(ActualizarPersonaRequest $request, Persona $persona)
     {
         try {
@@ -78,9 +85,26 @@ class PersonaController extends Controller
             $persona->apellido1 = $request->apellido1;
             $persona->apellido2 = $request->apellido2;
             $persona->direccion = $request->direccion;
+            $persona->localidad = $request->localidad;
+            $persona->cp = $request->cp;
+            $persona->tlf = $request->tlf;
+            $persona->activo = $request->activo;
+            $persona->departamento_id->$request->departamento;
             $persona->save();
+            return redirect()->route('personal.show', ['persona' => $persona->dni]);
         } catch (PDOException $ex) {
             return $ex->getMessage();
         }
+    }
+
+    /**
+     * Metodo que borra un registro de persona dado
+     *
+     * @param Persona recibe una persona a borrar en la base de datos
+     * @return none no devuelve nada
+     */
+    public function destroy(Persona $persona)
+    {
+        $persona->delete();
     }
 }
