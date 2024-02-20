@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\IncidenciaController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,6 +14,15 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::controller(IncidenciaController::class)->group(function () {
+    Route::get('incidencias', 'index')->name('animales.index');
+    Route::get('incidencias/create', 'create')->name('incidencias.create');
+    Route::get('incidencias/{incidencia}', 'show')->name('incidencias.show');
+    Route::post('incidencias/store', 'store')->name('incidencias.store');
+    Route::put('incidencias/{incidencia}', 'update')->name('incidencias.update');
+    Route::delete('incidencias/{incidencia}', 'destroy')->name('incidencias.destroy');
+});
 
 Route::get('/', function () {
     return view('welcome');
