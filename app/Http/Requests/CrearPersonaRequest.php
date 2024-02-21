@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ActualizarPersonaRequest extends FormRequest
+class CrearPersonaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,9 +13,8 @@ class ActualizarPersonaRequest extends FormRequest
     {
         return true;
     }
-
     /**
-     * Reglas de validacion a la hora de actualizar una persona
+     * Reglas de validacion a la hora de crear una persona
      * @param none no recibe nada
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */

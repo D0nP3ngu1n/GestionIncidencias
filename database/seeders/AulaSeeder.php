@@ -24,6 +24,10 @@ class AulaSeeder extends Seeder
 
     }
 
+    /*
+    * Array del modelo Aulas
+    */
+
     private $aulas = array(
         array(
             'num' => 1,

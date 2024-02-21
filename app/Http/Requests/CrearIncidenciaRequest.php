@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ActualizarPersonaRequest extends FormRequest
+class CrearIncidenciaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +15,7 @@ class ActualizarPersonaRequest extends FormRequest
     }
 
     /**
-     * Reglas de validacion a la hora de actualizar una persona
+     * Reglas de validacion a la hora de crear una incidencia
      * @param none no recibe nada
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
@@ -48,6 +48,8 @@ class ActualizarPersonaRequest extends FormRequest
             'nombrePersona.max' => 'El campo nombre debe tener menos de 25 caracteres.',
             'apellido1.required' => 'El campo apellido1 es obligatorio.',
             'apellido2.required' => 'El campo apellido2 es obligatorio.',
+            'apellido1.required' => 'El campo apellido1 debe tener menos de 25 caracteres.',
+            'apellido2.required' => 'El campo apellido2 debe tener menos de 25 caracteres.',
             'nombreDepartamento.required' => 'El campo departamento es obligatorio.',
             'nombreDepartamento.max' => 'El campo departamento debe tener menos de 45 caracteres.',
             'tipoIncidencia.required' => 'El campo tipo de incidencia es obligatorio.',

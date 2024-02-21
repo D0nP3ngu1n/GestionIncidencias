@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.Merche
+     * Rellena la base de datos de la aplicacion web
      */
     public function run(): void
     {
