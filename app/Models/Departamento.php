@@ -9,4 +9,5 @@ class Departamento extends Model
 {
     use HasFactory;
     protected $table = "departamentos";
+    public $timestamps = false;
 }
