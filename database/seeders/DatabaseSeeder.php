@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
         DB::table('aulas')->delete();
         $this->call(AulaSeeder::class);
         $this->call(EquipoSeeder::class);
-        //DB::table('incidencias_subtipos')->delete();
-        //$this->call(IncidenciaSubtipoSeeder::class);
+        DB::table('incidencias_subtipos')->delete();
+        $this->call(IncidenciaSubtipoSeeder::class);
         DB::table('personal')->delete();
         DB::table('departamentos')->delete();
         $this->call(DepartamentoSeeder::class);
