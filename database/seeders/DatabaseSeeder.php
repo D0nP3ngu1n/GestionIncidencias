@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Comentario;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -13,18 +15,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
+        DB::table('equipos')->delete();
+        DB::table('aulas')->delete();
         $this->call(AulaSeeder::class);
         $this->call(EquipoSeeder::class);
         DB::table('incidencias_subtipos')->delete();
         $this->call(IncidenciaSubtipoSeeder::class);
+        DB::table('comentarios')->delete();
+        DB::table('perfiles')->delete();
         DB::table('personal')->delete();
         DB::table('departamentos')->delete();
+        DB::table('incidencias')->delete();
         $this->call(DepartamentoSeeder::class);
         $this->call(PersonaSeeder::class);
-
-
-
+        $this->call(PerfilSeeder::class);
+        $this->call(IncidenciaSeeder::class);
+        $this->call(ComentarioSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
