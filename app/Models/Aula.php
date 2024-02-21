@@ -9,4 +9,10 @@ class Aula extends Model
 {
     use HasFactory;
     protected $table = "aulas";
+    public $timestamps = false;
+
+    public function equipos()
+    {
+        return $this->hasMany(Equipo::class, 'aula_num', 'num');
+    }
 }

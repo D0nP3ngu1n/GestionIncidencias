@@ -9,4 +9,5 @@ class IncidenciaSubtipo extends Model
 {
     use HasFactory;
     protected $table = "incidencias_subtipos";
+    public $timestamps = false;
 }
