@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\IncidenciaSubtipo;
+use PHPUnit\TextUI\Output\NullPrinter;
 
 class IncidenciaSubtipoSeeder extends Seeder
 {
@@ -48,23 +49,24 @@ class IncidenciaSubtipoSeeder extends Seeder
     {
         foreach ($this->tiposIncidencias as $tipo => $subtipos) {
             foreach ($subtipos as $subtipo => $subSubtipos) {
-                $nuevoSubTipo = new IncidenciaSubtipo();
-                $nuevoSubTipo->tipo = $tipo;
-                $nuevoSubTipo->subtipo_nombre = $subtipo;
-
-                if (is_array($subSubtipos)) {
+                if (is_array($subSubtipos) && count($subSubtipos) > 0) {
                     foreach ($subSubtipos as $subSubtipo) {
+                        $nuevoSubTipo = new IncidenciaSubtipo();
+                        $nuevoSubTipo->tipo = $tipo;
+                        $nuevoSubTipo->subtipo_nombre = $subtipo;
                         $nuevoSubTipo->sub_subtipo = $subSubtipo;
                         $nuevoSubTipo->save();
                     }
                 } else {
-                    $nuevoSubTipo->sub_subtipo = $subSubtipos;
+                    $nuevoSubTipo = new IncidenciaSubtipo();
+                    $nuevoSubTipo->tipo = $tipo;
+                    $nuevoSubTipo->subtipo_nombre = $subSubtipos;
+                    $nuevoSubTipo->sub_subtipo = null;
                     $nuevoSubTipo->save();
                 }
             }
         }
 
         $this->command->info('Tabla subtipos inicializada con datos');
-
     }
 }
