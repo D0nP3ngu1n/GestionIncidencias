@@ -14,7 +14,7 @@ class DepartamentoSeeder extends Seeder
     public function run(): void
     {
         foreach ($this->departamentos as $departamento) {
-            $objetoDepartamento = new Departamento();
+             $objetoDepartamento = new Departamento();
             $objetoDepartamento->cod = $departamento['cod'];
             $objetoDepartamento->nombre = $departamento['nombre'];
             $objetoDepartamento->activo = $departamento['activo'];

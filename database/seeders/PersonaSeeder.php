@@ -17,7 +17,7 @@ class PersonaSeeder extends Seeder
         $departamentoId = Departamento::pluck('id')->toArray();
         $personal = array(
             array(
-                'dni' => '87654321Q',
+                 'dni' => '87654321Q',
                 'nombre' => 'Manuel',
                 'apellido1' => 'Llano',
                 'apellido2' => 'Rebanal',

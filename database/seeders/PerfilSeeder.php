@@ -16,7 +16,7 @@ class PerfilSeeder extends Seeder
         $personaId = Persona::pluck('id')->toArray();
         $perfiles = array(
             array(
-                'personal_id' => $personaId[0],
+                 'personal_id' => $personaId[0],
                 'dominio' => 'testProfRob1',
                 'educantabria' => 'Manuel@educantabria.es',
                 'password' => 'Usuario@1',
