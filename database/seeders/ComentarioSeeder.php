@@ -15,8 +15,11 @@ class ComentarioSeeder extends Seeder
      */
     public function run(): void
     {
+        //Recoger los id de la tabla personal
         $personaId = Persona::pluck('id')->toArray();
+        //Recoger los if de la tabla incidencia
         $incidenciaId = Incidencia::pluck('num')->toArray();
+        //array comentarios
         $comentarios = array(
             array(
                 'texto' => 'Comentario de prueba 1',
@@ -41,7 +44,6 @@ class ComentarioSeeder extends Seeder
             $objetoComentario->incidencia_num = $comentario['incidencia_num'];
             $objetoComentario->personal_id = $comentario['personal_id'];
             $objetoComentario->save();
-
         }
     }
 }
