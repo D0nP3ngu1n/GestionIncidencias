@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         DB::table('departamentos')->delete();
         $this->call(DepartamentoSeeder::class);
         $this->call(PersonaSeeder::class);
+        //
 
         // \App\Models\User::factory(10)->create();
 
