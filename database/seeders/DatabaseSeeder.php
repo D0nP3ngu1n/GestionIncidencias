@@ -19,14 +19,14 @@ class DatabaseSeeder extends Seeder
         DB::table('aulas')->delete();
         $this->call(AulaSeeder::class);
         $this->call(EquipoSeeder::class);
-
-        $this->call(IncidenciaSubtipoSeeder::class);
-       /* DB::table('comentarios')->delete();
-        DB::table('perfiles')->delete();
         DB::table('incidencias_subtipos')->delete();
+        $this->call(IncidenciaSubtipoSeeder::class);
+       DB::table('comentarios')->delete();
+        DB::table('perfiles')->delete();
+
         DB::table('personal')->delete();
         DB::table('departamentos')->delete();
-        DB::table('incidencias')->delete();*/
+        DB::table('incidencias')->delete();
         $this->call(DepartamentoSeeder::class);
         $this->call(PersonaSeeder::class);
         $this->call(PerfilSeeder::class);
