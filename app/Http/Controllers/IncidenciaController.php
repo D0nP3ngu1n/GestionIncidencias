@@ -42,7 +42,7 @@ class IncidenciaController extends Controller
      */
     public function create()
     {
-    return view('incidencias.create');
+        return view('incidencias.create');
     }
 
     /**
