@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\crearIncidenciaRequest;
 use App\Models\Incidencia;
 use App\Http\Requests\EditarIncidenciaRequest;
+use App\Models\Persona;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use PDOException;
@@ -131,7 +132,11 @@ class IncidenciaController extends Controller
             $incidencia->subtipo_id = $request->subtipo_id;
             $incidencia->descripcion = $request->descripcion;
             $incidencia->estado = $request->estado;
-            $incidencia->creador_id = $request->creador_id;
+
+
+            //saco el perfil que tenga que ese dominio, para sacar despues la id de la persona y todos sus datos
+             $perfil =   $this->where('dominio', $email)->where('password', $password)->first();
+             $incidencia->creador_id  = Perfil::where('dominio',$request->dominio);
 
 
             //si en el crear me viene un fichero adjunto elimino el anterior y subo el nuevo ademas de guardar su URL
