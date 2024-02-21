@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(AulaSeeder::class);
+        /*$this->call(AulaSeeder::class);
         $this->call(EquipoSeeder::class);
         DB::table('incidencias_subtipos')->delete();
         $this->call(IncidenciaSubtipoSeeder::class);
@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         DB::table('departamentos')->delete();
         $this->call(DepartamentoSeeder::class);
         $this->call(PersonaSeeder::class);
-        //
+        */
 
         // \App\Models\User::factory(10)->create();
 
