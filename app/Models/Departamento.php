@@ -11,6 +11,11 @@ class Departamento extends Model
     protected $table = "departamentos";
     public $timestamps = false;
 
+    /**
+     * Relacion uno a muchos entre departamento y persona
+     * @param null no recibe parametros
+     * @return
+     */
     public function personas()
     {
         return $this->hasMany(Persona::class, 'jefedep_id', 'id');

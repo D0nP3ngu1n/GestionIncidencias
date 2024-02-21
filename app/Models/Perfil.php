@@ -11,6 +11,11 @@ class Perfil extends Model
     protected $table = "perfiles";
     public $timestamps = false;
 
+    /**
+     * Relacion uno a uno entre persona y perfil
+     * @param null no recibe parametros
+     * @return
+     */
     public function persona()
     {
         return $this->belongsTo(Persona::class, 'personal_id', 'id');
