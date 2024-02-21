@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::controller(IncidenciaController::class)->group(function () {
-    Route::get('incidencias', 'index')->name('animales.index');
+    Route::get('incidencias', 'index')->name('incidencias.index');
     Route::get('incidencias/create', 'create')->name('incidencias.create');
     Route::get('incidencias/{incidencia}', 'show')->name('incidencias.show');
     Route::post('incidencias/store', 'store')->name('incidencias.store');
