@@ -11,7 +11,7 @@
 
 <body>
     @include('layouts.partials.nav')
-    <div class="container">
+    <div class="container-fluid">
         @yield('contenido')
     </div>
 </body>
