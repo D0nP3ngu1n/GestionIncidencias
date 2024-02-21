@@ -10,4 +10,9 @@ class Persona extends Model
     use HasFactory;
     protected $table = "personal";
     public $timestamps = false;
+
+    public function departamento()
+    {
+        return $this->belongsTo(Departamento::class, 'departamento_id', 'id');
+    }
 }
