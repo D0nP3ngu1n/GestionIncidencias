@@ -24,21 +24,45 @@ class IncidenciaSeeder extends Seeder
                 'descripcion' => 'incidencia de prueba 1',
                 'estado' => 'abierta',
                 'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1] - $personaId[0]))),
-                'prioridad' => 'alta'
+                'prioridad' => 'baja'
             ),
             array(
                 'tipo' => 'cuentas',
                 'subtipo_id' => $subtiposId[12],
                 'descripcion' => 'incidencia de prueba 2',
-                'estado' => 'abierta',
+                'estado' => 'en proceso',
                 'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1]- $personaId[0]))),
-                'prioridad' => 'alta'
+                'prioridad' => 'media'
             ),
             array(
                 'tipo' => 'Wifi',
                 'subtipo_id' => $subtiposId[14],
-                'descripcion' => 'incidencia de prueba 1',
-                'estado' => 'abierta',
+                'descripcion' => 'incidencia de prueba 3',
+                'estado' => 'asignada',
+                'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1]- $personaId[0]))),
+                'prioridad' => 'alta'
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[1],
+                'descripcion' => 'incidencia de prueba 4',
+                'estado' => 'enviada a Infortec',
+                'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1]- $personaId[0]))),
+                'prioridad' => 'alta'
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[2],
+                'descripcion' => 'incidencia de prueba 5',
+                'estado' => 'resuelta',
+                'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1]- $personaId[0]))),
+                'prioridad' => 'alta'
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 6',
+                'estado' => 'cerrada',
                 'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1]- $personaId[0]))),
                 'prioridad' => 'alta'
             ),
