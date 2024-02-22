@@ -37,9 +37,9 @@
             <input type="text" id="departamento" class="form-control">
         </div>
         <div class="mb-3">
-            <label for="" class="form-label"></label>
+            <label for="" class="form-label">Tipo</label>
             <select id="tipo" class="form-select">
-                <option>...</option>
+                <option selected="true">...</option>
                 <option value="EQUIPOS">Equipos</option>
                 <option value="CUENTAS">Cuentas</option>
                 <option value="WIFI">Wifi</option>
@@ -186,3 +186,4 @@
             <input type="file" id="adjunto" class="form-control">
         </div>
     </form>
+@endsection
