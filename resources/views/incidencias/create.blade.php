@@ -37,8 +37,9 @@
             <input type="text" id="departamento" class="form-control">
         </div>
         <div class="mb-3">
-            <label for="" class="form-label"></label>
+            <label for="" class="form-label">Tipo</label>
             <select id="tipo" class="form-select">
+                <option selected="true">...</option>
                 <option value="EQUIPOS">Equipos</option>
                 <option value="CUENTAS">Cuentas</option>
                 <option value="WIFI">Wifi</option>
@@ -50,8 +51,8 @@
             <select id="subtipo" class="form-select">
         </div>
         <div id="sel2"class="mb-3 invisible">
-            <label for="sub_subtipo" class="form-label"></label>
-            <select id="sub_subtipo" class="form-select">
+            <label for="sub-subtipo" class="form-label">Sub_subtipo</label>
+            <select id="sub-subtipo" class="form-select">
         </div>
         <script>
             window.addEventListener('load', inicio, false);
@@ -90,7 +91,7 @@
                 sel.innerHTML = '';
                 //solo actualizará los datos si la opción es distinta a INTERNET
                 if (opc !== "INTERNET") {
-                    document.getElementById('sel2').classList.remove('invisible');
+                    document.getElementById('sel1').classList.remove('invisible');
                     switch (opc) {
                         case "EQUIPOS":
                             var arr = array['EQUIPOS'];
@@ -139,8 +140,8 @@
             function rellenar2() {
                 let opc = document.getElementById('subtipo').value;
                 console.log(opc);
-                let sel = document.getElementById('sub_subtipo');
-                sel.innerHTML = '';
+                let selec = document.getElementById('sub-subtipo');
+                selec.innerHTML = '';
                 switch (opc) {
                     case opc = "PC":
                         document.getElementById('sel2').classList.remove('invisible');
@@ -178,10 +179,11 @@
         </div>
         <div class="form-outline">
             <label for="descripcion" class="form-label">Descripcion:</label>
-            <textarea id="descripcion" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="adjunto" class="form-label">Archivo Adjunto:</label>
-                     <input type="file" id="adjunto" class="form-control">
-                </div>
-            </form>
+            <textarea id="descripcion" class="form-control"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="adjunto" class="form-label">Archivo Adjunto:</label>
+            <input type="file" id="adjunto" class="form-control">
+        </div>
+    </form>
+@endsection
