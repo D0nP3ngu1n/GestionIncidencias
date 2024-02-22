@@ -52,8 +52,8 @@
             <select id="subtipo" class="form-select"></select>
         </div>
         <div id="sel2"class="mb-3 invisible">
-            <label for="sub-subtipo" class="form-label">Sub_subtipo</label>
-            <select id="sub-subtipo" class="form-select"></select>
+            <label for="sub_subtipo" class="form-label">Sub_subtipo</label>
+            <select id="sub_subtipo" class="form-select"></select>
         </div>
         <script>
             window.addEventListener('load', inicio, false);
@@ -145,7 +145,7 @@
             function rellenar2() {
                 let opc = document.getElementById('subtipo').value;
                 console.log(opc);
-                let selec = document.getElementById('sub-subtipo');
+                let selec = document.getElementById('sub_subtipo');
                 selec.innerHTML = '';
                 switch (opc) {
                     case opc = "PC":
@@ -190,5 +190,6 @@
             <label for="adjunto" class="form-label">Archivo Adjunto:</label>
             <input type="file" id="adjunto" class="form-control">
         </div>
+        <input type="submit" id="crear "class="btn btn-outline-primary col" value="Crear Incidencia">
     </form>
 @endsection
