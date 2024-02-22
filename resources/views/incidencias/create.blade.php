@@ -48,11 +48,11 @@
         </div>
         <div id="sel1"class="mb-3 invisible">
             <label for="subtipo" class="form-label">Subtipo:</label>
-            <select id="subtipo" class="form-select">
+            <select id="subtipo" class="form-select"></select>
         </div>
         <div id="sel2"class="mb-3 invisible">
             <label for="sub-subtipo" class="form-label">Sub_subtipo</label>
-            <select id="sub-subtipo" class="form-select">
+            <select id="sub-subtipo" class="form-select"></select>
         </div>
         <script>
             window.addEventListener('load', inicio, false);
