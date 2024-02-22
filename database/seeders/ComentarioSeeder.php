@@ -20,7 +20,7 @@ class ComentarioSeeder extends Seeder
         //Recoger los id de la tabla personal
         $personaId = Persona::pluck('id')->toArray();
         //Recoger los if de la tabla incidencia
-        $incidenciaId = Incidencia::pluck('num')->toArray();
+        $incidenciaId = Incidencia::pluck('id')->toArray();
         //array comentarios
         $comentarios = array(
             array(
