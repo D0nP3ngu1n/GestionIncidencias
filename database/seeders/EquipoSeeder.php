@@ -11,10 +11,14 @@ class EquipoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * @param null no recibe datos
+     * @return void
      */
     public function run(): void
     {
+        //Recoger todas las claves llamadas num en un array
         $equiposNum = Aula::pluck('num')->toArray();
+        //Creacion del array de equipos
         $equipos = array(
             array(
                 'id' => 1,
@@ -25,6 +29,7 @@ class EquipoSeeder extends Seeder
                 'modelo' => 'T3',
                 'descripcion' => 'equipo de prueba 1',
                 'baja' => null,
+
                 'aula_num' => rand(1, count($equiposNum)),
                 'puesto' => 3
             ),
@@ -65,10 +70,13 @@ class EquipoSeeder extends Seeder
                 'puesto' => 7
             ),
         );
+        //recorrer array de equipos
         foreach ($equipos as $equipo) {
+            //Creacion del objeto del modelo equipos
             $equipoObjeto = new Equipo();
             $equipoObjeto->id = $equipo['id'];
             $equipoObjeto->tipo_equipo = $equipo['tipo_equipo'];
+            //Dar formato a la fecha para subirla a la BD
             $equipoObjeto->fecha_adquisicion = date('Y-m-d', $equipo['fecha_adquisicion']);
             $equipoObjeto->etiqueta = $equipo['etiqueta'];
             $equipoObjeto->marca = $equipo['marca'];
@@ -77,6 +85,7 @@ class EquipoSeeder extends Seeder
             $equipoObjeto->baja = $equipo['baja'];
             $equipoObjeto->aula_num = $equipo['aula_num'];
             $equipoObjeto->puesto = $equipo['puesto'];
+            //Cargar el objeto en la base de datos
             $equipoObjeto->save();
         }
     }

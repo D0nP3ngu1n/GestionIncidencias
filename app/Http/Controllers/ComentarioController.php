@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CrearComentarioRequest;
 use App\Models\Comentario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,7 +11,8 @@ use PDOException;
 
 class ComentarioController extends Controller
 {
-    public function store(CrearComentarioRequest $request){
+    public function store(CrearComentarioRequest $request)
+    {
         //id,texto,fechahora,incidencia_num,personal_id,adjunto_url
 
         try {
