@@ -29,7 +29,8 @@ class IncidenciaSeeder extends Seeder
                 'descripcion' => 'incidencia de prueba 1',
                 'estado' => 'abierta',
                 'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1] - $personaId[0]))),
-                'prioridad' => 'baja'
+                'prioridad' => 'baja',
+                'equipo_id' => '2'
             ),
             array(
                 'tipo' => 'cuentas',
@@ -37,7 +38,8 @@ class IncidenciaSeeder extends Seeder
                 'descripcion' => 'incidencia de prueba 2',
                 'estado' => 'en proceso',
                 'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1] - $personaId[0]))),
-                'prioridad' => 'media'
+                'prioridad' => 'media',
+                'equipo_id' => '3'
             ),
             array(
                 'tipo' => 'Wifi',
@@ -45,7 +47,8 @@ class IncidenciaSeeder extends Seeder
                 'descripcion' => 'incidencia de prueba 3',
                 'estado' => 'asignada',
                 'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1] - $personaId[0]))),
-                'prioridad' => 'alta'
+                'prioridad' => 'alta',
+                'equipo_id' => '4'
             ),
             array(
                 'tipo' => 'equipos',
@@ -53,7 +56,8 @@ class IncidenciaSeeder extends Seeder
                 'descripcion' => 'incidencia de prueba 4',
                 'estado' => 'enviada a Infortec',
                 'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1] - $personaId[0]))),
-                'prioridad' => 'alta'
+                'prioridad' => 'alta',
+                'equipo_id' => '3'
             ),
             array(
                 'tipo' => 'equipos',
@@ -61,7 +65,8 @@ class IncidenciaSeeder extends Seeder
                 'descripcion' => 'incidencia de prueba 5',
                 'estado' => 'resuelta',
                 'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1] - $personaId[0]))),
-                'prioridad' => 'alta'
+                'prioridad' => 'alta',
+                'equipo_id' => '2'
             ),
             array(
                 'tipo' => 'equipos',
@@ -69,7 +74,8 @@ class IncidenciaSeeder extends Seeder
                 'descripcion' => 'incidencia de prueba 6',
                 'estado' => 'cerrada',
                 'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1] - $personaId[0]))),
-                'prioridad' => 'alta'
+                'prioridad' => 'alta',
+                'equipo_id' => '1'
             ),
         );
         //recorrer el array de incidencias para cargar en la base de datos
@@ -83,6 +89,7 @@ class IncidenciaSeeder extends Seeder
             $objetoIncidencia->fecha_creacion = date('Y-m-d H:i:s');
             $objetoIncidencia->creador_id = $incidencia['creador_id'];
             $objetoIncidencia->prioridad = $incidencia['prioridad'];
+            $objetoIncidencia->equipo_id = $incidencia['equipo_id'];
             //Cargar el objeto en la base de datos
             $objetoIncidencia->save();
         }

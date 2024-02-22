@@ -24,11 +24,15 @@ class IncidenciaController extends Controller
      *
      * @return mixed Devuelve una vista con todas las incidencias
      */
-    public function index()
+     public function index()
     {
-        $incidencias = Incidencia::all();
-        return view('incidencias.index', ['incidencias' => $incidencias]);
-    }
+        // $incidencias = Incidencia::all();
+
+         // Obtener todas las incidencias paginadas
+     $incidencias = Incidencia::paginate(5); // 10 registros por página
+         return view('incidencias.index', ['incidencias' => $incidencias]);
+     }
+
 
     /**
      * Devuelve la vista en detalle de cada incidencia
