@@ -24,13 +24,13 @@ class DatabaseSeeder extends Seeder
         DB::table('personal')->delete();
         DB::table('equipos')->delete();
         DB::table('aulas')->delete();
-        DB::table('incidencias_subtipos')->delete();
+        //DB::table('incidencias_subtipos')->delete();
         DB::table('perfiles')->delete();
         DB::table('departamentos')->delete();
         //Rellenar las tablas en orden para evitar los errores de claves foraneas
         $this->call(AulaSeeder::class);
         $this->call(EquipoSeeder::class);
-        $this->call(IncidenciaSubtipoSeeder::class);
+        // $this->call(IncidenciaSubtipoSeeder::class);
         $this->call(DepartamentoSeeder::class);
         $this->call(PersonaSeeder::class);
         $this->call(PerfilSeeder::class);
