@@ -12,6 +12,8 @@ class ComentarioSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * @param null no recibe datos
+     * @return void
      */
     public function run(): void
     {
@@ -37,12 +39,15 @@ class ComentarioSeeder extends Seeder
                 'personal_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1] - $personaId[0]))),
             ),
         );
+        //Recorrer el array de comentarios
         foreach ($comentarios as $comentario) {
+            //Creacion del objeto del modelo de comentarios para rellenar la BD
             $objetoComentario = new Comentario();
             $objetoComentario->texto = $comentario['texto'];
             $objetoComentario->fechahora = date('Y-m-d H:i:s');
             $objetoComentario->incidencia_num = $comentario['incidencia_num'];
             $objetoComentario->personal_id = $comentario['personal_id'];
+            //guardar el objeto en la base de datos
             $objetoComentario->save();
         }
     }
