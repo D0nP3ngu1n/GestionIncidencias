@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests\crearIncidenciaRequest;
-use App\Models\Incidencia;
+use App\Http\Requests\CrearIncidenciaRequest;
 use App\Http\Requests\EditarIncidenciaRequest;
+use Illuminate\Http\Request;
+use App\Models\Incidencia;
+use App\Models\Perfil;
 use App\Models\Persona;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;

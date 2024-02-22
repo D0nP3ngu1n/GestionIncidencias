@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ActualizarPersonaRequest;
 use App\Http\Requests\crearPersonaRequest;
+use App\Http\Requests\EditarPersonaRequest;
 use App\Models\Persona;
 use Illuminate\Http\Request;
 use PDOException;
@@ -78,7 +78,7 @@ class PersonaController extends Controller
      * @param mixed recibe una Clase Request para validar los datos y una persona a modificar
      * @return mixed devuelve una redireccion a la vista detalle de la persona o un mensaje de error
      */
-    public function update(ActualizarPersonaRequest $request, Persona $persona)
+    public function update(EditarPersonaRequest $request, Persona $persona)
     {
         try {
             $persona->nombre = $request->nombre;
