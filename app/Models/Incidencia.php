@@ -11,7 +11,7 @@ class Incidencia extends Model
     protected $table = "incidencias";
     public $timestamps = false;
 
-    protected $primaryKey = 'num';
+    protected $primaryKey = 'id';
 
     /**
      * Relacion uno a uno entre subtipo e incidendia
