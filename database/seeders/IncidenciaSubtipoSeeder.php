@@ -41,7 +41,7 @@ class IncidenciaSubtipoSeeder extends Seeder
     /**
      *
      * Datos de prueba en base al array de tiposIncidencias
-     * @param null no recibe datos
+     * @param none no recibe datos
      * @return void
      */
     public function run(): void

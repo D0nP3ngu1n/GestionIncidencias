@@ -12,7 +12,7 @@ class IncidenciaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     * @param null no recibe datos
+     * @param none no recibe datos
      * @return void
      */
     public function run(): void
