@@ -18,27 +18,27 @@
         @csrf
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre:</label>
-            <input type="text" id="nombre" class="form-control">
+            <input type="text" id="nombre" name="nombre" class="form-control">
         </div>
         <div class="mb-3">
             <label for="apellido1" class="form-label">Primer Apellido:</label>
-            <input type="text" id="apellido1" class="form-control">
+            <input type="text" id="apellido1" name="apellido1" class="form-control">
         </div>
         <div class="mb-3">
             <label for="apellido2" class="form-label">Segundo Apellido:</label>
-            <input type="text" id="apellido2" class="form-control">
+            <input type="text" id="apellido2" name="apellido2" class="form-control">
         </div>
         <div class="mb-3">
             <label for="correo_asociado" class="form-label">Correo electrónico:</label>
-            <input type="correo_asociado" id="" class="form-control">
+            <input type="correo_asociado" id="correo" name="correo" class="form-control">
         </div>
         <div class="mb-3">
             <label for="departamento" class="form-label">Departamento:</label>
-            <input type="text" id="departamento" class="form-control">
+            <input type="text" id="departamento" name="departamento" class="form-control">
         </div>
         <div class="mb-3">
             <label for="" class="form-label">Tipo</label>
-            <select id="tipo" class="form-select">
+            <select id="tipo" name="tipo" class="form-select">
                 <option selected="true">...</option>
                 <option value="EQUIPOS">Equipos</option>
                 <option value="CUENTAS">Cuentas</option>
@@ -49,11 +49,11 @@
         </div>
         <div id="sel1"class="mb-3 invisible">
             <label for="subtipo" class="form-label">Subtipo:</label>
-            <select id="subtipo" class="form-select"></select>
+            <select id="subtipo" name="subtipo" class="form-select"></select>
         </div>
         <div id="sel2"class="mb-3 invisible">
             <label for="sub_subtipo" class="form-label">Sub_subtipo</label>
-            <select id="sub_subtipo" class="form-select"></select>
+            <select id="sub_subtipo" name="sub_subtipo" class="form-select"></select>
         </div>
         <script>
             window.addEventListener('load', inicio, false);
@@ -172,23 +172,23 @@
         </script>
         <div class="mb-3">
             <label for="numero_etiqueta" class="form-label">Etiqueta del equipo:</label>
-            <input type="text" id="numero_etiqueta" class="form-control">
+            <input type="text" id="numero_etiqueta" name="numero_etiqueta" class="form-control">
         </div>
         <div class="mb-3">
             <label for="aula" class="form-label">Aula:</label>
-            <input type="text" id="aula" class="form-control">
+            <input type="text" id="aula" name="aula" class="form-control">
         </div>
         <div class="mb-3">
             <label for="puesto" class="form-label">Puesto en el aula:</label>
-            <input type="text" id="puesto" class="form-control">
+            <input type="text" id="puesto" name="puesto" class="form-control">
         </div>
         <div class="form-outline">
             <label for="descripcion" class="form-label">Descripcion:</label>
-            <textarea id="descripcion" class="form-control"></textarea>
+            <textarea id="descripcion" name="descripcion" class="form-control"></textarea>
         </div>
         <div class="mb-3">
             <label for="adjunto" class="form-label">Archivo Adjunto:</label>
-            <input type="file" id="adjunto" class="form-control">
+            <input type="file" id="adjunto" name="adjunto" class="form-control">
         </div>
         <input type="submit" id="crear "class="btn btn-outline-primary col" value="Crear Incidencia">
     </form>
