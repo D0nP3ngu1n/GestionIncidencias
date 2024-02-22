@@ -44,6 +44,7 @@
                 <option value="CUENTAS">Cuentas</option>
                 <option value="WIFI">Wifi</option>
                 <option value="SOFTWARE">Software</option>
+                <option value="INTERNET">Internet</option>
             </select>
         </div>
         <div id="sel1"class="mb-3 invisible">
@@ -122,6 +123,10 @@
                             }
 
                             break;
+                        default:
+                            document.getElementById('sel1').classList.add('invisible');
+                            document.getElementById('sel2').classList.add('invisible');
+                            break;
                     }
                 } else {
                     //hace invisibles los otros dos selects si se vueleve a una opcion que no los necesite
@@ -147,7 +152,7 @@
                         document.getElementById('sel2').classList.remove('invisible');
                         var arr = array['EQUIPOS']['PC'];
                         for (let i = 0; i < arr.length; i++) {
-                            sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
+                            selec.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
                         }
 
                         break;
@@ -155,7 +160,7 @@
                         document.getElementById('sel2').classList.remove('invisible');
                         var arr = array['EQUIPOS']['Portatil'];
                         for (let i = 0; i < arr.length; i++) {
-                            sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
+                            selec.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
                         }
                         break;
                     default:
@@ -174,7 +179,7 @@
             <input type="text" id="aula" class="form-control">
         </div>
         <div class="mb-3">
-            <label for="puesto" class="form-label"></label>
+            <label for="puesto" class="form-label">Puesto en el aula:</label>
             <input type="text" id="puesto" class="form-control">
         </div>
         <div class="form-outline">
