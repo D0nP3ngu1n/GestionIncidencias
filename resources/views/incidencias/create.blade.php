@@ -90,7 +90,7 @@
                 sel.innerHTML = '';
                 //solo actualizará los datos si la opción es distinta a INTERNET
                 if (opc !== "INTERNET") {
-                    document.getElementById('sel1').classList.remove('invisible');
+                    document.getElementById('sel2').classList.remove('invisible');
                     switch (opc) {
                         case "EQUIPOS":
                             var arr = array['EQUIPOS'];
@@ -179,9 +179,9 @@
         <div class="form-outline">
             <label for="descripcion" class="form-label">Descripcion:</label>
             <textarea id="descripcion" class="form-control">
-            </div>
-            <div class="mb-3">
-                <label for="adjunto" class="form-label">Archivo Adjunto:</label>
-                 <input type="file" id="adjunto" class="form-control">
-            </div>
-        </form>
+                </div>
+                <div class="mb-3">
+                    <label for="adjunto" class="form-label">Archivo Adjunto:</label>
+                     <input type="file" id="adjunto" class="form-control">
+                </div>
+            </form>
