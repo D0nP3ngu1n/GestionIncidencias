@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
     {
         //Borrar las tablas en orden para que no haya errores en las claves foraneas
         DB::table('comentarios')->delete();
-        DB::table('incidencias_subtipos')->delete();
         DB::table('incidencias')->delete();
         DB::table('personal')->delete();
         DB::table('equipos')->delete();
