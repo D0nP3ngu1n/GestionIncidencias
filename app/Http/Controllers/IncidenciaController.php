@@ -43,7 +43,7 @@ class IncidenciaController extends Controller
      */
     public function create()
     {
-    return view('incidencias.create');
+        return view('incidencias.create');
     }
 
     /**
@@ -135,8 +135,8 @@ class IncidenciaController extends Controller
 
 
             //saco el perfil que tenga que ese dominio, para sacar despues la id de la persona y todos sus datos
-             $perfil =   $this->where('dominio', $email)->where('password', $password)->first();
-             $incidencia->creador_id  = Perfil::where('dominio',$request->dominio);
+            $perfil = $this->where('dominio', $email)->where('password', $password)->first();
+            $incidencia->creador_id = Perfil::where('dominio', $request->dominio);
 
 
             //si en el crear me viene un fichero adjunto elimino el anterior y subo el nuevo ademas de guardar su URL

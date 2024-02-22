@@ -46,15 +46,18 @@ class IncidenciaSubtipoSeeder extends Seeder
      */
     public function run(): void
     {
+        //Recorrer array de tipo de incidencia
         foreach ($this->tiposIncidencias as $tipo => $subtipos) {
+            //Recorrer el array de subtipos de incidencias
             foreach ($subtipos as $subtipo => $subSubtipos) {
-                if (is_array($subSubtipos) && count($subSubtipos) > 0) {
+                //Si es array, guardamos los subsubtipos que haya, en caso contrario, el subsubtipo en nulo
+                if (is_array($subSubtipos)) {
                     foreach ($subSubtipos as $subSubtipo) {
                         $nuevoSubTipo = new IncidenciaSubtipo();
                         $nuevoSubTipo->tipo = $tipo;
                         $nuevoSubTipo->subtipo_nombre = $subtipo;
                         $nuevoSubTipo->sub_subtipo = $subSubtipo;
-                         $nuevoSubTipo->save();
+                        $nuevoSubTipo->save();
                     }
                 } else {
                     $nuevoSubTipo = new IncidenciaSubtipo();

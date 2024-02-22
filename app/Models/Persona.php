@@ -30,4 +30,34 @@ class Persona extends Model
     {
         return $this->hasOne(Perfil::class, 'personal_id', 'id');
     }
+
+    /**
+     * Relacion uno a muchos entre persona (creador) e incidencias
+     * @param null no recibe parametros
+     * @return
+     */
+    public function incidenciasCreadas()
+    {
+        return $this->hasMany(Incidencia::class, 'creador_id');
+    }
+
+    /**
+     * Relacion uno a muchos entre persona (responsable) e incidencias
+     * @param null no recibe parametros
+     * @return
+     */
+    public function incidenciasResponsable()
+    {
+        return $this->hasMany(Incidencia::class, 'responsable_id');
+    }
+
+    /**
+     * Relacion uno a muchos entre persona y comentarios
+     * @param null no recibe parametros
+     * @return
+     */
+    public function comentarios()
+    {
+        return $this->hasMany(Comentario::class, 'personal_id');
+    }
 }
