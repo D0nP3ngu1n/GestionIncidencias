@@ -179,10 +179,10 @@
         </div>
         <div class="form-outline">
             <label for="descripcion" class="form-label">Descripcion:</label>
-            <textarea id="descripcion" class="form-control">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="adjunto" class="form-label">Archivo Adjunto:</label>
-                                                     <input type="file" id="adjunto" class="form-control">
-                                                </div>
-                                            </form>
+            <textarea id="descripcion" class="form-control"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="adjunto" class="form-label">Archivo Adjunto:</label>
+            <input type="file" id="adjunto" class="form-control">
+        </div>
+    </form>
