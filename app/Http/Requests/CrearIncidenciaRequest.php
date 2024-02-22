@@ -22,12 +22,12 @@ class CrearIncidenciaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nombrePersona' => 'required|max:25',
+            'nombre' => 'required|max:25',
             'apellido1' => 'required|max:25',
             'apellido2' => 'required|max:25',
-            'nombreDepartamento' => 'required|max:45',
-            'tipoIncidencia' => 'required|in:Equipos,Cuentas,Wifi,Internet,Software',
-            'subtipoIncidencia' => 'required|in:PC,Altavoces,Monitor,Proyector,Pantalla interactiva,
+            'departamento' => 'required|max:45',
+            'tipo' => 'required|in:Equipos,Cuentas,Wifi,Internet,Software',
+            'subtipo' => 'required|in:PC,Altavoces,Monitor,Proyector,Pantalla interactiva,
             Portatil, Impresoras, Educantabria, Google Classroom, Dominio, Yedra, IesMiguelHerrero,
              WIECAN, Instalacion, Actualizacion',
             'descripcion' => 'max:256',
