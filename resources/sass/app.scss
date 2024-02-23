@@ -11,17 +11,23 @@
     padding: 0;
 }
 
+.bg-colorPrincipal{
+    background-color: #d8d5d5;
+}
 
+.bg-colorSecundario{
+    background-color: #F7F7F9;
+}
 .bg-c-blue {
     background: linear-gradient(45deg,#4099ff,#73b4ff);
 }
 
 .bg-c-green {
-    background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+    background: linear-gradient(45deg,#20c74a,#2ba11b);
 }
 
 .bg-c-yellow {
-    background: linear-gradient(45deg,#FFB64D,#ffcb80);
+    background: linear-gradient(45deg,#d4c81d,#ffcb80);
 }
 
 .bg-c-red {
@@ -29,6 +35,10 @@
 }
 
 
+.card:hover{
+    background: linear-gradient(45deg,#8b7a7a65,#d6d6d6);
+    color: black;
+}
 .card {
     border-radius: 5px;
     -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
@@ -40,11 +50,11 @@
 }
 
 .card .card-block {
-    padding: 15px;
+    padding: 7px;
 }
 
-.order-card i {
-    font-size: 23px;
+.card-block  p {
+    font-size: 1.3em;
 }
 
 .f-left {
@@ -54,3 +64,94 @@
 .f-right {
     float: right;
 }
+
+// /* Estilos personalizados */
+// .card {
+//     margin-bottom: 20px;
+// }
+
+// .card-block {
+//     padding: 20px;
+// }
+
+// .text-right {
+//     text-align: right;
+// }
+
+// .f-left {
+//     float: left;
+// }
+
+// .f-right {
+//     float: right;
+// }
+
+// .estado {
+//     font-weight: bold;
+// }
+
+// /* Estilos personalizados para el enlace */
+// .text-white:hover {
+//     color: #ccc; /* Cambia el color del texto al pasar el ratón */
+// }
+
+// /* Estilos para los párrafos */
+// .card-block p {
+//     margin-bottom: 5px;
+// }
+
+
+/* Boton para crear */
+#botonCrear {
+    text-decoration: none;
+    font-family: inherit;
+    font-size: 20px;
+    background: royalblue;
+    color: white;
+    padding: 0.7em 1em;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  #botonCrear span {
+    display: block;
+    margin-left: 0.3em;
+    transition: all 0.3s ease-in-out;
+  }
+
+  #botonCrear svg {
+    display: block;
+    transform-origin: center center;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  #botonCrear:hover .svg-wrapper {
+    animation: fly-1 0.6s ease-in-out infinite alternate;
+  }
+
+  #botonCrear:hover svg {
+    transform: translateX(1.2em) rotate(45deg) scale(1.1);
+  }
+
+  #botonCrear:hover span {
+    transform: translateX(5em);
+  }
+
+  #botonCrear:active {
+    transform: scale(0.95);
+  }
+
+  @keyframes fly-1 {
+    from {
+      transform: translateY(0.1em);
+    }
+
+    to {
+      transform: translateY(-0.1em);
+    }
+  }
