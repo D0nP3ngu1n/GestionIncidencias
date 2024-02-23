@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Incidencia;
 use App\Models\IncidenciaSubtipo;
 use App\Models\Persona;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -19,8 +20,8 @@ class IncidenciaSeeder extends Seeder
     {
         //Recoger todos los Id de la tabla incidencias_subtipo en un array
         $subtiposId = IncidenciaSubtipo::pluck('id')->toArray();
-        //Recoger todos los Id de la tabla personas en un array
-        $personaId = Persona::pluck('id')->toArray();
+        //Recoger todos los Id de la tabla users en un array
+        $personaId = User::pluck('id')->toArray();
         //Array de las incidencias que vamos a crear
         $indencias = array(
             array(

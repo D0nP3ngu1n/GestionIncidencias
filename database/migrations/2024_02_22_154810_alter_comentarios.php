@@ -13,8 +13,11 @@ return new class extends Migration
     {
         //
         Schema::table('comentarios', function (Blueprint $table) {
-            $table->unsignedBigInteger('incidencia_num');
-            $table->unsignedBigInteger('personal_id');        });
+            $table->unsignedBigInteger('incidencia_id');
+            $table->unsignedBigInteger('users_id');
+            $table->foreign('incidencia_id')->references('id')->on('incidencias');
+            $table->foreign('users_id')->references('id')->on('users');
+        });
     }
 
     /**
@@ -23,8 +26,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('comentarios', function (Blueprint $table) {
-            $table->foreign('incidencia_num')->references('num')->on('incidencias');
-            $table->foreign('personal_id')->references('id')->on('personal');
+            $table->dropForeign(['incidencia_id']);
+            $table->dropColumn('incidencia_id');
+            $table->dropForeign(['users_id']);
+            $table->dropColumn('users_id');
         });
     }
 };
