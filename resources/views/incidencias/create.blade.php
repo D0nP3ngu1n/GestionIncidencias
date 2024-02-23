@@ -39,7 +39,7 @@
         <div class="mb-3">
             <label for="" class="form-label">Tipo</label>
             <select id="tipo" name="tipo" class="form-select">
-                <option selected="true">...</option>
+                <option selected value>...</option>
                 <option value="EQUIPOS">Equipos</option>
                 <option value="CUENTAS">Cuentas</option>
                 <option value="WIFI">Wifi</option>
