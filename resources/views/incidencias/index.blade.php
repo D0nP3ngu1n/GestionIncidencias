@@ -20,6 +20,44 @@
                 </a>
             </div>
         </div>
+
+    </div>
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error:</strong> {{ session('error') }}.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Confirmacion:</strong> {{ session('success') }}.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    <div class="bg-colorSecundario rounded-3 p-3">
+    <div class="d-flex flex-row gap-3 flex-wrap justify-content-center ">
+
+        @forelse ($incidencias as $incidencia)
+        <article class="col-md-4 col-xl-3 card">
+            <a class="text-white text-decoration-none" href='{{ route('incidencias.show', $incidencia) }}'>
+                <div class="card-block">
+                    <h6 class="m-b-20">Nº {{ $incidencia->id }}</h6>
+                    <h2 class="text-right"><span>{{ $incidencia->descripcion }}</span></h2>
+                    <p class="m-b-0">Tipo : {{ $incidencia->tipo }}<span class="f-right"></span></p>
+                    <p class="m-b-0">Aula:<span class="f-right">{{ $incidencia->equipo->aula->codigo }}</span></p>
+                    <p class="m-b-0">Responsable:<span class="f-right">
+                        @empty($incidencia->responsable_id)
+                            todavia no asignada
+                        @else
+                            {{ $incidencia->responsable_id }}
+                        @endempty
+                    </span></p>
+                    <p class="m-b-0">Estado<span class="f-right estado">{{ $incidencia->estado }}</span></p>
+                    <p class="m-b-0">Prioridad<span class="f-right">{{ $incidencia->prioridad }}</span></p>
+                </div>
+            </a>
+        </article>
+
         @if (session('error'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <strong>Error:</strong> {{ session('error') }}.
@@ -77,19 +115,7 @@
                                 </span></p>
                             <p class="m-b-0">Estado<span class="f-right estado">{{ $incidencia->estado }}</span></p>
                             <p class="m-b-0">Prioridad<span class="f-right">{{ $incidencia->prioridad }}</span></p>
-                            <a id="botonCrear" href="{{ route('incidencias.edit', $incidencia) }}">
-                                <div class="svg-wrapper-1">
-                                    <div class="svg-wrapper">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24"
-                                            stroke-width="2" stroke-linejoin="round" stroke-linecap="round"
-                                            stroke="currentColor" height="24" fill="none" class="svg">
-                                            <line y2="19" y1="5" x2="12" x1="12"></line>
-                                            <line y2="12" y1="12" x2="19" x1="5"></line>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <span>Crear Incidencia</span>
-                            </a>
+                            
                         </div>
                     </a>
                 </article>
