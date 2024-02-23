@@ -10,14 +10,19 @@ class DepartamentoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * @param none no recibe datos
+     * @return void
      */
     public function run(): void
     {
+        //Recorrer array departamentos
         foreach ($this->departamentos as $departamento) {
-             $objetoDepartamento = new Departamento();
+            //Creacion del objeto del modelo departamento
+            $objetoDepartamento = new Departamento();
             $objetoDepartamento->cod = $departamento['cod'];
             $objetoDepartamento->nombre = $departamento['nombre'];
             $objetoDepartamento->activo = $departamento['activo'];
+            //Guardar el objetoDepartamento en la base de datos
             $objetoDepartamento->save();
         }
     }

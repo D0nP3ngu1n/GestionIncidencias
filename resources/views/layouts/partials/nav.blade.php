@@ -60,8 +60,25 @@
               </li>	
           </ul>
 
+{{-- <nav class="navbar navbar-expand-lg  bg-body-tertiary bg-dark">
+      <a class="navbar-brand" href="#">Incidencias</a>
+
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('incidencias.index') }}" class="title">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('incidencias.create') }}">Nueva incidencia</a>
+        </ul>
+
+
         </div>
       </div>
-  -->
-  </ul>
-</nav>
+
+    </ul>
+  </nav>
+</nav> 
+  
+

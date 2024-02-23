@@ -11,13 +11,17 @@ class PersonaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * @param none no recibe datos
+     * @return void
      */
     public function run(): void
     {
+        //Recoger todos los id de la tabla departamento
         $departamentoId = Departamento::pluck('id')->toArray();
+        //Array de las personas que vamos a introducir en la bd
         $personal = array(
             array(
-                 'dni' => '87654321Q',
+                'dni' => '87654321Q',
                 'nombre' => 'Manuel',
                 'apellido1' => 'Llano',
                 'apellido2' => 'Rebanal',
@@ -94,7 +98,9 @@ class PersonaSeeder extends Seeder
                 'departamento_id' => $departamentoId[2]
             ),
         );
+        //recorrer array de personas
         foreach ($personal as $persona) {
+            //Creacion del objeto del modelo persona
             $objetoPersona = new Persona();
             $objetoPersona->dni = $persona['dni'];
             $objetoPersona->nombre = $persona['nombre'];
@@ -106,6 +112,7 @@ class PersonaSeeder extends Seeder
             $objetoPersona->tlf = $persona['tlf'];
             $objetoPersona->activo = true;
             $objetoPersona->departamento_id = $persona['departamento_id'];
+            //Guardar objeto persona
             $objetoPersona->save();
         }
     }
