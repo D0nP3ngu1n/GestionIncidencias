@@ -83,7 +83,7 @@
         <div class="mb-3">
             <label for="estado" class="form-label">Estado:</label>
             <select id="estado" name="estado" class="form-select">
-                <option value={{ $incidencia->estado }} disabled selected>{{ $incidencia->estado }}<>
+                <option value={{ $incidencia->estado }} disabled selected>{{ $incidencia->estado }}</option>
                 <option value="abierta">Abierta</option>
                 <option value="asignada">Asignada</option>
                 <option value="en proceso">En proceso</option>
