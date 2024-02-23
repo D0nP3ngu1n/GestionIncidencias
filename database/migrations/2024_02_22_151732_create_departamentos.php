@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('departamentos', function (Blueprint $table) {
             $table->id();
             $table->string('cod', 6);
+            $table->string('slug');
             $table->string('nombre', 45);
             $table->tinyInteger('activo')->default(1);
 
