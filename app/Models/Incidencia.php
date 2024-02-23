@@ -13,7 +13,7 @@ class Incidencia extends Model
 
     /**
      * Relacion uno a uno entre subtipo e incidendia
-     * @param null no recibe parametros
+     * @param none no recibe parametros
      * @return
      */
     public function subtipo()
@@ -23,7 +23,7 @@ class Incidencia extends Model
 
     /**
      * Relacion uno a muchos entre persona (creador) e incidencias
-     * @param null no recibe parametros
+     * @param none no recibe parametros
      * @return
      */
     public function creador()
@@ -33,7 +33,7 @@ class Incidencia extends Model
 
     /**
      * Relacion uno a muchos entre persona (responsable) e incidencias
-     * @param null no recibe parametros
+     * @param none no recibe parametros
      * @return
      */
     public function responsable()
@@ -43,7 +43,7 @@ class Incidencia extends Model
 
     /**
      * Relacion uno a muchos entre incidencia y comentarios
-     * @param null no recibe parametros
+     * @param none no recibe parametros
      * @return
      */
     public function comentarios()
@@ -53,7 +53,7 @@ class Incidencia extends Model
 
     /**
      * Relacion uno a muchos entre equipo e incidencias
-     * @param null no recibe parametros
+     * @param none no recibe parametros
      * @return
      */
     public function equipo()

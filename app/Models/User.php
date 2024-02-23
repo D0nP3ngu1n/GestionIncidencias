@@ -30,6 +30,16 @@ class User extends Authenticatable
     ];
 
     /**
+     * Relacion uno a muchos entre departamento y persona
+     * @param none no recibe parametros
+     * @return
+     */
+    public function departamento()
+    {
+        return $this->belongsTo(Departamento::class, 'departamento_id', 'id');
+    }
+
+    /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>

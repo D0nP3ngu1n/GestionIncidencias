@@ -17,17 +17,10 @@
         @method('put')
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" value="{{ $incidencia->creador->nombre }}"
+            <input type="text" id="nombre" name="nombre" value="{{ $incidencia->creador->nombreCompleto }}"
                 class="form-control">
         </div>
-        <div class="mb-3">
-            <label for="apellido1" class="form-label">Primer Apellido:</label>
-            <input type="text" id="apellido1" name="apellido1" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label for="apellido2" class="form-label">Segundo Apellido:</label>
-            <input type="text" id="apellido2" name="apellido2" class="form-control">
-        </div>
+
         <div class="mb-3">
             <label for="correo_asociado" class="form-label">Correo electrónico:</label>
             <input type="correo_asociado" id="correo" name="correo"
@@ -36,7 +29,7 @@
         <div class="mb-3">
             <label for="departamento" class="form-label">Departamento:</label>
             <input type="text" id="departamento" name="departamento"
-                value="{{ $incidencia->creador->departamento }}" class="form-control">
+                value="{{ $incidencia->creador->departamento->nombre }}" class="form-control">
         </div>
         <div class="mb-3">
             <label for="tipo" class="form-label">Tipo:</label>
