@@ -26,10 +26,10 @@ class IncidenciaController extends Controller
      */
      public function index()
     {
-        // $incidencias = Incidencia::all();
+        //$incidencias = Incidencia::all();
 
          // Obtener todas las incidencias paginadas
-     $incidencias = Incidencia::paginate(5); // 10 registros por página
+        $incidencias = Incidencia::paginate(5); // 10 registros por página
          return view('incidencias.index', ['incidencias' => $incidencias]);
      }
 

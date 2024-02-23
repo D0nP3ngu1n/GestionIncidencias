@@ -1,9 +1,10 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Listar Incidencias')
 @section('contenido')
-    <div class="row mx-5 my-3 border radius">
+<div class=" border-1 rounded-4 p-2 ">
+    <div class="row my-3 py-3 w-auto rounded-4 bg-colorSecundario">
         <h1 class="text-2xl font-bold mx-8 col-10">Listado de incidencias</h1>
-        <div class="col">
+        <div class="col -2">
             <a id="botonCrear" href="{{route('incidencias.create')}}">
                 <div class="svg-wrapper-1">
                   <div class="svg-wrapper">
@@ -48,7 +49,8 @@
         <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
     </form> --}}
 
-    <div class="d-flex flex-row gap-3 flex-wrap justify-content-center  ">
+    <div class="bg-colorSecundario rounded-3 p-3">
+    <div class="d-flex flex-row gap-3 flex-wrap justify-content-center ">
 
         @forelse ($incidencias as $incidencia)
         <article class="col-md-4 col-xl-3 card">
@@ -112,4 +114,6 @@
     <div class="d-flex justify-content-center">
         {{ $incidencias->links() }}
     </div>
+    </div>
+</div>
 @endsection

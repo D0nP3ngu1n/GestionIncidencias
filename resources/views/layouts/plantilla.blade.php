@@ -9,11 +9,16 @@
     @vite('resources/sass/app.scss', 'resources/js/app.js')
 </head>
 
-<body>
-    @include('layouts.partials.nav')
-    <div class="container-fluid">
-        @yield('contenido')
+<body class="bg-colorPrincipal">
+    <div class="row g-0">
+        <div class="col-2">
+            @include('layouts.partials.nav')
+        </div>
+        <div class="col-10 p-5 ">
+            @yield('contenido')
+        </div>
     </div>
+
 </body>
 
 </html>
