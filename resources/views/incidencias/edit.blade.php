@@ -12,7 +12,7 @@
             </ul>
         </div>
     @endif
-    <form action="{{ route('incidencias.update') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('incidencias.update',$incidencia) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('put')
         <div class="mb-3">
@@ -36,7 +36,7 @@
         <div class="mb-3">
             <label for="departamento" class="form-label">Departamento:</label>
             <input type="text" id="departamento" name="departamento"
-                value="{{ $incidencia->creador->departamento->nombre }}" class="form-control">
+                value="{{ $incidencia->creador->departamento }}" class="form-control">
         </div>
         <div class="mb-3">
             <label for="tipo" class="form-label">Tipo:</label>

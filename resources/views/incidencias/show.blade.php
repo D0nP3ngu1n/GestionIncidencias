@@ -3,6 +3,8 @@
 @section('contenido')
 
 <div class="container background-color-grey-light">
+
+    <a href="{{route('incidencias.edit',$incidencia)}}">Editar esta incidencia</a>
     <div class="row">
         <div class="col-md-5">
             <div class="project-info-box mt-0">
@@ -19,7 +21,6 @@
                 <strong >Fecha de creación:</strong> {{ $incidencia->fecha_creacion }} <br>
                 <strong>Fecha de cierre:</strong> {{ $incidencia->fecha_cierre ?? 'No cerrada' }} <br>
             </div>
-
         </div>
 
         <div class="col-md-7">

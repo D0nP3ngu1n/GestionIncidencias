@@ -45,6 +45,16 @@ class IncidenciaController extends Controller
     }
 
     /**
+     * Devuelve la vista en detalle de cada incidencia
+     *
+     * @return mixed Devuelve la vista para crear una incidencia
+     */
+    public function edit(Incidencia $incidencia)
+    {
+        return view('incidencias.edit', ['incidencia' => $incidencia]);
+    }
+
+    /**
      * Devuelve la vista para crear una incidencia
      *
      * @param Incidencia $incidencia objeto Incidencia

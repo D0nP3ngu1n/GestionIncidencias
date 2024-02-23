@@ -1,6 +1,7 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Listar Incidencias')
 @section('contenido')
+
     <div class=" border-1 rounded-4 p-2 ">
         <div class="row my-3 py-3 w-auto rounded-4 bg-colorSecundario">
             <h1 class="text-2xl font-bold mx-8 col-10">Listado de incidencias</h1>
@@ -22,87 +23,35 @@
         </div>
 
     </div>
+
     @if (session('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>Error:</strong> {{ session('error') }}.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-    @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Confirmacion:</strong> {{ session('success') }}.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-    <div class="bg-colorSecundario rounded-3 p-3">
-    <div class="d-flex flex-row gap-3 flex-wrap justify-content-center ">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error:</strong> {{ session('error') }}.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+@if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Confirmacion:</strong> {{ session('success') }}.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 
-        @forelse ($incidencias as $incidencia)
-        <article class="col-md-4 col-xl-3 card">
-            <a class="text-white text-decoration-none" href='{{ route('incidencias.show', $incidencia) }}'>
-                <div class="card-block">
-                    <h6 class="m-b-20">Nº {{ $incidencia->id }}</h6>
-                    <h2 class="text-right"><span>{{ $incidencia->descripcion }}</span></h2>
-                    <p class="m-b-0">Tipo : {{ $incidencia->tipo }}<span class="f-right"></span></p>
-                    <p class="m-b-0">Aula:<span class="f-right">{{ $incidencia->equipo->aula->codigo }}</span></p>
-                    <p class="m-b-0">Responsable:<span class="f-right">
-                        @empty($incidencia->responsable_id)
-                            todavia no asignada
-                        @else
-                            {{ $incidencia->responsable_id }}
-                        @endempty
-                    </span></p>
-                    <p class="m-b-0">Estado<span class="f-right estado">{{ $incidencia->estado }}</span></p>
-                    <p class="m-b-0">Prioridad<span class="f-right">{{ $incidencia->prioridad }}</span></p>
-                </div>
-            </a>
-        </article>
 
-        @if (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Error:</strong> {{ session('error') }}.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Confirmacion:</strong> {{ session('success') }}.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-        {{-- <form action="{{ route('incidencias.index') }}" method="GET">
-        <div class="form-group">
-            <label for="tipo">Filtrar por tipo:</label>
-            <select name="tipo" id="tipo" class="form-control">
-                <option value="">Todos</option>
-                <option value="tipo1">Tipo 1</option>
-                <option value="tipo2">Tipo 2</option>
-                <!-- Agregar más opciones según sea necesario -->
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="estado">Filtrar por estado:</label>
-            <select name="estado" id="estado" class="form-control">
-                <option value="">Todos</option>
-                <option value="activo">Activo</option>
-                <option value="inactivo">Inactivo</option>
-                <!-- Agregar más opciones según sea necesario -->
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
-    </form> --}}
 
         <div class="bg-colorSecundario rounded-3 p-3">
             <div class="d-flex flex-row gap-3 flex-wrap justify-content-center ">
 
                 @forelse ($incidencias as $incidencia)
                     <article class="col-md-4 col-xl-3 card">
-                        <a class="text-white text-decoration-none" href='{{ route('incidencias.show', $incidencia) }}'>
+                        <a class="text-white text-decoration-none"
+                            href='{{ route('incidencias.show', $incidencia) }}'>
                             <div class="card-block">
                                 <h6 class="m-b-20">Nº {{ $incidencia->id }}</h6>
                                 <h2 class="text-right"><span>{{ $incidencia->descripcion }}</span></h2>
                                 <p class="m-b-0">Tipo : {{ $incidencia->tipo }}<span class="f-right"></span></p>
-                                <p class="m-b-0">Aula:<span class="f-right">{{ $incidencia->equipo->aula->codigo }}</span>
+                                <p class="m-b-0">Aula:<span
+                                        class="f-right">{{ $incidencia->equipo->aula->codigo }}</span>
                                 </p>
                                 <p class="m-b-0">Creado por: <span
                                         class="f-right">{{ $incidencia->creador->nombre }}</span></p>
@@ -113,9 +62,11 @@
                                         {{ $incidencia->responsable_id }}
                                     @endempty
                                 </span></p>
-                            <p class="m-b-0">Estado<span class="f-right estado">{{ $incidencia->estado }}</span></p>
-                            <p class="m-b-0">Prioridad<span class="f-right">{{ $incidencia->prioridad }}</span></p>
-                            
+                            <p class="m-b-0">Estado<span
+                                    class="f-right estado">{{ $incidencia->estado }}</span></p>
+                            <p class="m-b-0">Prioridad<span
+                                    class="f-right">{{ $incidencia->prioridad }}</span></p>
+
                         </div>
                     </a>
                 </article>
@@ -151,7 +102,6 @@
                             break;
                         default:
                             card.classList.add('bg-c-green');
-
                             break;
                     }
                 });
@@ -161,5 +111,6 @@
             {{ $incidencias->links() }}
         </div>
     </div>
+</div>
 </div>
 @endsection
