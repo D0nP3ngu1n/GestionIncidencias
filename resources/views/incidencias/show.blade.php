@@ -16,7 +16,6 @@
                 <p><strong>Subtipo:</strong> {{ $incidencia->subtipo->nombre }}</p>
                 <p><strong>Descripción:</strong> {{ $incidencia->descripcion }} </p>
                 <p ><strong>Estado:</strong> {{ $incidencia->estado }}</p>
-                <strong>Creador:</strong> {{ $incidencia->creador->nombre }} <br>
                 <strong >Fecha de creación:</strong> {{ $incidencia->fecha_creacion }} <br>
                 <strong>Fecha de cierre:</strong> {{ $incidencia->fecha_cierre ?? 'No cerrada' }} <br>
             </div>

@@ -1,7 +1,7 @@
 <nav>
   <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <!-- Sidebar - Brand -->
-    <!-- 
+    <!--
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
@@ -24,7 +24,7 @@
     <li class="nav-item">
       <a class="nav-link" href="{{ route('incidencias.index') }}">
         <i class="fa-regular fa-rectangle-list"></i>
-        <span>Listado Incidencias</span></a>
+        <span class="hola">Listado Incidencias</span></a>
     </li>
 
     <!-- Nav Item - Nueva Incidencia -->
@@ -43,42 +43,6 @@
       <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
 
+</nav>
 
-
-    <!--    
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Incidencias</a>
-
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                  <a class="nav-link" href="{{ route('incidencias.index') }}" class="title">Inicio</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="{{ route('incidencias.create') }}">Nueva incidencia</a>
-              </li>	
-          </ul>
-
-{{-- <nav class="navbar navbar-expand-lg  bg-body-tertiary bg-dark">
-      <a class="navbar-brand" href="#">Incidencias</a>
-
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('incidencias.index') }}" class="title">Inicio</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('incidencias.create') }}">Nueva incidencia</a>
-        </ul>
-
-
-        </div>
-      </div>
-
-    </ul>
-  </nav>
-</nav> 
-  
 

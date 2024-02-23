@@ -27,28 +27,6 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    {{-- <form action="{{ route('incidencias.index') }}" method="GET">
-        <div class="form-group">
-            <label for="tipo">Filtrar por tipo:</label>
-            <select name="tipo" id="tipo" class="form-control">
-                <option value="">Todos</option>
-                <option value="tipo1">Tipo 1</option>
-                <option value="tipo2">Tipo 2</option>
-                <!-- Agregar más opciones según sea necesario -->
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="estado">Filtrar por estado:</label>
-            <select name="estado" id="estado" class="form-control">
-                <option value="">Todos</option>
-                <option value="activo">Activo</option>
-                <option value="inactivo">Inactivo</option>
-                <!-- Agregar más opciones según sea necesario -->
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
-    </form> --}}
-
     <div class="bg-colorSecundario rounded-3 p-3">
     <div class="d-flex flex-row gap-3 flex-wrap justify-content-center ">
 
@@ -60,7 +38,6 @@
                     <h2 class="text-right"><span>{{ $incidencia->descripcion }}</span></h2>
                     <p class="m-b-0">Tipo : {{ $incidencia->tipo }}<span class="f-right"></span></p>
                     <p class="m-b-0">Aula:<span class="f-right">{{ $incidencia->equipo->aula->codigo }}</span></p>
-                    <p class="m-b-0">Creado por: <span class="f-right">{{ $incidencia->creador->nombre }}</span></p>
                     <p class="m-b-0">Responsable:<span class="f-right">
                         @empty($incidencia->responsable_id)
                             todavia no asignada
