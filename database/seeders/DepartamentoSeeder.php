@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Departamento;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
+
 
 class DepartamentoSeeder extends Seeder
 {
@@ -21,6 +23,7 @@ class DepartamentoSeeder extends Seeder
             $objetoDepartamento = new Departamento();
             $objetoDepartamento->cod = $departamento['cod'];
             $objetoDepartamento->nombre = $departamento['nombre'];
+            $objetoDepartamento->slug = Str::slug($departamento['nombre']);
             $objetoDepartamento->activo = $departamento['activo'];
             //Guardar el objetoDepartamento en la base de datos
             $objetoDepartamento->save();

@@ -11,8 +11,6 @@ class Incidencia extends Model
     protected $table = "incidencias";
     public $timestamps = false;
 
-    protected $primaryKey = 'id';
-
     /**
      * Relacion uno a uno entre subtipo e incidendia
      * @param null no recibe parametros
@@ -30,7 +28,7 @@ class Incidencia extends Model
      */
     public function creador()
     {
-        return $this->belongsTo(Persona::class, 'creador_id');
+        return $this->belongsTo(User::class, 'creador_id');
     }
 
     /**

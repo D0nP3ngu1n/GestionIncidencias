@@ -19,6 +19,7 @@ Route::controller(IncidenciaController::class)->group(function () {
     Route::get('incidencias', 'index')->name('incidencias.index');
     Route::get('incidencias/create', 'create')->name('incidencias.create');
     Route::get('incidencias/{incidencia}', 'show')->name('incidencias.show');
+    Route::get('incidencias/{incidencia}/edit', 'edit')->name('incidencias.edit');
     Route::post('incidencias/store', 'store')->name('incidencias.store');
     Route::put('incidencias/{incidencia}', 'update')->name('incidencias.update');
     Route::delete('incidencias/{incidencia}', 'destroy')->name('incidencias.destroy');
