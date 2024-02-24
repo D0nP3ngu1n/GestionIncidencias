@@ -137,9 +137,6 @@
 }
 
 /* Estilo header */
-.topbar {
-    height: 4.375rem;
-}
 
 .navbar-expand {
     flex-flow: row nowrap;
@@ -157,6 +154,11 @@
 .navbar-expand .navbar-nav .nav-link {
     padding-right: 0.5rem;
     padding-left: 0.5rem;
+}
+
+.topbar .nav-item .nav-link .img-profile{
+    height: 2rem;
+    width: 2rem;
 }
 
 .topbar #sidebarToggleTop {
@@ -242,12 +244,13 @@
 /* Estilo para menú lateral */
 .sidebar {
     width: 100%;
-    min-height: 100vh;
-    background: rgb(19, 123, 221);
+    min-height: 135vh;
+    background: royalblue;
 }
 
 .sidebar .nav-item {
     position: relative;
+    margin-left: 32%;
 }
 
 .sidebar .nav-item:last-child {
@@ -261,13 +264,14 @@
 }
 
 .sidebar .nav-item .nav-link span {
-    font-size: 1.5rem;
+    font-size: 1rem;
     display: block;
+
 }
 
 .sidebar .nav-item .collapse {
     position: absolute;
-    left: calc(6.5rem + 1.5rem / 2);
+    left: calc(6.5rem + 1rem / 2);
     z-index: 1;
     top: 2px;
 }
@@ -277,13 +281,11 @@
     height: 2.5rem;
     text-align: center;
     margin-bottom: 1rem;
-    cursor: pointer;
+    color: rgb(255, 255, 255);
 }
 
 .sidebar #sidebarToggle::after {
     font-weight: 900;
-    content: '\f104';
-    font-family: 'Font Awesome 5 Free';
     margin-right: 0.1rem;
 }
 
@@ -301,8 +303,6 @@
 }
 
 .sidebar.toggled #sidebarToggle::after {
-    content: '\f105';
-    font-family: 'Font Awesome 5 Free';
     margin-left: 0.25rem;
 }
 
@@ -338,10 +338,11 @@
     text-align: center;
     padding: 0 1rem;
     font-weight: 800;
-    font-size: 0.65rem;
+    font-size: 1rem;
 }
 
 /* Estilo complementario para el menú lateral */
+
 .sidebar-dark .sidebar-brand {
     color: #fff;
 }
