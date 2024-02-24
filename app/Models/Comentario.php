@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,24 +11,34 @@ class Comentario extends Model
     use HasFactory;
     protected $table = "comentarios";
     public $timestamps = false;
+/**
+     * Funcion para sacar el tiempo que ha pasado desde que se ha creado el comentario
+     * @param none no recibe parametros
+     * @return
+     */
+    public function getFecha(){
+        $fechaFormateada = Carbon::parse($this->fechahora);
+        return $fechaFormateada->diffInDays(Carbon::now());
+    }
+
 
     /**
      * Relacion uno a muchos entre persona y comentarios
-     * @param null no recibe parametros
+     * @param none no recibe parametros
      * @return
      */
     public function persona()
     {
-        return $this->belongsTo(Persona::class, 'personal_id');
+        return $this->belongsTo(User::class, 'id');
     }
 
     /**
      * Relacion uno a muchos entre incidencia y comentarios
-     * @param null no recibe parametros
+     * @param none no recibe parametros
      * @return
      */
     public function incidencia()
     {
-        return $this->belongsTo(Incidencia::class, 'incidencia_num');
+        return $this->belongsTo(Incidencia::class, 'id');
     }
 }

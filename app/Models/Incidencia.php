@@ -48,7 +48,7 @@ class Incidencia extends Model
      */
     public function comentarios()
     {
-        return $this->hasMany(Comentario::class, 'incidencia_num');
+        return $this->hasMany(Comentario::class, 'incidencia_id');
     }
 
     /**
