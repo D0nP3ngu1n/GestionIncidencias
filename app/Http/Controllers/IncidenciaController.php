@@ -35,8 +35,8 @@ class IncidenciaController extends Controller
 
 
     /**
-     * Devuelve la vista en detalle de cada incidencia
-     *
+     * Devuelve la vista en detalle para crear incidencia
+     * @param Incidencia $incidencia objeto Incidencia
      * @return mixed Devuelve la vista para crear una incidencia
      */
     public function show(Incidencia $incidencia)
@@ -57,7 +57,6 @@ class IncidenciaController extends Controller
     /**
      * Devuelve la vista para crear una incidencia
      *
-     * @param Incidencia $incidencia objeto Incidencia
      * @return mixed Devuelve una vista de una incidencia concreta
      */
     public function create()
