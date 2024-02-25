@@ -1,5 +1,5 @@
 @extends('layouts.plantilla')
-@section('titulo', 'Nueva Incidencia')
+@section('titulo', 'Crear Usuario')
 @section('contenido')
     <h1>Nueva incidencia</h1>
 
@@ -22,7 +22,8 @@
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">email:</label>
-            <input type="text" id="email" name="email" class="form-control" placeholder="email acabado con @educantabria.es">
+            <input type="text" id="email" name="email" class="form-control"
+                placeholder="email acabado con @educantabria.es">
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Contraseña:</label>
@@ -33,11 +34,10 @@
             <select id="departamento_id" name="departamento_id" class="form-select">
                 <option selected="true">...</option>
                 @foreach ($departamentos as $departamento)
-                <option value="{{$departamento->id}}">{{$departamento->nombre}}</option>
+                    <option value="{{ $departamento->id }}">{{ $departamento->nombre }}</option>
                 @endforeach
             </select>
         </div>
-        <input type="submit" id="crear "class="btn btn-outline-primary col" value="Crear Incidencia">
+        <input type="submit" id="crear "class="btn btn-outline-primary col" value="Crear Usuario">
     </form>
 @endsection
-
