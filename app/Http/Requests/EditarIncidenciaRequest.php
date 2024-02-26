@@ -22,14 +22,7 @@ class EditarIncidenciaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nombrePersona' => 'required|max:25',
-            'apellido1' => 'required|max:25',
-            'apellido2' => 'required|max:25',
-            'nombreDepartamento' => 'required|max:45',
-            'tipoIncidencia' => 'required|in:Equipos,Cuentas,Wifi,Internet,Software',
-            'subtipoIncidencia' => 'required|in:PC,Altavoces,Monitor,Proyector,Pantalla interactiva,
-            Portatil, Impresoras, Educantabria, Google Classroom, Dominio, Yedra, IesMiguelHerrero,
-             WIECAN, Instalacion, Actualizacion',
+            'nombre' => 'required|max:50',
             'descripcion' => 'max:256',
             'fichero' => 'mimes:jpg,pdf,csv,rtf',
         ];
@@ -44,21 +37,8 @@ class EditarIncidenciaRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nombrePersona.required' => 'El campo nombre es obligatorio.',
-            'nombrePersona.max' => 'El campo nombre debe tener menos de 25 caracteres.',
-            'apellido1.required' => 'El campo apellido1 es obligatorio.',
-            'apellido2.required' => 'El campo apellido2 es obligatorio.',
-            'apellido1.required' => 'El campo apellido1 debe tener menos de 25 caracteres.',
-            'apellido2.required' => 'El campo apellido2 debe tener menos de 25 caracteres.',
-            'nombreDepartamento.required' => 'El campo departamento es obligatorio.',
-            'nombreDepartamento.max' => 'El campo departamento debe tener menos de 45 caracteres.',
-            'tipoIncidencia.required' => 'El campo tipo de incidencia es obligatorio.',
-            'tipoIncidencia.in' => 'Las posibles opciones de tipo de incidencia son:
-             Equipos,Cuentas,Wifi,Internet,Software.',
-            'subtipoIncidencia.required' => 'El campo subtipo de incidencia es obligatorio.',
-            'subtipoIncidencia.in' => 'Las posibles opciones de subtipo de incidencia son: PC,
-            Altavoces,Monitor,Proyector,Pantalla interactiva,Portatil, Impresoras, Educantabria,
-            Google Classroom, Dominio, Yedra, IesMiguelHerrero, WIECAN, Instalacion, Actualizacion.',
+            'nombre.required' => 'El campo nombre es obligatorio.',
+            'nombre.max' => 'El campo nombre debe tener menos de 25 caracteres.',
             'descripcion.max' => 'El campo descripcion debe tener menos de 256 caracteres.',
             'fichero.mimes' => 'El formato del fichero debe ser csv, jpg, rtf o pdf',
         ];
