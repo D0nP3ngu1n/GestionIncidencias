@@ -22,14 +22,12 @@ class CrearIncidenciaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nombre' => 'required|max:25',
-            'apellido1' => 'required|max:25',
-            'apellido2' => 'required|max:25',
+            'nombre' => 'required|max:50',
             'departamento' => 'required|max:45',
             'tipo' => 'required|in:EQUIPOS,CUENTAS,WIFI,INTERNET,SOFTWARE',
-            'subtipo' => 'required|in:PC,Altavoces,Monitor,Proyector,Pantalla interactiva,
-            Portatil, Impresoras, Educantabria, Google Classroom, Dominio, Yedra, IesMiguelHerrero,
-             WIECAN, Instalacion, Actualizacion',
+            'subtipo' => 'in:PC,ALTAVOCES,MONITOR,PROYECTOR,PANTALLA,
+            PORTATIL, IMPRESORAS, EDUCANTABRIA, GOOGLE CLASSROOM, DOMINIO, YEDRA, Iesmiguelherrero,
+             WIECAN, INSTALACION, ACTUALIZACION',
             'descripcion' => 'max:256',
             'adjunto' => 'mimes:jpg,pdf,csv,rtf',
         ];
@@ -46,19 +44,14 @@ class CrearIncidenciaRequest extends FormRequest
         return [
             'nombre.required' => 'El campo nombre es obligatorio.',
             'nombre.max' => 'El campo nombre debe tener menos de 25 caracteres.',
-            'apellido1.required' => 'El campo apellido1 es obligatorio.',
-            'apellido2.required' => 'El campo apellido2 es obligatorio.',
-            'apellido1.required' => 'El campo apellido1 debe tener menos de 25 caracteres.',
-            'apellido2.required' => 'El campo apellido2 debe tener menos de 25 caracteres.',
             'departamento.required' => 'El campo departamento es obligatorio.',
             'departamento.max' => 'El campo departamento debe tener menos de 45 caracteres.',
             'tipo.required' => 'El campo tipo de incidencia es obligatorio.',
             'tipo.in' => 'Las posibles opciones de tipo de incidencia son:
              Equipos,Cuentas,Wifi,Internet,Software.',
-            'subtipo.required' => 'El campo subtipo de incidencia es obligatorio.',
-            'subtipo.in' => 'Las posibles opciones de subtipo de incidencia son: PC,
-            Altavoces,Monitor,Proyector,Pantalla interactiva,Portatil, Impresoras, Educantabria,
-            Google Classroom, Dominio, Yedra, IesMiguelHerrero, WIECAN, Instalacion, Actualizacion.',
+            'subtipo.in' => 'Las posibles opciones de subtipo de incidencia son: PC,ALTAVOCES,MONITOR,PROYECTOR,PANTALLA,
+            PORTATIL, IMPRESORAS, EDUCANTABRIA, GOOGLE CLASSROOM, DOMINIO, YEDRA, Iesmiguelherrero,
+             WIECAN, INSTALACION, ACTUALIZACION',
             'descripcion.max' => 'El campo descripcion debe tener menos de 256 caracteres.',
             'adjunto.mimes' => 'El formato del fichero debe ser csv, jpg, rtf o pdf',
         ];
