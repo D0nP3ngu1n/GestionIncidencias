@@ -10,8 +10,10 @@ use App\Models\Incidencia;
 use App\Models\IncidenciaSubtipo;
 use App\Models\Perfil;
 use App\Models\Persona;
+use App\Models\User;
 use Carbon\Carbon;
 use DateTime;
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use PDOException;
@@ -29,7 +31,56 @@ class IncidenciaController extends Controller
         //$incidencias = Incidencia::all();
 
         // Obtener todas las incidencias paginadas
-        $incidencias = Incidencia::paginate(5); // 10 registros por página
+        $incidencias = Incidencia::paginate(10); // 10 registros por página
+        return view('incidencias.index', ['incidencias' => $incidencias]);
+    }
+
+    /**
+     * Metodo para filtrar las las incidencias
+     * @param Request $request
+     * @return mixed Devuelve una vista con todas las incidencias
+     */
+    public function filtrar(Request $request)
+    {
+
+        $query = Incidencia::query();
+
+        // Filtrar por cada parámetro recibido
+        if ($request->has('descripcion') && $request->filled('descripcion') ) {
+            $query->where('descripcion', 'like', '%' . $request->input('descripcion') . '%');
+        }
+
+        if ($request->has('tipo') && $request->filled('tipo') ) {
+            $query->where('tipo', 'like', '%' . $request->input('tipo') . '%');
+        }
+
+        if ($request->has('estado') && $request->filled('estado') ) {
+            $query->where('estado', 'like', '%' . $request->input('estado') . '%');
+        }
+
+        if ($request->has('creador') && $request->filled('creador') ) {
+            $query->join('users', 'incidencias.creador_id', '=', 'users.id')
+                ->where('users.nombre_completo', 'LIKE', '%' . $request->input('creador') . '%');
+        }
+
+        if ($request->has('prioridad') && $request->filled('prioridad') ) {
+            $query->where('prioridad', 'like', '%' . $request->input('prioridad') . '%');
+        }
+
+
+
+        if ($request->has('desde') && $request->has('hasta') && $request->filled('desde') && $request->filled('hasta')) {
+            $desde = date($request->input('desde'));
+            $hasta = date($request->input('hasta'));
+
+            $query->whereBetween('fecha_creacion', [$desde, $hasta])->get();
+        }
+
+
+
+
+        $incidencias = $query->paginate(10);
+
         return view('incidencias.index', ['incidencias' => $incidencias]);
     }
 

@@ -1,4 +1,4 @@
-<header class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+<header class="navbar navbar-expand navbar-light bg-white topbar static-top shadow rounded-3 mx-4 my-2 px-3">
 
         <form class="navbar-search">
             <div class="input-group">
