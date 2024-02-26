@@ -24,13 +24,40 @@ class IncidenciaController extends Controller
      *
      * @return mixed Devuelve una vista con todas las incidencias
      */
-    public function index()
+    public function index(Request $request)
     {
-        //$incidencias = Incidencia::all();
+        // Obtener los datos del formulario de filtro
+        $filtro_tipo = $request->input('filtro_tipo');
+        $filtro_aula = $request->input('filtro_aula');
+        $filtro_estado = $request->input('filtro_estado');
+        $filtro_prioridad = $request->input('filtro_prioridad');
 
-        // Obtener todas las incidencias paginadas
-        $incidencias = Incidencia::paginate(5); // 10 registros por página
-        return view('incidencias.index', ['incidencias' => $incidencias]);
+        // Aplicar los filtros a tus consultas de incidencias
+        $query = Incidencia::query();
+
+        if (!empty($filtro_tipo)) {
+            $query->where('tipo', $filtro_tipo);
+        }
+
+        if (!empty($filtro_aula)) {
+            $query->whereHas('equipo.aula', function ($query) use ($filtro_aula) {
+                $query->where('codigo', $filtro_aula);
+            });
+        }
+
+        if (!empty($filtro_estado)) {
+            $query->where('estado', $filtro_estado);
+        }
+
+        if (!empty($filtro_prioridad)) {
+            $query->where('prioridad', $filtro_prioridad);
+        }
+
+        // Obtener las incidencias filtradas
+        $incidencias = $query->paginate(5);
+
+        // Retornar la vista con las incidencias filtradas
+        return view('incidencias.index', compact('incidencias'));
     }
 
 
