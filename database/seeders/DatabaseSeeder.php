@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         //Borrar las tablas en orden para que no haya errores en las claves foraneas
+        DB::table('roles')->delete();
+        DB::table('permissions')->delete();
         DB::table('comentarios')->delete();
         DB::table('incidencias')->delete();
         DB::table('users')->delete();
@@ -27,6 +29,7 @@ class DatabaseSeeder extends Seeder
         //DB::table('incidencias_subtipos')->delete();
         DB::table('departamentos')->delete();
         //Rellenar las tablas en orden para evitar los errores de claves foraneas
+        $this->call(RoleSeeder::class);
         $this->call(AulaSeeder::class);
         $this->call(EquipoSeeder::class);
         // $this->call(IncidenciaSubtipoSeeder::class);
