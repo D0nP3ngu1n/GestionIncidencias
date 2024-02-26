@@ -78,6 +78,114 @@ class IncidenciaSeeder extends Seeder
                 'prioridad' => 'alta',
                 'equipo_id' => '1'
             ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[0],
+                'descripcion' => 'incidencia de prueba 7',
+                'estado' => 'abierta',
+                'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1] - $personaId[0]))),
+                'prioridad' => 'baja',
+                'equipo_id' => '2'
+            ),
+            array(
+                'tipo' => 'cuentas',
+                'subtipo_id' => $subtiposId[12],
+                'descripcion' => 'incidencia de prueba 8',
+                'estado' => 'en proceso',
+                'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1] - $personaId[0]))),
+                'prioridad' => 'media',
+                'equipo_id' => '3'
+            ),
+            array(
+                'tipo' => 'Wifi',
+                'subtipo_id' => $subtiposId[14],
+                'descripcion' => 'incidencia de prueba 9',
+                'estado' => 'asignada',
+                'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1] - $personaId[0]))),
+                'prioridad' => 'alta',
+                'equipo_id' => '4'
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[1],
+                'descripcion' => 'incidencia de prueba 10',
+                'estado' => 'enviada a Infortec',
+                'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1] - $personaId[0]))),
+                'prioridad' => 'alta',
+                'equipo_id' => '3'
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[2],
+                'descripcion' => 'incidencia de prueba 11',
+                'estado' => 'resuelta',
+                'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1] - $personaId[0]))),
+                'prioridad' => 'alta',
+                'equipo_id' => '2'
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 12',
+                'estado' => 'cerrada',
+                'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1] - $personaId[0]))),
+                'prioridad' => 'alta',
+                'equipo_id' => '1'
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[0],
+                'descripcion' => 'incidencia de prueba 13',
+                'estado' => 'abierta',
+                'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1] - $personaId[0]))),
+                'prioridad' => 'baja',
+                'equipo_id' => '2'
+            ),
+            array(
+                'tipo' => 'cuentas',
+                'subtipo_id' => $subtiposId[12],
+                'descripcion' => 'incidencia de prueba 14',
+                'estado' => 'en proceso',
+                'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1] - $personaId[0]))),
+                'prioridad' => 'media',
+                'equipo_id' => '3'
+            ),
+            array(
+                'tipo' => 'Wifi',
+                'subtipo_id' => $subtiposId[14],
+                'descripcion' => 'incidencia de prueba 15',
+                'estado' => 'asignada',
+                'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1] - $personaId[0]))),
+                'prioridad' => 'alta',
+                'equipo_id' => '4'
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[1],
+                'descripcion' => 'incidencia de prueba 16',
+                'estado' => 'enviada a Infortec',
+                'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1] - $personaId[0]))),
+                'prioridad' => 'alta',
+                'equipo_id' => '3'
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[2],
+                'descripcion' => 'incidencia de prueba 16',
+                'estado' => 'resuelta',
+                'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1] - $personaId[0]))),
+                'prioridad' => 'alta',
+                'equipo_id' => '2'
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 17',
+                'estado' => 'cerrada',
+                'creador_id' => rand($personaId[0], ($personaId[0] + ($personaId[count($personaId) - 1] - $personaId[0]))),
+                'prioridad' => 'alta',
+                'equipo_id' => '1'
+            ),
         );
         //recorrer el array de incidencias para cargar en la base de datos
         foreach ($indencias as $incidencia) {

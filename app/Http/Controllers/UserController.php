@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\crearUserRequest;
+use App\Http\Requests\CrearUserRequest;
+use App\Http\Requests\EditarUserRequest;
 use App\Models\Departamento;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use PDOException;
 
 class UserController extends Controller
@@ -36,17 +38,19 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(crearUserRequest $request)
+    public function store(CrearUserRequest $request)
     {
         try {
-            //empiezo una transaccion por si al intentar crear la incidencia falla algo poder volver atras
+            //empiezo una transaccion por si al intentar crear al usuario falla algo poder volver atras
             DB::beginTransaction();
             $usuario = new User();
             $usuario->nombreCompleto = $request->nombreCompleto;
             $usuario->email = $request->email;
-            $usuario->password = $request->password;
+            $usuario->password = Hash::make($request->password);
             if ($usuario->departamento_id = null) {
                 $usuario->departamento_id = $request->departamento_id;
+            } else {
+                $usuario->departamento_id = null;
             }
             $usuario->save();
             DB::commit();
@@ -60,34 +64,71 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Devuelve la vista en detalle para crear incidencia
+     * @param User $usuario objeto User
+     * @return mixed Devuelve la vista en detalle de una incidencia
      */
-    public function show(string $id)
+    public function show(User $usuario)
     {
-        //
+        return view('usuarios.show', ['usuario' => $usuario]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Devuelve la vista para editar un usuario
+     *
+     * @return mixed Devuelve la vista para crear una incidencia
      */
-    public function edit(string $id)
+    public function edit(User $usuario)
     {
-        //
+        $departamentos = Departamento::all();
+        $departamentoUsuario = Departamento::where('id', $usuario->departamento_id);
+        return view('usuarios.edit', ['departamentos' => $departamentos, 'usuario' => $usuario, 'departamentoUsuario' => $departamentoUsuario]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Recoge los datos de un Request personalizado y modificar el objeto de tipo usuario que se el introduce por parametros
+     * @param User $usuario objeto usuario para editar
+     * @param EditarUserRequest $request Request personalizado para editar al usuario
+     * @return mixed Devuelve la vista en detalle del usuario editado si es correcto o devuelve la vista de todos los usuarios con un error si ha fallado la edicion
      */
-    public function update(Request $request, string $id)
+    public function update(EditarUserRequest $request, User $usuario)
     {
-        //
+        try {
+            //empiezo una transaccion por si al intentar crear al usuario falla algo poder volver atras
+            DB::beginTransaction();
+            $usuario->nombreCompleto = $request->nombreCompleto;
+            $usuario->email = $request->email;
+            $usuario->password = Hash::make($request->password);
+            if ($usuario->departamento_id != null) {
+                $usuario->departamento_id = $request->departamento_id;
+            } else {
+                $usuario->departamento_id = null;
+            }
+            $usuario->save();
+            DB::commit();
+            //si se crea correctamente redirigo a la pagina del usuario con un mensaje de success
+            return redirect()->route('usuarios.show', ['usuario' => $usuario])->with('Success', 'usuario actualizado');
+        } catch (PDOException $e) {
+            DB::rollBack();
+
+            return redirect()->route('usuarios.index')->with('Error', 'Error al actualizar el usuario. Detalles: ' . $e->getMessage());
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un usuario
+     *
+     * @param User $usuario objeto User
+     * @return mixed Elimina un usuario concreto
      */
-    public function destroy(string $id)
+    public function destroy(User $usuario)
     {
-        //
+        try {
+            $usuario->delete();
+        } catch (PDOException $e) {
+
+            return redirect()->route('usuarios.index', ['Error' => "Error al borrar el usuario " . $e->getMessage()]);
+        }
+        return redirect()->route('usuarios.index', ['Success' => "usuario borrado"]);
     }
 }
