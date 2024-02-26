@@ -4,7 +4,7 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Nuevo Usuario')
 @section('contenido')
-    <h1>Nueva incidencia</h1>
+    <h1>Nuevo usuario</h1>
 
     @if ($errors->any())
         <div class="alert alert-danger" role="alert">

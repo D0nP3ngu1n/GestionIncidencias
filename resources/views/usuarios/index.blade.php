@@ -71,6 +71,9 @@
                 @empty
                     <p>No existen usuarios</p>
                 @endforelse
+                <div class="d-flex justify-content-center">
+                    {{ $usuarios->links() }}
+                </div>
                 <script>
                     // Seleccionamos todos los elementos que tienen la clase 'card'
                     var cards = document.querySelectorAll('.card');
