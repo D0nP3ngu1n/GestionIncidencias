@@ -27,7 +27,6 @@ class IncidenciaController extends Controller
      * @return mixed Devuelve una vista con todas las incidencias
      */
     public function index()
-    public function index()
     {
         //$incidencias = Incidencia::all();
 
