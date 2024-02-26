@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\IncidenciaExport;
+use App\Exports\IndenciasIndexExport;
 use App\Http\Requests\CrearIncidenciaRequest;
 use App\Http\Requests\EditarIncidenciaRequest;
 use App\Models\Equipo;
@@ -11,10 +13,12 @@ use App\Models\IncidenciaSubtipo;
 use App\Models\Perfil;
 use App\Models\Persona;
 use App\Models\User;
+use Barryvdh\DomPDF\PDF;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 use PDOException;
 
 class IncidenciaController extends Controller
@@ -33,6 +37,13 @@ class IncidenciaController extends Controller
         $incidencias = Incidencia::paginate(10); // 10 registros por página
         return view('incidencias.index', ['incidencias' => $incidencias]);
     }
+
+    /**
+     * Exportar excel de todas las incidencias
+     *
+     * @return mixed Devuelve un excel con todas las incidencias
+     */
+
 
     /**
      * Metodo para filtrar las las incidencias
