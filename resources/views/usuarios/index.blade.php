@@ -63,9 +63,13 @@
             </a>
         </article>
 
+
         @empty
             <p>No existen usuarios</p>
         @endforelse
+        <div class="d-flex justify-content-center">
+            {{ $usuarios->links() }}
+        </div>
         <script>
             // Seleccionamos todos los elementos que tienen la clase 'card'
             var cards = document.querySelectorAll('.card');
@@ -75,29 +79,6 @@
                 // Obtenemos el estado de la incidencia
                 //var estadoIncidencia = card.querySelector('.estado').innerText.trim();
                 card.classList.add('bg-c-blue');
-
-                // Verificamos el estado y cambiamos la clase según corresponda
-                /*switch (estadoIncidencia) {
-                    case 'abierta':
-                        card.classList.add('bg-c-red');
-                        break;
-                    case 'en proceso':
-                        card.classList.add('bg-c-yellow');
-                        break;
-                    case 'cerrada':
-                        card.classList.add('bg-c-green');
-                        break;
-                    case 'enviada a Infortec':
-                        card.classList.add('bg-c-yellow');
-                        break;
-                    case 'asignada':
-                        card.classList.add('bg-c-yellow');
-                        break;
-                    default:
-                        card.classList.add('bg-c-green');
-
-                        break;
-                }*/
             });
         </script>
     </div>

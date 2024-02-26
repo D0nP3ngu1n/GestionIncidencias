@@ -40,32 +40,64 @@
 
     <div class="bg-colorSecundario rounded-3 p-3">
         <!-- Filtros -->
-        <form id="formFiltros" action='{{route('incidencias.filtrar')}}' method="POST">
+        <form id="formFiltros" action='{{ route('incidencias.filtrar') }}' method="POST">
             @csrf
-            <div class="row">
-                <div class="col-md-3">
+            <div class="row my-1 ">
+                <div class="col-md-2">
                     <input type="text" id="descripcion" name="descripcion" class="form-control"
                         placeholder="Descripción">
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <input type="text" id="tipo" name="tipo" class="form-control" placeholder="Tipo">
                 </div>
 
-                <div class="col-md-3">
-                    <input type="text" id="estado" name="estado" class="form-control" placeholder="estado">
+                <div class="col-md-2">
+                    <input type="text" id="aula" name="aula" class="form-control" placeholder="Aula">
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2">
+
+                    <select name="estado" id="estado" class="form-control">
+                        <option value="">--Estado--</option>
+                        <option value="abierta">abierta</option>
+                        <option value="en proceso">en proceso</option>
+                        <option value="asignada">asignada</option>
+                        <option value="enviada a Infortec">enviada a Infortec</option>
+                        <option value="resuelta">resuelta</option>
+                        <option value="cerrada">cerrada</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
                     <input type="text" id="creador" name="creador" class="form-control" placeholder="creador">
                 </div>
 
-                <div class="col-md-3">
-                    <input type="text" id="prioridad" name="prioridad" class="form-control" placeholder="prioridad">
+                <div class="col-md-2">
+                    <input type="text" id="responsable" name="responsable" class="form-control" placeholder="Responsable">
                 </div>
-                <!-- Agrega más campos de filtro según necesites -->
+
+                <div class="col-md-2">
+                    <select name="prioridad" id="prioridad" class="form-control">
+                        <option value="">--Prioridad--</option>
+                        <option value="alta">alta</option>
+                        <option value="media">media</option>
+                        <option value="baja">baja</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <label for="desde">desde:</label>
+                    <input type="date" id="desde" name="desde" class="form-control" >
+                </div>
+
+                <div class="col-md-2">
+                    <label for="hasta">hasta:</label>
+                    <input type="date" id="hasta" name="hasta" class="form-control">
+                </div>
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-primary text-white">Filtrar</button>
                 </div>
+
             </div>
         </form>
         <!-- Fin Filtros -->
@@ -73,10 +105,11 @@
 
 
             @if (count($incidencias) > 0)
-                <table id="tablaIncidencias" class="table">
+                <table id="tablaIncidencias" class="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
+                            <th scope="col">Fecha</th>
                             <th scope="col">Descripción</th>
                             <th scope="col">Tipo</th>
                             <th scope="col">Aula</th>
@@ -89,22 +122,24 @@
                     </thead>
                     <tbody>
                         @foreach ($incidencias as $incidencia)
-                            <tr>
-                                <td>{{ $incidencia->id }}</td>
-                                <td>{{ $incidencia->descripcion }}</td>
-                                <td>{{ $incidencia->tipo }}</td>
-                                <td>{{ $incidencia->equipo->aula->codigo }}</td>
-                                <td>{{ $incidencia->creador->nombreCompleto }}</td>
-                                <td>
+                            <tr class="align-middle" scope="row">
+                                <td class="text-truncate">{{ $incidencia->id }}</td>
+                                <td class=" text-truncate">{{ $incidencia->fecha_creacion }}</td>
+
+                                <td class="text-truncate" style="max-width: 150px;" >{{ $incidencia->descripcion }}</td>
+                                <td class=" text-truncate">{{ $incidencia->tipo }}</td>
+                                <td class=" text-truncate">{{ $incidencia->equipo->aula->codigo }}</td>
+                                <td class=" text-truncate">{{ $incidencia->creador->nombre_completo }}</td>
+                                <td class=" text-truncate">
                                     @empty($incidencia->responsable_id)
                                         Todavía no asignado
                                     @else
                                         {{ $incidencia->responsable_id }}
                                     @endempty
                                 </td>
-                                <td>{{ $incidencia->estado }}</td>
-                                <td>{{ $incidencia->prioridad }}</td>
-                                <td>
+                                <td class=" text-truncate">{{ $incidencia->estado }}</td>
+                                <td class="text-truncate">{{ $incidencia->prioridad }}</td>
+                                <td class=" text-truncate">
                                     <a href="{{ route('incidencias.show', $incidencia) }}"
                                         class="btn btn-primary text-white ">Ver
                                         Detalles</a>

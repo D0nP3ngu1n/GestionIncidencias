@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(IncidenciaController::class)->group(function () {
     Route::get('incidencias', 'index')->name('incidencias.index');
-    Route::post('/incidencias/filtrar', 'filtrar')->name('incidencias.filtrar');;
+    Route::post('/incidencias/filtrar', 'filtrar')->name('incidencias.filtrar');
     Route::get('incidencias/create', 'create')->name('incidencias.create');
     Route::get('incidencias/{incidencia}', 'show')->name('incidencias.show');
     Route::get('incidencias/{incidencia}/edit', 'edit')->name('incidencias.edit');

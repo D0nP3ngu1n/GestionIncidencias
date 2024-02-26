@@ -31,7 +31,7 @@ class IncidenciaController extends Controller
         //$incidencias = Incidencia::all();
 
         // Obtener todas las incidencias paginadas
-        $incidencias = Incidencia::paginate(5); // 10 registros por página
+        $incidencias = Incidencia::paginate(10); // 10 registros por página
         return view('incidencias.index', ['incidencias' => $incidencias]);
     }
 
@@ -46,33 +46,40 @@ class IncidenciaController extends Controller
         $query = Incidencia::query();
 
         // Filtrar por cada parámetro recibido
-        if ($request->has('descripcion')) {
+        if ($request->has('descripcion') && $request->filled('descripcion') ) {
             $query->where('descripcion', 'like', '%' . $request->input('descripcion') . '%');
         }
 
-        if ($request->has('tipo')) {
+        if ($request->has('tipo') && $request->filled('tipo') ) {
             $query->where('tipo', 'like', '%' . $request->input('tipo') . '%');
         }
 
-        if ($request->has('estado')) {
+        if ($request->has('estado') && $request->filled('estado') ) {
             $query->where('estado', 'like', '%' . $request->input('estado') . '%');
         }
 
-        // if ($request->has('creador') && ) {
+        if ($request->has('creador') && $request->filled('creador') ) {
+            $query->join('users', 'incidencias.creador_id', '=', 'users.id')
+                ->where('users.nombre_completo', 'LIKE', '%' . $request->input('creador') . '%');
+        }
 
-        //     $incidencias = Incidencia::join('users', 'incidencias.creador_id', '=', 'users.id')
-        //     ->where('users.nombreCompleto', 'LIKE', '%' . $request->input('creador') . '%')
-        //     ->paginate(5);
-
-        //     return view('incidencias.index', ['incidencias' => $incidencias]);
-        // }
-
-        // if ($request->has('prioridad')) {
-        //     $query->where('prioridad', 'like', '%' . $request->input('prioridad') . '%');
-        // }
+        if ($request->has('prioridad') && $request->filled('prioridad') ) {
+            $query->where('prioridad', 'like', '%' . $request->input('prioridad') . '%');
+        }
 
 
-        $incidencias = $query->paginate(5);
+
+        if ($request->has('desde') && $request->has('hasta') && $request->filled('desde') && $request->filled('hasta')) {
+            $desde = date($request->input('desde'));
+            $hasta = date($request->input('hasta'));
+
+            $query->whereBetween('fecha_creacion', [$desde, $hasta])->get();
+        }
+
+
+
+
+        $incidencias = $query->paginate(10);
 
         return view('incidencias.index', ['incidencias' => $incidencias]);
     }
