@@ -8,7 +8,7 @@
                     <div class="card" style="border-radius: 1rem;">
                         <div class="row g-0">
                             <div class="col-md-6 col-lg-5 d-none d-md-block">
-                                <img src={{asset('assets/imagenes/ies-mini.jpg')}} alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" /> <!-- Poner foto de un ordenador, logo instituto? -->
+                                <img src={{asset('assets/imagenes/ies-panoramica.jpg')}} alt="login form" class="img-fluid img-login mx-4 my-4"/> <!-- Poner foto de un ordenador, logo instituto? -->
                             </div>
                             <div class="col-md-6 col-lg-7 d-flex align-items-center">
                                 <div class="card-body p-4 p-lg-5 text-black">
