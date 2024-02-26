@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('incidencias_subtipos', function (Blueprint $table) {
             $table->id();
             $table->enum('tipo', ['EQUIPOS','CUENTAS','WIFI','INTERNET','SOFTWARE']);
-            $table->string('subtipo_nombre', 20);
+            $table->string('subtipo_nombre', 20)->nullable();
             $table->string('sub_subtipo', 40)->nullable();
         });
 
@@ -36,8 +36,8 @@ return new class extends Migration
             ['tipo' => 'CUENTAS', 'subtipo_nombre' => 'YEDRA', 'sub_subtipo' => 'GESTIONA J.EST.'],
             ['tipo' => 'WIFI', 'subtipo_nombre' => 'iesmiguelherrero', 'sub_subtipo' => NULL],
             ['tipo' => 'WIFI', 'subtipo_nombre' => 'WIECAN', 'sub_subtipo' => NULL],
-            ['tipo' => 'INTERNET', 'subtipo_nombre' => 'INSTALACIÓN', 'sub_subtipo' => NULL],
-            ['tipo' => 'INTERNET', 'subtipo_nombre' => 'ACTUALIZACIÓN', 'sub_subtipo' => NULL],
+            ['tipo' => 'SOFTWARE', 'subtipo_nombre' => 'INSTALACIÓN', 'sub_subtipo' => NULL],
+            ['tipo' => 'SOFTWARE', 'subtipo_nombre' => 'ACTUALIZACIÓN', 'sub_subtipo' => NULL],
         ]);
     }
 

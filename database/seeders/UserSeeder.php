@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -66,8 +67,9 @@ class UserSeeder extends Seeder
         foreach ($users as $user) {
             //Creacion del modelo de la base de datos
             $objetoUser = new User();
-            $objetoUser->nombreCompleto = $user['nombre'];
+            $objetoUser->nombre_completo = $user['nombre'];
             $objetoUser->email = $user['email'];
+            $objetoUser->slug = Str::slug($user['nombre']);
             $objetoUser->password = Hash::make($user['password']);
             $objetoUser->departamento_id = $user['departamento_id'];
             //Guardado del objeto User
