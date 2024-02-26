@@ -122,121 +122,30 @@
     }
   }
 
-  /* ---------------estilo navbar ----------------------*/
 /* Estilo para botones circulares */
 .rounded-circle {
     border-radius: 50% !important;
 }
 
-.d-none {
-    display: none !important;
-}
-
-/* Eliminarlo ? */
-.accordion {
-    overflow-anchor: none;
-}
-
 /* Estilo header */
-
-.navbar-expand {
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-}
-
-.navbar-expand .navbar-nav {
-    flex-direction: row;
-}
-
-.navbar-expand .navbar-nav .dropdown-menu {
-    position: absolute;
-}
-
-.navbar-expand .navbar-nav .nav-link {
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
-}
-
-.topbar .nav-item .nav-link .img-profile{
+.img-profile{
     height: 2rem;
     width: 2rem;
 }
 
-.topbar #sidebarToggleTop {
-    height: 2.5rem;
-    width: 2.5rem;
+.img-logo{
+    height: 3.5rem;
+    width: 3.5rem;
 }
 
-.topbar #sidebarToggleTop:hover {
-    background-color: #eaecf4;
+/* Estilo imagen login */
+.img-login{
+    max-width: 100%;
+    height: 90%;
+    border-radius: 5px;
 }
 
-.topbar #sidebarToggleTop:active {
-    background-color: #dddfeb;
-}
-
-.topbar .navbar-search {
-    width: 25rem;
-}
-
-.topbar .navbar-search input {
-    font-size: 0.85rem;
-    height: auto;
-}
-
-.topbar .topbar-divider {
-    width: 0;
-    border-right: 1px solid #e3e6f0;
-    height: calc(4.375rem - 2rem);
-    margin: auto 1rem;
-}
-
-.topbar .nav-item .nav-link {
-    height: 4.375rem;
-    display: flex;
-    align-items: center;
-    padding: 0 0.75rem;
-}
-
-.topbar .nav-item .nav-link:focus {
-    outline: none;
-}
-
-.topbar .nav-item:focus {
-    outline: none;
-}
-
-.topbar .dropdown {
-    position: static;
-}
-
-.topbar .dropdown .dropdown-menu {
-    width: calc(100% - 1.5rem);
-    right: 0.75rem;
-}
-
-.topbar .dropdown-list {
-    padding: 0;
-    border: none;
-    overflow: hidden;
-}
-
-.topbar .dropdown-list .dropdown-item {
-    white-space: normal;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    border-left: 1px solid #e3e6f0;
-    border-right: 1px solid #e3e6f0;
-    border-bottom: 1px solid #e3e6f0;
-    line-height: 1.3rem;
-}
-
-.topbar .dropdown-list .dropdown-item:active {
-    background-color: #eaecf4;
-    color: #3a3b45;
-}s
-
-/* Estilo sombra */
+/* Estilo sombreado */
 .shadow {
     box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
 }
