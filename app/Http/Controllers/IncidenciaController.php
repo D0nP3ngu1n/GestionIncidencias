@@ -45,24 +45,24 @@ class IncidenciaController extends Controller
         $query = Incidencia::query();
 
         // Filtrar por cada parámetro recibido
-        if ($request->has('descripcion') && $request->filled('descripcion') ) {
+        if ($request->has('descripcion') && $request->filled('descripcion')) {
             $query->where('descripcion', 'like', '%' . $request->input('descripcion') . '%');
         }
 
-        if ($request->has('tipo') && $request->filled('tipo') ) {
+        if ($request->has('tipo') && $request->filled('tipo')) {
             $query->where('tipo', 'like', '%' . $request->input('tipo') . '%');
         }
 
-        if ($request->has('estado') && $request->filled('estado') ) {
+        if ($request->has('estado') && $request->filled('estado')) {
             $query->where('estado', 'like', '%' . $request->input('estado') . '%');
         }
 
-        if ($request->has('creador') && $request->filled('creador') ) {
+        if ($request->has('creador') && $request->filled('creador')) {
             $query->join('users', 'incidencias.creador_id', '=', 'users.id')
                 ->where('users.nombre_completo', 'LIKE', '%' . $request->input('creador') . '%');
         }
 
-        if ($request->has('prioridad') && $request->filled('prioridad') ) {
+        if ($request->has('prioridad') && $request->filled('prioridad')) {
             $query->where('prioridad', 'like', '%' . $request->input('prioridad') . '%');
         }
 
@@ -101,7 +101,8 @@ class IncidenciaController extends Controller
      */
     public function edit(Incidencia $incidencia)
     {
-        return view('incidencias.edit', ['incidencia' => $incidencia]);
+        $usuarios = User::all();
+        return view('incidencias.edit', ['incidencia' => $incidencia, 'usuarios' => $usuarios]);
     }
 
     /**
@@ -144,18 +145,27 @@ class IncidenciaController extends Controller
             DB::beginTransaction();
 
             //modifico la incidencia que me pasan por parametros con lo que ha traido el request
-            $incidencia->tipo = $request->tipo;
-            $incidencia->subtipo_id = $request->subtipo_id;
             $incidencia->descripcion = $request->descripcion;
-            $incidencia->estado = "abierta";
+
+            $incidencia->estado = $request->estado;
+            $incidencia->save();
+            DB::commit();
+            return redirect()->route('incidencias.show', ['incidencia' => $incidencia])->with('Success', 'Incidencia editada');
+            $incidencia->estado = $request->prioridad;
+
 
             //como el creado y el responsable solo pueden ser modificados por el profesor pero si por el administrador,
             // tengo que meter 2 if para controlarlo
-            if ($request->creador_id)
-                $incidencia->creador_id = $request->creador_id;
+            if ($request->nombre)
+                $nombre = $request->nombre;
+            $perfil1 = User::where('email', $nombre)->firstOrFail()->id;
+            $incidencia->creador_id = $perfil1;
 
-            if ($request->responsable_id)
-                $incidencia->responsable_id = $request->responsable_id;
+            if ($request->responsable)
+                $incidencia->responsable_id  = $request->responsable;
+
+
+
 
             //si en el edit me viene un fichero adjunto elimino el anterior y subo el nuevo ademas de guardar su URL
             if ($request->hasFile('adjunto')) {
@@ -170,16 +180,15 @@ class IncidenciaController extends Controller
                 $incidencia->adjunto_url = $url;
             }
 
-            $incidencia->save();
-            DB::commit();
+
             //si se crea correctamente redirigo a la pagina de la incidencia con un mensaje de succes
-            return redirect()->route('incidencias.show', ['incidencia' => $incidencia])->with('Success', 'Incidencia editada');
+
         } catch (PDOException $e) {
             DB::rollBack();
             // si no se completa la creacion borro el fichero que venia en el formulario de edicion
-            Storage::disk('imagenes')->delete(substr($incidencia->adjunto_url, 16));
+            Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
 
-            return redirect()->route('incidencias.index')->with('Error', 'Error al editar la incidencia. Detalles: ' . $e->getMessage());
+            return redirect()->route('incidencias.index')->with('error', 'Error al editar la incidencia. Detalles: ' . $e->getMessage());
         }
     }
 
