@@ -24,92 +24,133 @@
     </div>
 
     @if (session('error'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>Error:</strong> {{ session('error') }}.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
-@if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Confirmacion:</strong> {{ session('success') }}.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error:</strong> {{ session('error') }}.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Confirmacion:</strong> {{ session('success') }}.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
 
 
 
-        <div class="bg-colorSecundario rounded-3 p-3">
-            <div class="d-flex flex-row gap-3 flex-wrap justify-content-center ">
+    <div class="bg-colorSecundario rounded-3 p-3">
+        <!-- Filtros -->
+        <form id="formFiltros" action='{{route('incidencias.filtrar')}}' method="POST">
+            @csrf
+            <div class="row">
+                <div class="col-md-3">
+                    <input type="text" id="descripcion" name="descripcion" class="form-control"
+                        placeholder="Descripción">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" id="tipo" name="tipo" class="form-control" placeholder="Tipo">
+                </div>
 
-                @forelse ($incidencias as $incidencia)
-                    <article class="col-md-4 col-xl-3 card">
-                        <a class="text-white text-decoration-none"
-                            href='{{ route('incidencias.show', $incidencia) }}'>
-                            <div class="card-block">
-                                <h6 class="m-b-20">Nº {{ $incidencia->id }}</h6>
-                                <h2 class="text-right"><span>{{ $incidencia->descripcion }}</span></h2>
-                                <p class="m-b-0">Tipo : {{ $incidencia->tipo }}<span class="f-right"></span></p>
-                                <p class="m-b-0">Aula:<span
-                                        class="f-right">{{ $incidencia->equipo->aula->codigo }}</span>
-                                </p>
-                                <p class="m-b-0">Creado por: <span
-                                        class="f-right">{{ $incidencia->creador->nombre }}</span></p>
-                                <p class="m-b-0">Responsable:<span class="f-right">
+                <div class="col-md-3">
+                    <input type="text" id="estado" name="estado" class="form-control" placeholder="estado">
+                </div>
+
+                <div class="col-md-3">
+                    <input type="text" id="creador" name="creador" class="form-control" placeholder="creador">
+                </div>
+
+                <div class="col-md-3">
+                    <input type="text" id="prioridad" name="prioridad" class="form-control" placeholder="prioridad">
+                </div>
+                <!-- Agrega más campos de filtro según necesites -->
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary text-white">Filtrar</button>
+                </div>
+            </div>
+        </form>
+        <!-- Fin Filtros -->
+        <div class="d-flex flex-row gap-3 flex-wrap justify-content-center ">
+
+
+            @if (count($incidencias) > 0)
+                <table id="tablaIncidencias" class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Aula</th>
+                            <th scope="col">Creado por</th>
+                            <th scope="col">Responsable</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Prioridad</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($incidencias as $incidencia)
+                            <tr>
+                                <td>{{ $incidencia->id }}</td>
+                                <td>{{ $incidencia->descripcion }}</td>
+                                <td>{{ $incidencia->tipo }}</td>
+                                <td>{{ $incidencia->equipo->aula->codigo }}</td>
+                                <td>{{ $incidencia->creador->nombreCompleto }}</td>
+                                <td>
                                     @empty($incidencia->responsable_id)
-                                        todavia no asignada
+                                        Todavía no asignado
                                     @else
                                         {{ $incidencia->responsable_id }}
                                     @endempty
-                                </span></p>
-                            <p class="m-b-0">Estado<span
-                                    class="f-right estado">{{ $incidencia->estado }}</span></p>
-                            <p class="m-b-0">Prioridad<span
-                                    class="f-right">{{ $incidencia->prioridad }}</span></p>
+                                </td>
+                                <td>{{ $incidencia->estado }}</td>
+                                <td>{{ $incidencia->prioridad }}</td>
+                                <td>
+                                    <a href="{{ route('incidencias.show', $incidencia) }}"
+                                        class="btn btn-primary text-white ">Ver
+                                        Detalles</a>
+                                    <!-- Aquí podrías agregar botones para editar y eliminar la incidencia -->
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @else
+                <p>No existen incidencias</p>
+            @endif
 
-                        </div>
-                    </a>
-                </article>
 
-            @empty
-                <p>No existen Incidencias</p>
-            @endforelse
-            <script>
-                // Seleccionamos todos los elementos que tienen la clase 'card'
-                var cards = document.querySelectorAll('.card');
-
-                // Iteramos sobre cada tarjeta
-                cards.forEach(function(card) {
-                    // Obtenemos el estado de la incidencia
-                    var estadoIncidencia = card.querySelector('.estado').innerText.trim();
-
-                    // Verificamos el estado y cambiamos la clase según corresponda
-                    switch (estadoIncidencia) {
-                        case 'abierta':
-                            card.classList.add('bg-c-red');
-                            break;
-                        case 'en proceso':
-                            card.classList.add('bg-c-yellow');
-                            break;
-                        case 'cerrada':
-                            card.classList.add('bg-c-green');
-                            break;
-                        case 'enviada a Infortec':
-                            card.classList.add('bg-c-yellow');
-                            break;
-                        case 'asignada':
-                            card.classList.add('bg-c-yellow');
-                            break;
-                        default:
-                            card.classList.add('bg-c-green');
-                            break;
-                    }
-                });
-            </script>
         </div>
         <div class="d-flex justify-content-center">
             {{ $incidencias->links() }}
         </div>
+        @push('scripts')
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                $(document).ready(function() {
+                    // Maneja el envío del formulario de filtros
+                    $('#formFiltros').submit(function(event) {
+                        event.preventDefault(); // Evita que se recargue la página al enviar el formulario
+                        filtrar(); // Llama a la función de filtrar
+                    });
+
+                    // Función para filtrar mediante AJAX
+                    function filtrar() {
+                        $.ajax({
+                            url: '{{ route('incidencias.filtrar') }}', // Ruta definida en las rutas de Laravel
+                            type: 'POST',
+                            data: $('#formFiltros').serialize(), // Serializa los datos del formulario
+                            success: function(response) {
+                                $('#lista-incidencias').html(response); // Actualiza la lista de incidencias
+                            },
+                            error: function(xhr, status, error) {
+                                console.error(error); // Maneja los errores, si los hay
+                            }
+                        });
+                    }
+                });
+            </script>
+        @endpush
     </div>
-</div>
-</div>
+    </div>
+    </div>
 @endsection

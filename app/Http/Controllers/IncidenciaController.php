@@ -10,8 +10,10 @@ use App\Models\Incidencia;
 use App\Models\IncidenciaSubtipo;
 use App\Models\Perfil;
 use App\Models\Persona;
+use App\Models\User;
 use Carbon\Carbon;
 use DateTime;
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use PDOException;
@@ -24,14 +26,56 @@ class IncidenciaController extends Controller
      *
      * @return mixed Devuelve una vista con todas las incidencias
      */
-     public function index()
+    public function index()
     {
         //$incidencias = Incidencia::all();
 
-         // Obtener todas las incidencias paginadas
+        // Obtener todas las incidencias paginadas
         $incidencias = Incidencia::paginate(5); // 10 registros por página
-         return view('incidencias.index', ['incidencias' => $incidencias]);
-     }
+        return view('incidencias.index', ['incidencias' => $incidencias]);
+    }
+
+    /**
+     * Metodo para filtrar las las incidencias
+     * @param Request $request
+     * @return mixed Devuelve una vista con todas las incidencias
+     */
+    public function filtrar(Request $request)
+    {
+
+        $query = Incidencia::query();
+
+        // Filtrar por cada parámetro recibido
+        if ($request->has('descripcion')) {
+            $query->where('descripcion', 'like', '%' . $request->input('descripcion') . '%');
+        }
+
+        if ($request->has('tipo')) {
+            $query->where('tipo', 'like', '%' . $request->input('tipo') . '%');
+        }
+
+        if ($request->has('estado')) {
+            $query->where('estado', 'like', '%' . $request->input('estado') . '%');
+        }
+
+        // if ($request->has('creador') && ) {
+
+        //     $incidencias = Incidencia::join('users', 'incidencias.creador_id', '=', 'users.id')
+        //     ->where('users.nombreCompleto', 'LIKE', '%' . $request->input('creador') . '%')
+        //     ->paginate(5);
+
+        //     return view('incidencias.index', ['incidencias' => $incidencias]);
+        // }
+
+        // if ($request->has('prioridad')) {
+        //     $query->where('prioridad', 'like', '%' . $request->input('prioridad') . '%');
+        // }
+
+
+        $incidencias = $query->paginate(5);
+
+        return view('incidencias.index', ['incidencias' => $incidencias]);
+    }
 
 
     /**
