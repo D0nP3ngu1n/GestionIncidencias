@@ -26,6 +26,10 @@ Route::post('exports', [ExportController::class, 'export'])->name('exports.expor
 Route::post('exports/pdf', [ExportController::class, 'exportpdf'])->name('exports.pdf');
 Route::post('exports/csv', [ExportController::class, 'exportcsv'])->name('exports.csv');
 
+Route::post('exports/{incidencia}', [ExportController::class, 'exportInc'])->name('exports.exportInc');
+Route::post('exports/{incidencia}/pdf', [ExportController::class, 'exportpdfInc'])->name('exports.exportpdfInc');
+Route::post('exports/{incidencia}/csv', [ExportController::class, 'exportcsvInc'])->name('exports.exportcsvInc');
+
 Route::controller(UserController::class)->group(function () {
     Route::get('usuarios', 'index')->name('usuarios.index');
     Route::get('usuarios/create', 'create')->name('usuarios.create');

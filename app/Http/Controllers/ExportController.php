@@ -39,12 +39,12 @@ class ExportController extends Controller
         return Excel::download(new IncidenciaExport($incidencia), 'incidencia_' . $incidencia->id . '.xlsx');
     }
 
-    public function exportpdfInc(){
-        return Excel::download(new IncidenciaExport, 'incidencias.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+    public function exportpdfInc(Incidencia $incidencia){
+        return Excel::download(new IncidenciaExport($incidencia), 'incidencia_' . $incidencia->id . '.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
 
-    public function exportcsvInc(){
-        return Excel::download(new IncidenciaExport, 'incidencias.csv', \Maatwebsite\Excel\Excel::CSV);
+    public function exportcsvInc(Incidencia $incidencia){
+        return Excel::download(new IncidenciaExport($incidencia), 'incidencia_' . $incidencia->id . '.csv', \Maatwebsite\Excel\Excel::CSV);
     }
 
 
