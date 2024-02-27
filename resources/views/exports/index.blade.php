@@ -47,5 +47,9 @@
             @csrf
             <button type="submit">Exportar a PDF</button>
         </form>
+        <form action="{{ route('exports.csv') }}" method="POST">
+            @csrf
+            <button type="submit">Exportar a CSV</button>
+        </form>
     </div>
 </div>

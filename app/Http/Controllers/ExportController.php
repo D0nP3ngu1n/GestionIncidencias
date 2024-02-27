@@ -22,4 +22,13 @@ class ExportController extends Controller
     public function exportpdf(){
         return Excel::download(new IncidenciaExport, 'incidencias.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
+
+    public function exportcsv(){
+        return Excel::download(new IncidenciaExport, 'incidencias.csv', \Maatwebsite\Excel\Excel::CSV);
+    }
+
+    public function show(Incidencia $incidencia)
+    {
+        return view('exports.show', ['incidencia' => $incidencia]);
+    }
 }

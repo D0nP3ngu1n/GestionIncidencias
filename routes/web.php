@@ -23,6 +23,7 @@ Route::post('incidencias', [IncidenciaController::class, 'filtrar'])->name('inci
 Route::get('exports', [ExportController::class, 'index'])->name('exports.index');
 Route::post('exports', [ExportController::class, 'export'])->name('exports.export');
 Route::get('exports/pdf', [ExportController::class, 'exportpdf'])->name('exports.pdf');
+Route::post('exports/csv', [ExportController::class, 'exportcsv'])->name('exports.csv');
 
 Route::controller(UserController::class)->group(function () {
     Route::get('usuarios', 'index')->name('usuarios.index');
