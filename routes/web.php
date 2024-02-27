@@ -16,19 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::controller(IncidenciaController::class)->group(function () {
-    Route::get('incidencias', 'index')->name('incidencias.index')->middleware('auth');;
-    Route::get('incidencias/create', 'create')->name('incidencias.create');
-    Route::post('incidencias/store', 'store')->name('incidencias.store');
-    Route::get('incidencias/excel', 'exportarExcel')->name('incidencias.excel');
-    Route::get('incidencias/csv', 'exportarCSV')->name('incidencias.csv');
-    Route::get('incidencias/pdf', 'exportarPDF')->name('incidencias.pdf');
-    Route::post('incidencias/filtrar', 'filtrar')->name('incidencias.filtrar');
-    Route::get('incidencias/{incidencia}', 'show')->name('incidencias.show');
-    Route::get('incidencias/{incidencia}/edit', 'edit')->name('incidencias.edit');
-    Route::put('incidencias/{incidencia}', 'update')->name('incidencias.update');
-    Route::delete('incidencias/{incidencia}', 'destroy')->name('incidencias.destroy');
-});
+Route::resource('incidencias', IncidenciaController::class);
+
 
 Route::controller(UserController::class)->group(function () {
     Route::get('usuarios', 'index')->name('usuarios.index');
