@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         DB::table('permissions')->delete();
         DB::table('comentarios')->delete();
         DB::table('incidencias')->delete();
-        DB::table('users')->delete();
+        //DB::table('users')->delete();
         DB::table('equipos')->delete();
         DB::table('aulas')->delete();
         //DB::table('incidencias_subtipos')->delete();
@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EquipoSeeder::class);
         // $this->call(IncidenciaSubtipoSeeder::class);
         $this->call(DepartamentoSeeder::class);
-        $this->call(UserSeeder::class);
+        //$this->call(UserSeeder::class);
         $this->call(IncidenciaSeeder::class);
         $this->call(ComentarioSeeder::class);
 

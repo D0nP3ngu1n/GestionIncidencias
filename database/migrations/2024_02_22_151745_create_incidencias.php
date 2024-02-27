@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('incidencias', function (Blueprint $table) {
             $table->id();
             $table->enum('tipo', ['EQUIPOS','CUENTAS','WIFI','INTERNET','SOFTWARE']);
-            $table->unsignedBigInteger('subtipo_id');
+            $table->unsignedBigInteger('subtipo_id')->nullable();
             $table->datetime('fecha_creacion');
             $table->datetime('fecha_cierre')->nullable();
             $table->text('descripcion');

@@ -14,33 +14,38 @@
                                 <div class="card-body p-4 p-lg-5 text-black">
                                     <form method="POST" action="{{ route('login') }}">
                                         @csrf
+
                                         <div class="d-flex align-items-center mb-3 pb-1">
-                                            <span class="h1 fw-bold mb-0">Login</span>
+                                            <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                                            <span class="h1 fw-bold mb-0">Gestión de incidencias</span>
                                         </div>
-                                        <h5 class="fw-normal mb-3 pb-3">Inicia sesión con tus datos de dominio</h5>
+
+                                        <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Inicio de sesión</h5>
+
                                         <div class="form-outline mb-4">
-                                            <label class="form-label" for="email">Usuario</label>
-                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                                            @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
+                                            <input type="text" id="name" name="name" class="form-control form-control-lg @error('name') is-invalid @enderror" value="{{ old('name') }}" required autocomplete="name" autofocus />
+                                            <label class="form-label" for="name">Usuario</label>
+                                            @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                             @enderror
                                         </div>
+
                                         <div class="form-outline mb-4">
+                                            <input type="password" id="password" name="password" class="form-control form-control-lg @error('password') is-invalid @enderror" required autocomplete="current-password" />
                                             <label class="form-label" for="password">Contraseña</label>
-                                            <input type="password" id="password" class="form-control form-control-lg" />
+                                            @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
-                                        <div class="form-outline mb-4 form-check">
-                                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="remember">Recuérdame</label>
-                                        </div>
+
                                         <div class="pt-1 mb-4">
-                                            <button class="btn btn-dark btn-lg btn-block" type="button">Login</button>
+                                            <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
                                         </div>
-                                        @if (Route::has('password.request'))
-                                            <a class="small text-muted" href="{{ route('password.request') }}">¿Olvidó su contraseña?</a>
-                                        @endif
+
                                     </form>
                                 </div>
                             </div>
