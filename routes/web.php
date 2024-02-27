@@ -3,6 +3,7 @@
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\IncidenciaController;
 use App\Http\Controllers\UserController;
+use App\Models\Incidencia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('incidencias', IncidenciaController::class);
+
 Route::post('incidencias', [IncidenciaController::class, 'filtrar'])->name('incidencias.filtrar');
 
 Route::get('exports', [ExportController::class, 'index'])->name('exports.index');
@@ -29,6 +31,8 @@ Route::post('exports/csv', [ExportController::class, 'exportcsv'])->name('export
 Route::post('exports/{incidencia}', [ExportController::class, 'exportInc'])->name('exports.exportInc');
 Route::post('exports/{incidencia}/pdf', [ExportController::class, 'exportpdfInc'])->name('exports.exportpdfInc');
 Route::post('exports/{incidencia}/csv', [ExportController::class, 'exportcsvInc'])->name('exports.exportcsvInc');
+
+
 
 Route::controller(UserController::class)->group(function () {
     Route::get('usuarios', 'index')->name('usuarios.index');

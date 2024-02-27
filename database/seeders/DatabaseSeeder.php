@@ -35,8 +35,8 @@ class DatabaseSeeder extends Seeder
         // $this->call(IncidenciaSubtipoSeeder::class);
         $this->call(DepartamentoSeeder::class);
         //$this->call(UserSeeder::class);
-        $this->call(IncidenciaSeeder::class);
-        $this->call(ComentarioSeeder::class);
+        //$this->call(IncidenciaSeeder::class);
+        //$this->call(ComentarioSeeder::class);
 
         // \App\Models\User::factory(10)->create();
 

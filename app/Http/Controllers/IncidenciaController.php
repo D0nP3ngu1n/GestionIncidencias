@@ -203,12 +203,8 @@ class IncidenciaController extends Controller
         }
     }
 
-    /**
-     * Recoge los datos de un Request personalizado y crea una Incidencia
-     * @param crearIncidenciaRequest $request Request personalizado para crear la incidencia
-     * @return mixed Devuelve la vista en detalle de la incidencia creada si es correcto o devuelve la vista de de todas las incidencias con un error si ha fallado la creacion
-     * */
-    public function store(CrearIncidenciaRequest $request)
+
+    /*public function store(CrearIncidenciaRequest $request)
     {
         try {
             //empiezo una transaccion por si al intentar crear la incidencia falla algo poder volver atras
@@ -228,20 +224,20 @@ class IncidenciaController extends Controller
 
             //saco el subtipo que tenga el nombre de subtipo y de sub_subtipo que corresponda si existen,
             //hay que comprobar si subtipo existe pues el campo puede ser nulo
-            if ($request->has('subtipo') && $request->filled('subtipo')) {
-                $subtipo = $request->subtipo;
-                $sub_subtipo = $request->sub_subtipo;
-                $sub_final = IncidenciaSubtipo::where('subtipo_nombre', $subtipo)->where('sub_subtipo', $sub_subtipo)->first()->id;
-                $incidencia->subtipo_id = $sub_final;
-            }
+
+            $subtipo = $request->subtipo;
+            $sub_subtipo = $request->sub_subtipo;
+            $sub_final = IncidenciaSubtipo::where('subtipo_nombre', $subtipo)->where('sub_subtipo', $sub_subtipo)->first()->id;
+            $incidencia->subtipo_id = $sub_final;
+
 
             //saco el id del equipo segun la etiqueta que proporciona el formulario
             //hay que comprobar si numero_etiqueta existe porque el campo puede ser nulo
-            if ($request->has('numero_etiqueta') && $request->filled('numero_etiqueta')) {
-                $equipo_etiqueta = $request->numero_etiqueta;
-                $equipo = Equipo::where('etiqueta', $equipo_etiqueta)->firstOrFail()->id;
-                $incidencia->equipo_id = $equipo;
-            }
+
+            $equipo_etiqueta = $request->numero_etiqueta;
+            $equipo = Equipo::where('etiqueta', $equipo_etiqueta)->firstOrFail()->id;
+            $incidencia->equipo_id = $equipo;
+
 
             //si en el crear me viene un fichero adjunto elimino el anterior y subo el nuevo ademas de guardar su URL
             if ($request->hasFile('adjunto')) {
@@ -255,6 +251,67 @@ class IncidenciaController extends Controller
             $incidencia->save();
             DB::commit();
             //si se crea correctamente redirigo a la pagina de la incidencia con un mensaje de succes
+            return redirect()->route('incidencias.show', ['incidencia' => $incidencia])->with('success', 'Incidencia creada');
+        } catch (PDOException $e) {
+            DB::rollBack();
+            // si no se completa la creacion borro el fichero que venia en el formulario de edicion
+            Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
+
+            return redirect()->route('incidencias.index')->with('error', 'Error al crear la incidencia. Detalles: ' . $e->getMessage());
+        }
+    }*/
+    /**
+     * Recoge los datos de un Request personalizado y crea una Incidencia
+     * @param crearIncidenciaRequest $request Request personalizado para crear la incidencia
+     * @return mixed Devuelve la vista en detalle de la incidencia creada si es correcto o devuelve la vista de de todas las incidencias con un error si ha fallado la creacion
+     * */
+    public function store(CrearIncidenciaRequest $request)
+    {
+        try {
+            //empiezo una transaccion por si al intentar crear la incidencia falla algo poder volver atras
+            DB::beginTransaction();
+            $incidencia = new Incidencia();
+
+            $incidencia->tipo = $request->tipo;
+            $incidencia->descripcion = $request->descripcion;
+            $incidencia->estado = "abierta";
+            $incidencia->fecha_creacion = Carbon::now();
+
+            //si el usuario logueado no tiene email asociado, se le asocia el que introduzca en el formulario
+            $usuario = User::where('id', $request->user_id)->first();
+            if ($usuario->email == null) {
+                $usuario->email = $request->correo_asociado;
+                $usuario->save();
+            }
+
+            //el campo user_id oculto del formulario captura el id del usuario logueado, por lo que se le añadimos a la incidencia com id del creador
+            $incidencia->creador_id = $request->user_id;
+
+            //si el request recibe un subtipo, buscamos el subtipo en la tabla subtipos y añadimos el id a la incidencia
+            if ($request->has('subtipo')) {
+                $subtipo = $request->subtipo;
+                $sub_subtipo = $request->sub_subtipo;
+                $sub_final = IncidenciaSubtipo::where('subtipo_nombre', $subtipo)->where('sub_subtipo', $sub_subtipo)->first()->id;
+                $incidencia->subtipo_id = $sub_final;
+            }
+
+            //si el request recibe el numero de etiqueta, buscamos el equipo segun la etiqueta que nos llega y lo añadimos el id a la incidencia
+            if ($request->has('numero_etiqueta')) {
+                $equipo_etiqueta = $request->numero_etiqueta;
+                $equipo = Equipo::where('etiqueta', $equipo_etiqueta)->firstOrFail()->id;
+                $incidencia->equipo_id = $equipo;
+            }
+
+            //si en el crear me viene un fichero adjunto elimino el anterior y subo el nuevo ademas de guardar su URL
+            if ($request->hasFile('adjunto')) {
+                //guardo el fichero y cojo su ruta para guardarla en la URL de la incidencia
+                $url = 'assets/ficheros/' . $request->fichero->store('', 'ficheros');
+                $incidencia->adjunto_url = $url;
+            }
+
+            $incidencia->save();
+            DB::commit();
+
             return redirect()->route('incidencias.show', ['incidencia' => $incidencia])->with('success', 'Incidencia creada');
         } catch (PDOException $e) {
             DB::rollBack();
