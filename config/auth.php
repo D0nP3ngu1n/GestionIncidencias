@@ -61,8 +61,25 @@ return [
 
     'providers' => [
         'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'driver' => 'ldap',
+            'model' => LdapRecord\Models\ActiveDirectory\User::class,
+            //'rules' => [App\Ldap\Rules\FiltradoUsuarioRegla::class],
+            //'rules' => [],
+            //'scopes' => [App\Ldap\Scopes\FiltradoUsuarioOU::class],
+            'scopes' => [],
+            'database' => [
+                'model' => App\Models\User::class,
+                'sync_passwords' => false,
+                'sync_attributes' => [
+                    'name' => 'cn',
+                    'email' => 'mail',
+                    'nombre_completo' => 'DisplayName',
+                    'departamento' => 'Department',
+                    'DistinguishedName' => 'DistinguishedName',
+                    'nombre' => 'Name',
+                    'nombre_usuario' => 'SamAccountName',
+                ],
+            ],
         ],
 
         // 'users' => [

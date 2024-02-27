@@ -2,23 +2,19 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+// Importaciones necesarias
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
+use LdapRecord\Laravel\Auth\LdapAuthenticatable;
+use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 
-class User extends Authenticatable
+class User extends Authenticatable implements LdapAuthenticatable
 {
-    use HasApiTokens;
-    use HasFactory;
-    use HasProfilePhoto;
-    use Notifiable;
-    use TwoFactorAuthenticatable;
-    use HasRoles;
+    use HasApiTokens, HasFactory, HasProfilePhoto, Notifiable, TwoFactorAuthenticatable, AuthenticatesWithLdap;
 
     /**
      * The attributes that are mass assignable.
@@ -26,20 +22,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'nombreCompleto',
+        'name',
         'email',
-        'password',
+        // No incluyas 'password' aquí si las contraseñas se manejan completamente a través de LDAP.
     ];
-
-    /**
-     * Relacion uno a muchos entre departamento y persona
-     * @param none no recibe parametros
-     * @return
-     */
-    public function departamento()
-    {
-        return $this->belongsTo(Departamento::class, 'departamento_id', 'id');
-    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -47,7 +33,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        // 'password', // Puedes comentar o eliminar esta línea si las contraseñas no se almacenan localmente.
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
@@ -70,4 +56,6 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    // Métodos adicionales requeridos por LdapAuthenticatable, si es necesario.
 }

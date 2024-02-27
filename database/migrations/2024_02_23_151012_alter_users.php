@@ -12,8 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('departamento_id')->nullable();
-            $table->foreign('departamento_id')->references('id')->on('departamentos');
+            $table->unsignedBigInteger('departamento')->nullable();
+            $table->foreign('departamento')->references('id')->on('departamentos');
+            $table->string('guid')->nullable();
+            $table->string('domain')->nullable();
+            $table->string('DistinguishedName')->nullable();
+            $table->string('nombre')->nullable();
+            $table->string('nombre_usuario')->nullable();
+
         });
     }
 
@@ -23,8 +29,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['departamento_id']);
-            $table->dropColumn('departamento_id');
+            $table->dropForeign(['departamento']);
+            $table->dropColumn('departamento');
         });
     }
 };
