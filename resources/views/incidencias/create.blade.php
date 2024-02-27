@@ -17,8 +17,7 @@
     <div id="caja-formulario" class="container">
         <form action="{{ route('incidencias.store') }}" method="POST" enctype="multipart/form-data" class="form-horizantal">
             @csrf
-            @method('post')
-            <input type="hidden" id="user_id" name="user_id" value="{{ $user = auth()->user()->email }}">
+            <input type="text" id="user_id" name="user_id" value="{{ $user = auth()->user()->id }}">
             <div class="col-sm-12">
                 <label for="nombre" class="form-label">Nombre Completo:</label>
                 <input type="text" id="nombre" name="nombre" class="form-control"
