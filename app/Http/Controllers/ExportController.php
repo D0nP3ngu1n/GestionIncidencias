@@ -34,7 +34,7 @@ class ExportController extends Controller
         return view('exports.show', ['incidencia' => $incidencia]);
     }
 
-    public function exportInc(Request $request, Incidencia $incidencia)
+    public function exportInc(Incidencia $incidencia)
     {
         return Excel::download(new IncidenciaExport($incidencia), 'incidencia_' . $incidencia->id . '.xlsx');
     }
