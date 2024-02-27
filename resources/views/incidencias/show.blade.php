@@ -49,7 +49,7 @@
                 <div class="project-info-box">
                     <p> <strong>Numero de la incidencia:</strong> {{ $incidencia->num }}</p>
                     <p><strong>Tipo de la incidencia:</strong> {{ $incidencia->tipo }}</p>
-                    <p><strong>Subtipo:</strong> {{ $incidencia->subtipo->nombre }}</p>
+                    <p><strong>Subtipo:</strong> {{ $incidencia->subtipo->subtipo_nombre }}</p>
                     <p><strong>Descripción:</strong> {{ $incidencia->descripcion }} </p>
                     <p><strong>Estado:</strong> {{ $incidencia->estado }}</p>
                     <strong>Fecha de creación:</strong> {{ $incidencia->fecha_creacion }} <br>
@@ -85,12 +85,13 @@
                     <li class="d-flex justify-content-between mb-4">
                         <div class="card">
                             <div class="card-header d-flex justify-content-between p-3">
-                                <p class="fw-bold mb-0 mx-2">{{$comentario->persona->nombreCompleto}}</p>
-                                <p class="text-muted small mb-0"><i class="far fa-clock"></i> {{$comentario->getFecha()}} dias</p>
+                                <p class="fw-bold mb-0 mx-2">{{ $comentario->persona->nombreCompleto }}</p>
+                                <p class="text-muted small mb-0"><i class="far fa-clock"></i> {{ $comentario->getFecha() }}
+                                    dias</p>
                             </div>
                             <div class="card-body">
                                 <p class="mb-0">
-                                    {{$comentario->texto}}
+                                    {{ $comentario->texto }}
                                 </p>
                             </div>
                         </div>
