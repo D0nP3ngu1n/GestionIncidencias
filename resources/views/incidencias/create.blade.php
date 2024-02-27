@@ -98,12 +98,14 @@
                     //solo actualizará los datos si la opción es distinta a INTERNET
                     if (opc !== "INTERNET") {
                         document.getElementById('sel1').classList.remove('invisible');
+                        sel.innerHTML += `<option selected>...</option>`;
                         switch (opc) {
                             case "EQUIPOS":
                                 var arr = array['EQUIPOS'];
-                                sel.innerHTML += `<option>...</option>`;
                                 for (let i = 0; i < arr.length; i++) {
                                     sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
+                                    //Con esta linea hago que la caja de informacion del equipo sea visible
+                                    document.getElementById('info-equipo').classList.remove('invisible');
                                 }
 
                                 break;
@@ -111,13 +113,14 @@
                                 var arr = array['CUENTAS'];
                                 for (let i = 0; i < arr.length; i++) {
                                     sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
-
+                                    document.getElementById('info-equipo').classList.add('invisible');
                                 }
                                 break;
                             case "WIFI":
                                 var arr = array['WIFI'];
                                 for (let i = 0; i < arr.length; i++) {
                                     sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
+                                    document.getElementById('info-equipo').classList.add('invisible');
                                 }
 
                                 break;
@@ -125,6 +128,7 @@
                                 var arr = array['SOFTWARE'];
                                 for (let i = 0; i < arr.length; i++) {
                                     sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
+                                    document.getElementById('info-equipo').classList.add('invisible');
                                 }
 
                                 break;
@@ -161,9 +165,9 @@
                             }
 
                             break;
-                        case "Portatil":
+                        case "PORTATIL":
                             document.getElementById('sel2').classList.remove('invisible');
-                            var arr = array['EQUIPOS']['Portatil'];
+                            var arr = array['EQUIPOS']['PORTATIL'];
                             for (let i = 0; i < arr.length; i++) {
                                 selec.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
                             }
@@ -179,9 +183,18 @@
                 <label for="descripcion" class="form-label">Descripcion:</label>
                 <textarea id="descripcion" name="descripcion" class="form-control"></textarea>
             </div>
-
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="adjunto" class="form-label col-sm-4">Archivo Adjunto:</label>
+                        <div class="col-sm-12">
+                            <input type="file" id="adjunto" name="adjunto" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row invisible" id="info-equipo">
+                <div class="col-sm-4">
                     <div class="form-group">
                         <label for="aula" class="form-label col-sm-4">Aula:</label>
                         <div class="col-sm-12">
@@ -189,7 +202,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <div class="form-group">
                         <label for="puesto" class="form-label col-sm-4">Puesto en el aula:</label>
                         <div class="col-sm-12">
@@ -197,21 +210,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <div class="form-group">
                         <label for="numero_etiqueta " class="form-label col-sm-4">Etiqueta del equipo:</label>
                         <div class="col-sm-12">
                             <input type="text" id="numero_etiqueta" name="numero_etiqueta" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="adjunto" class="form-label col-sm-4">Archivo Adjunto:</label>
-                        <div class="col-sm-12">
-                            <input type="file" id="adjunto" name="adjunto" class="form-control">
                         </div>
                     </div>
                 </div>

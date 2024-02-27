@@ -221,22 +221,27 @@ class IncidenciaController extends Controller
             $incidencia->estado = $request->estado;
             $incidencia->fecha_creacion = Carbon::now();
 
-            //saco el subtipo que tenga el nombre de subtipo y de sub_subtipo que corresponda si existen
-            $subtipo = $request->subtipo;
-            $sub_subtipo = $request->sub_subtipo;
-            $sub_final = IncidenciaSubtipo::where('subtipo_nombre', $subtipo)->where('sub_subtipo', $sub_subtipo)->first()->id;
-            $incidencia->subtipo_id = $sub_final;
-
-
             //saco el perfil que tenga que ese correo, para sacar despues la id de la persona y todos sus datos
             $email = $request->correo_asociado;
             $perfil = User::where('email', $email)->firstOrFail()->id;
             $incidencia->creador_id = $perfil;
 
+            //saco el subtipo que tenga el nombre de subtipo y de sub_subtipo que corresponda si existen,
+            //hay que comprobar si subtipo existe pues el campo puede ser nulo
+            if ($request->has('subtipo') && $request->filled('subtipo')) {
+                $subtipo = $request->subtipo;
+                $sub_subtipo = $request->sub_subtipo;
+                $sub_final = IncidenciaSubtipo::where('subtipo_nombre', $subtipo)->where('sub_subtipo', $sub_subtipo)->first()->id;
+                $incidencia->subtipo_id = $sub_final;
+            }
+
             //saco el id del equipo segun la etiqueta que proporciona el formulario
-            $equipo_etiqueta = $request->numero_etiqueta;
-            $equipo = Equipo::where('etiqueta', $equipo_etiqueta)->firstOrFail()->id;
-            $incidencia->equipo_id = $equipo;
+            //hay que comprobar si numero_etiqueta existe porque el campo puede ser nulo
+            if ($request->has('numero_etiqueta') && $request->filled('numero_etiqueta')) {
+                $equipo_etiqueta = $request->numero_etiqueta;
+                $equipo = Equipo::where('etiqueta', $equipo_etiqueta)->firstOrFail()->id;
+                $incidencia->equipo_id = $equipo;
+            }
 
             //si en el crear me viene un fichero adjunto elimino el anterior y subo el nuevo ademas de guardar su URL
             if ($request->hasFile('adjunto')) {
@@ -244,7 +249,9 @@ class IncidenciaController extends Controller
                 $url = 'assets/ficheros/' . $request->fichero->store('', 'ficheros');
                 $incidencia->adjunto_url = $url;
             }
+
             $incidencia->estado = "abierta";
+
             $incidencia->save();
             DB::commit();
             //si se crea correctamente redirigo a la pagina de la incidencia con un mensaje de succes
