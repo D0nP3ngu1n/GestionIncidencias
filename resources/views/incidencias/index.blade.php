@@ -73,7 +73,8 @@
                 </div>
 
                 <div class="col-md-2">
-                    <input type="text" id="responsable" name="responsable" class="form-control" placeholder="Responsable">
+                    <input type="text" id="responsable" name="responsable" class="form-control"
+                        placeholder="Responsable">
                 </div>
 
                 <div class="col-md-2">
@@ -87,7 +88,7 @@
 
                 <div class="col-md-2">
                     <label for="desde">desde:</label>
-                    <input type="date" id="desde" name="desde" class="form-control" >
+                    <input type="date" id="desde" name="desde" class="form-control">
                 </div>
 
                 <div class="col-md-2">
@@ -126,7 +127,7 @@
                                 <td class="text-truncate">{{ $incidencia->id }}</td>
                                 <td class=" text-truncate">{{ $incidencia->fecha_creacion }}</td>
 
-                                <td class="text-truncate" style="max-width: 150px;" >{{ $incidencia->descripcion }}</td>
+                                <td class="text-truncate" style="max-width: 150px;">{{ $incidencia->descripcion }}</td>
                                 <td class=" text-truncate">{{ $incidencia->tipo }}</td>
                                 <td class=" text-truncate">{{ $incidencia->equipo->aula->codigo }}</td>
                                 <td class=" text-truncate">{{ $incidencia->creador->nombre_completo }}</td>

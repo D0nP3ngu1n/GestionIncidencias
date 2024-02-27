@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\IncidenciaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('incidencias', IncidenciaController::class);
+Route::post('incidencias', [IncidenciaController::class, 'filtrar'])->name('incidencias.filtrar');
 
+Route::get('exports', [ExportController::class, 'index'])->name('exports.index');
+Route::post('exports', [ExportController::class, 'export'])->name('exports.export');
+Route::get('exports/pdf', [ExportController::class, 'exportpdf'])->name('exports.pdf');
 
 Route::controller(UserController::class)->group(function () {
     Route::get('usuarios', 'index')->name('usuarios.index');
@@ -27,7 +32,7 @@ Route::controller(UserController::class)->group(function () {
     Route::get('usuarios/{usuario}/edit', 'edit')->name('usuarios.edit');
     Route::put('usuarios/{usuario}', 'update')->name('usuarios.update');
     Route::delete('usuarios/{usuario}', 'destroy')->name('usuarios.destroy');
-})->middleware('auth');;
+})->middleware('auth');
 
 Route::get('/', function () {
     return redirect('/incidencias');
