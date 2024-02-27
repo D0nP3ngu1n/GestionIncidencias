@@ -21,6 +21,7 @@ Route::resource('incidencias', IncidenciaController::class);
 Route::post('incidencias', [IncidenciaController::class, 'filtrar'])->name('incidencias.filtrar');
 
 Route::get('exports', [ExportController::class, 'index'])->name('exports.index');
+Route::get('exports/{incidencia}', [ExportController::class, 'show'])->name('exports.show');
 Route::post('exports', [ExportController::class, 'export'])->name('exports.export');
 Route::post('exports/pdf', [ExportController::class, 'exportpdf'])->name('exports.pdf');
 Route::post('exports/csv', [ExportController::class, 'exportcsv'])->name('exports.csv');
