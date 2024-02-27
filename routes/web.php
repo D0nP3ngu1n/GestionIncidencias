@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\IncidenciaController;
 use App\Http\Controllers\UserController;
 use App\Models\Incidencia;
@@ -18,7 +19,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('incidencias', IncidenciaController::class);
-Route::post('incidencias/filtrar', [IncidenciaController::class, 'filtrar'])->name('incidencias.filtrar');
+
+Route::post('incidencias', [IncidenciaController::class, 'filtrar'])->name('incidencias.filtrar');
+
+Route::get('exports', [ExportController::class, 'index'])->name('exports.index');
+Route::get('exports/{incidencia}', [ExportController::class, 'show'])->name('exports.show');
+Route::post('exports', [ExportController::class, 'export'])->name('exports.export');
+Route::post('exports/pdf', [ExportController::class, 'exportpdf'])->name('exports.pdf');
+Route::post('exports/csv', [ExportController::class, 'exportcsv'])->name('exports.csv');
+
+Route::post('exports/{incidencia}', [ExportController::class, 'exportInc'])->name('exports.exportInc');
+Route::post('exports/{incidencia}/pdf', [ExportController::class, 'exportpdfInc'])->name('exports.exportpdfInc');
+Route::post('exports/{incidencia}/csv', [ExportController::class, 'exportcsvInc'])->name('exports.exportcsvInc');
+
+
 
 Route::controller(UserController::class)->group(function () {
     Route::get('usuarios', 'index')->name('usuarios.index');
@@ -28,7 +42,7 @@ Route::controller(UserController::class)->group(function () {
     Route::get('usuarios/{usuario}/edit', 'edit')->name('usuarios.edit');
     Route::put('usuarios/{usuario}', 'update')->name('usuarios.update');
     Route::delete('usuarios/{usuario}', 'destroy')->name('usuarios.destroy');
-})->middleware('auth');;
+})->middleware('auth');
 
 Route::get('/', function () {
     return redirect('/incidencias');
