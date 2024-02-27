@@ -23,22 +23,5 @@ $font-family-sans-serif: 'Nunito', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
-
-// Variable que cambia el ancho del menú lateral al colapsarlo.
-//$sidebar-collapsed-width: 6.5rem !default;
-// Change below variable if the height of the navbar changes
-$topbar-base-height: 4.375rem !default;
-
-// Variables para la forma de los bordes en menú y header
-$border-radius: 0.35rem !default;
-$border-color: darken($gray-200, 2%) !default;
-
-// Adjust column spacing for symmetry
-//$spacer: 1rem !default;
-//$grid-gutter-width: $spacer * 1.5 !default;
-
 // Sombras
 $box-shadow: 0 0.15rem 1.75rem 0 rgba($gray-900, .15) !default;
-
-// Dropdowns
-$dropdown-font-size: 0.85rem !default;
