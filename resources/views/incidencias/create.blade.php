@@ -17,19 +17,34 @@
     <div id="caja-formulario" class="container">
         <form action="{{ route('incidencias.store') }}" method="POST" enctype="multipart/form-data" class="form-horizantal">
             @csrf
+            <input type="text" id="user_id" name="user_id" value="{{ $user = auth()->user()->id }}">
             <div class="col-sm-12">
                 <label for="nombre" class="form-label">Nombre Completo:</label>
-                <input type="text" id="nombre" name="nombre" class="form-control">
+                <input type="text" id="nombre" name="nombre" class="form-control"
+                    value="{{ $user = auth()->user()->nombre_completo }}" readonly>
             </div>
             <div class="row">
-                <div class="col-sm-6 ">
-                    <div class="form-group">
-                        <label for="correo_asociado" class="form-label col-sm-4">Correo electrónico:</label>
-                        <div class="col-sm-12">
-                            <input type="correo_asociado" id="correo" name="correo_asociado" class="form-control">
+                @if ($user = auth()->user()->email)
+                    <div class="col-sm-6 ">
+                        <div class="form-group">
+                            <label for="correo_asociado" class="form-label col-sm-4">Correo electrónico:</label>
+                            <div class="col-sm-12">
+                                <input type="correo_asociado" id="correo_asociado" name="correo_asociado"
+                                    class="form-control" value={{ $user = auth()->user()->email }} disabled>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @else
+                    <div class="col-sm-6 ">
+                        <div class="form-group">
+                            <label for="correo_asociado" class="form-label col-sm-4">Correo electrónico:</label>
+                            <div class="col-sm-12">
+                                <input type="correo_asociado" id="correo_asociado" name="correo_asociado"
+                                    class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 <div class="col-sm-6 ">
                     <div class="form-group">
                         <label for="departamento" class="form-label col-sm-4">Departamento:</label>
@@ -80,6 +95,7 @@
                  * @return {none} no devuelve nada al ser un metodo void
                  */
                 function inicio() {
+                    console.log(document.getElementById('nombre').value);
                     document.getElementById('tipo').addEventListener('change', rellenar1, false);
                     document.getElementById('subtipo').addEventListener('change', rellenar2, false);
                 }
@@ -98,12 +114,14 @@
                     //solo actualizará los datos si la opción es distinta a INTERNET
                     if (opc !== "INTERNET") {
                         document.getElementById('sel1').classList.remove('invisible');
+                        sel.innerHTML += `<option selected>...</option>`;
                         switch (opc) {
                             case "EQUIPOS":
                                 var arr = array['EQUIPOS'];
-                                sel.innerHTML += `<option>...</option>`;
                                 for (let i = 0; i < arr.length; i++) {
                                     sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
+                                    //Con esta linea hago que la caja de informacion del equipo sea visible
+                                    document.getElementById('info-equipo').classList.remove('invisible');
                                 }
 
                                 break;
@@ -111,13 +129,14 @@
                                 var arr = array['CUENTAS'];
                                 for (let i = 0; i < arr.length; i++) {
                                     sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
-
+                                    document.getElementById('info-equipo').classList.add('invisible');
                                 }
                                 break;
                             case "WIFI":
                                 var arr = array['WIFI'];
                                 for (let i = 0; i < arr.length; i++) {
                                     sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
+                                    document.getElementById('info-equipo').classList.add('invisible');
                                 }
 
                                 break;
@@ -125,6 +144,7 @@
                                 var arr = array['SOFTWARE'];
                                 for (let i = 0; i < arr.length; i++) {
                                     sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
+                                    document.getElementById('info-equipo').classList.add('invisible');
                                 }
 
                                 break;
@@ -161,9 +181,9 @@
                             }
 
                             break;
-                        case "Portatil":
+                        case "PORTATIL":
                             document.getElementById('sel2').classList.remove('invisible');
-                            var arr = array['EQUIPOS']['Portatil'];
+                            var arr = array['EQUIPOS']['PORTATIL'];
                             for (let i = 0; i < arr.length; i++) {
                                 selec.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
                             }
@@ -179,9 +199,18 @@
                 <label for="descripcion" class="form-label">Descripcion:</label>
                 <textarea id="descripcion" name="descripcion" class="form-control"></textarea>
             </div>
-
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="adjunto" class="form-label col-sm-4">Archivo Adjunto:</label>
+                        <div class="col-sm-12">
+                            <input type="file" id="adjunto" name="adjunto" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row invisible" id="info-equipo">
+                <div class="col-sm-4">
                     <div class="form-group">
                         <label for="aula" class="form-label col-sm-4">Aula:</label>
                         <div class="col-sm-12">
@@ -189,7 +218,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <div class="form-group">
                         <label for="puesto" class="form-label col-sm-4">Puesto en el aula:</label>
                         <div class="col-sm-12">
@@ -197,21 +226,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <div class="form-group">
                         <label for="numero_etiqueta " class="form-label col-sm-4">Etiqueta del equipo:</label>
                         <div class="col-sm-12">
                             <input type="text" id="numero_etiqueta" name="numero_etiqueta" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="adjunto" class="form-label col-sm-4">Archivo Adjunto:</label>
-                        <div class="col-sm-12">
-                            <input type="file" id="adjunto" name="adjunto" class="form-control">
                         </div>
                     </div>
                 </div>

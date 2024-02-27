@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\IncidenciaController;
 use App\Http\Controllers\UserController;
+use App\Models\Incidencia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -16,26 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::controller(IncidenciaController::class)->group(function () {
-    Route::get('incidencias', 'index')->name('incidencias.index')->middleware('auth');;
-    Route::get('incidencias/excel', 'exportarExcel')->name('incidencias.excel');
-    Route::get('incidencias/csv', 'exportarCSV')->name('incidencias.csv');
-    Route::get('incidencias/pdf', 'exportarPDF')->name('incidencias.pdf');
-    Route::post('incidencias/filtrar', 'filtrar')->name('incidencias.filtrar');
-    Route::get('incidencias/create', 'create')->name('incidencias.create');
-    Route::post('incidencias/store', 'store')->name('incidencias.store');
-    Route::get('incidencias/{incidencia}', 'show')->name('incidencias.show');
-    Route::get('incidencias/{incidencia}/edit', 'edit')->name('incidencias.edit');
-    Route::put('incidencias/{incidencia}', 'update')->name('incidencias.update');
-    Route::delete('incidencias/{incidencia}', 'destroy')->name('incidencias.destroy');
-});
+Route::resource('incidencias', IncidenciaController::class);
+Route::post('incidencias/filtrar', [IncidenciaController::class, 'filtrar'])->name('incidencias.filtrar');
 
 Route::controller(UserController::class)->group(function () {
     Route::get('usuarios', 'index')->name('usuarios.index');
     Route::get('usuarios/create', 'create')->name('usuarios.create');
+    Route::post('usuarios', 'store')->name('usuarios.store');
     Route::get('usuarios/{usuario}', 'show')->name('usuarios.show');
     Route::get('usuarios/{usuario}/edit', 'edit')->name('usuarios.edit');
-    Route::post('usuarios', 'store')->name('usuarios.store');
     Route::put('usuarios/{usuario}', 'update')->name('usuarios.update');
     Route::delete('usuarios/{usuario}', 'destroy')->name('usuarios.destroy');
 })->middleware('auth');;
