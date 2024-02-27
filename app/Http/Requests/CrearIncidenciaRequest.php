@@ -25,9 +25,9 @@ class CrearIncidenciaRequest extends FormRequest
             'nombre' => 'required|max:50',
             'departamento' => 'required|max:45',
             'tipo' => 'required|in:EQUIPOS,CUENTAS,WIFI,INTERNET,SOFTWARE',
-            'subtipo' => 'in:PC, ALTAVOCES, MONITOR, PROYECTOR, PANTALLA,
-            PORTATIL, IMPRESORAS, EDUCANTABRIA, GOOGLE CLASSROOM, DOMINIO, YEDRA, Iesmiguelherrero,
-             WIECAN, INSTALACION, ACTUALIZACION',
+            //'subtipo' => 'in:PC, ALTAVOCES, MONITOR, PROYECTOR, PANTALLA,
+            //PORTATIL, IMPRESORAS, EDUCANTABRIA, GOOGLE CLASSROOM, DOMINIO, YEDRA, Iesmiguelherrero,
+            // WIECAN, INSTALACION, ACTUALIZACION',
             'descripcion' => 'max:256',
             'adjunto' => 'mimes:jpg,pdf,csv,rtf',
         ];
@@ -49,9 +49,9 @@ class CrearIncidenciaRequest extends FormRequest
             'tipo.required' => 'El campo tipo de incidencia es obligatorio.',
             'tipo.in' => 'Las posibles opciones de tipo de incidencia son:
              Equipos,Cuentas,Wifi,Internet,Software.',
-            'subtipo.in' => 'Las posibles opciones de subtipo de incidencia son: PC, ALTAVOCES, MONITOR, PROYECTOR, PANTALLA,
-            PORTATIL, IMPRESORAS, EDUCANTABRIA, GOOGLE CLASSROOM, DOMINIO, YEDRA, Iesmiguelherrero,
-             WIECAN, INSTALACION, ACTUALIZACION',
+            //'subtipo.in' => 'Las posibles opciones de subtipo de incidencia son: PC, ALTAVOCES, MONITOR, PROYECTOR, PANTALLA,
+            //PORTATIL, IMPRESORAS, EDUCANTABRIA, GOOGLE CLASSROOM, DOMINIO, YEDRA, Iesmiguelherrero,
+            //WIECAN, INSTALACION, ACTUALIZACION',
             'descripcion.max' => 'El campo descripcion debe tener menos de 256 caracteres.',
             'adjunto.mimes' => 'El formato del fichero debe ser csv, jpg, rtf o pdf',
         ];

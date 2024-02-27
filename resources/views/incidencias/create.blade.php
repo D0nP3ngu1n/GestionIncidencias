@@ -17,19 +17,35 @@
     <div id="caja-formulario" class="container">
         <form action="{{ route('incidencias.store') }}" method="POST" enctype="multipart/form-data" class="form-horizantal">
             @csrf
+            @method('post')
+            <input type="hidden" id="user_id" name="user_id" value="{{ $user = auth()->user()->email }}">
             <div class="col-sm-12">
                 <label for="nombre" class="form-label">Nombre Completo:</label>
-                <input type="text" id="nombre" name="nombre" class="form-control">
+                <input type="text" id="nombre" name="nombre" class="form-control"
+                    value="{{ $user = auth()->user()->nombre_completo }}" readonly>
             </div>
             <div class="row">
-                <div class="col-sm-6 ">
-                    <div class="form-group">
-                        <label for="correo_asociado" class="form-label col-sm-4">Correo electrónico:</label>
-                        <div class="col-sm-12">
-                            <input type="correo_asociado" id="correo" name="correo_asociado" class="form-control">
+                @if ($user = auth()->user()->email)
+                    <div class="col-sm-6 ">
+                        <div class="form-group">
+                            <label for="correo_asociado" class="form-label col-sm-4">Correo electrónico:</label>
+                            <div class="col-sm-12">
+                                <input type="correo_asociado" id="correo_asociado" name="correo_asociado"
+                                    class="form-control" value={{ $user = auth()->user()->email }} disabled>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @else
+                    <div class="col-sm-6 ">
+                        <div class="form-group">
+                            <label for="correo_asociado" class="form-label col-sm-4">Correo electrónico:</label>
+                            <div class="col-sm-12">
+                                <input type="correo_asociado" id="correo_asociado" name="correo_asociado"
+                                    class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 <div class="col-sm-6 ">
                     <div class="form-group">
                         <label for="departamento" class="form-label col-sm-4">Departamento:</label>
@@ -80,6 +96,7 @@
                  * @return {none} no devuelve nada al ser un metodo void
                  */
                 function inicio() {
+                    console.log(document.getElementById('nombre').value);
                     document.getElementById('tipo').addEventListener('change', rellenar1, false);
                     document.getElementById('subtipo').addEventListener('change', rellenar2, false);
                 }

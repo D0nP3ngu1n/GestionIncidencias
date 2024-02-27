@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\IncidenciaController;
 use App\Http\Controllers\UserController;
+use App\Models\Incidencia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('incidencias', IncidenciaController::class);
-
+Route::post('incidencias/filtrar', [IncidenciaController::class, 'filtrar'])->name('incidencias.filtrar');
 
 Route::controller(UserController::class)->group(function () {
     Route::get('usuarios', 'index')->name('usuarios.index');
