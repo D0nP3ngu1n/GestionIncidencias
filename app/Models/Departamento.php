@@ -12,12 +12,12 @@ class Departamento extends Model
     public $timestamps = false;
 
     /**
-     * Relacion uno a muchos entre departamento y persona
+     * Relacion uno a muchos entre departamento y usuario
      * @param null no recibe parametros
      * @return
      */
-    public function personas()
+    public function usuarios()
     {
-        return $this->hasMany(Persona::class, 'jefedep_id', 'id');
+        return $this->hasMany(User::class);
     }
 }
