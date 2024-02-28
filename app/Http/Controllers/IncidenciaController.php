@@ -6,6 +6,8 @@ use App\Exports\IncidenciaExport;
 use App\Exports\IndenciasIndexExport;
 use App\Http\Requests\CrearIncidenciaRequest;
 use App\Http\Requests\EditarIncidenciaRequest;
+use App\Models\Aula;
+use App\Models\Departamento;
 use App\Models\Equipo;
 use Illuminate\Http\Request;
 use App\Models\Incidencia;
@@ -123,7 +125,10 @@ class IncidenciaController extends Controller
      */
     public function create()
     {
-        return view('incidencias.create');
+        $aulas = Aula::all();
+        $departamentos = Departamento::all();
+        $equipos = Equipo::all();
+        return view('incidencias.create', ['aulas' => $aulas, 'departamentos' => $departamentos, 'equipos' => $equipos]);
     }
 
     /**
@@ -290,19 +295,24 @@ class IncidenciaController extends Controller
             //si el request recibe un subtipo, buscamos el subtipo en la tabla subtipos y añadimos el id a la incidencia
             if ($request->has('subtipo')) {
                 $subtipo = $request->subtipo;
-                $sub_subtipo = $request->sub_subtipo;
-                $sub_final = IncidenciaSubtipo::where('subtipo_nombre', $subtipo)->where('sub_subtipo', $sub_subtipo)->first()->id;
+                $sub_final = IncidenciaSubtipo::where('subtipo_nombre', $subtipo)->first()->id;
                 $incidencia->subtipo_id = $sub_final;
             }
 
+            //si el reuest recibe un sub-subtipo, buscamos el subtipo con los dos datos
+            if ($request->has('sub-subtipo') && $request->filled('sub-subtipo')) {
+                $subtipo = $request->subtipo;
+                $sub_subtipo = $request->sub_subtipo;
+                $sub_final = IncidenciaSubtipo::where('subtipo_nombre', $subtipo)->where('sub_subtipo', $sub_subtipo)->first()->id;
+            }
+
             //si el request recibe el numero de etiqueta, buscamos el equipo segun la etiqueta que nos llega y lo añadimos el id a la incidencia
-            if ($request->has('numero_etiqueta')) {
+            if ($request->has('numero_etiqueta') && $request->filled('numero_etiqueta')) {
                 $equipo_etiqueta = $request->numero_etiqueta;
                 $equipo = Equipo::where('etiqueta', $equipo_etiqueta)->firstOrFail()->id;
                 $incidencia->equipo_id = $equipo;
             }
 
-            //si en el crear me viene un fichero adjunto elimino el anterior y subo el nuevo ademas de guardar su URL
             if ($request->hasFile('adjunto')) {
                 //guardo el fichero y cojo su ruta para guardarla en la URL de la incidencia
                 $url = 'assets/ficheros/' . $request->fichero->store('', 'ficheros');
@@ -313,6 +323,12 @@ class IncidenciaController extends Controller
             DB::commit();
 
             return redirect()->route('incidencias.show', ['incidencia' => $incidencia])->with('success', 'Incidencia creada');
+        } catch (Exception $ex) {
+            DB::rollBack();
+            // si no se completa la creacion borro el fichero que venia en el formulario de edicion
+            Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
+
+            return redirect()->route('incidencias.index')->with('error', 'Error al crear la incidencia. Detalles: ' . $ex->getMessage());
         } catch (PDOException $e) {
             DB::rollBack();
             // si no se completa la creacion borro el fichero que venia en el formulario de edicion
