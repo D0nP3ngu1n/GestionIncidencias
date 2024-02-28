@@ -20,6 +20,7 @@
                         <th scope="col">Fecha</th>
                         <th scope="col">Descripción</th>
                         <th scope="col">Tipo</th>
+                        <th scope="col">Aula</th>
                         <th scope="col">Creado por</th>
                         <th scope="col">Responsable</th>
                         <th scope="col">Estado</th>

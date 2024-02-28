@@ -30,12 +30,12 @@ class ExportController extends Controller
     }
 
     /**
-     * Exporta el listado de incidencias a pdf
+     * Exporta el listado de incidencias a pdf -> showpdf(show sin botones para la exportacion a pdf)
      * @return mixed Realiza la exportacion a pdf
      */
     public function exportpdf()
     {
-        $pdf = Pdf::loadView('exports.index', ['incidencias' => Incidencia::all()]);
+        $pdf = Pdf::loadView('exports.pdf', ['incidencias' => Incidencia::all()]);
         return $pdf->download('incidencias.pdf');
     }
 
@@ -51,7 +51,7 @@ class ExportController extends Controller
     /**
      * Vista de la incidencia a exportar
      * @param Incidencia $incidencia objeto Incidencia
-     * @return mixed Devuelve la vista para ver la incidencia a exportar
+     * @return mixed Devuelve la vista de la incidencia a exportar
      */
     public function show(Incidencia $incidencia)
     {
@@ -61,7 +61,7 @@ class ExportController extends Controller
     /**
      * Exporta el listado de incidencias a excel
      * @param Incidencia $incidencia objeto Incidencia
-     * @return mixed realiza la exportacion a excel de la incidencia
+     * @return mixed Realiza la exportacion a excel de la incidencia
      */
     public function exportInc(Incidencia $incidencia)
     {
@@ -69,9 +69,9 @@ class ExportController extends Controller
     }
 
     /**
-     * Exporta el listado de incidencias a pdf
+     * Exporta el listado de incidencias a pdf -> showpdf(show sin botones para la exportacion a pdf)
      * @param Incidencia $incidencia objeto Incidencia
-     * @return mixed realiza la exportacion a pdf de la incidencia
+     * @return mixed Realiza la exportacion a pdf de la incidencia
      */
     public function exportpdfInc(Incidencia $incidencia)
     {
