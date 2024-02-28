@@ -35,11 +35,6 @@
     background: linear-gradient(45deg,#FF5370,#ff869a);
 }
 
-
-.card:hover{
-    background: linear-gradient(45deg,#8b7a7a65,#d6d6d6);
-    color: black;
-}
 .card {
     border-radius: 5px;
     -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
@@ -48,14 +43,6 @@
     margin-bottom: 30px;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
-}
-
-.card .card-block {
-    padding: 7px;
-}
-
-.card-block  p {
-    font-size: 1.3em;
 }
 
 .f-left {
@@ -150,6 +137,10 @@
     box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
 }
 
+/* Estilo para el card del filtro en 'Lista de incidencias' */
+#formFiltros{
+    background: linear-gradient(45deg,#8b7a7a65,#d6d6d6);
+}
 
 /* Estilo para menú lateral */
 .sidebar {

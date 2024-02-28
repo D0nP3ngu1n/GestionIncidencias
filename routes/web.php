@@ -53,10 +53,15 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/', function () {
+        if (auth()->check()) {
+            return redirect()->route('incidencias.index');
+        }
+            return view('auth.login');
+        })->name('dashboard');
 });
+
+
 
 Auth::routes();
 

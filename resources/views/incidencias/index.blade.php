@@ -40,69 +40,77 @@
 
     <div class="bg-colorSecundario rounded-3 p-3">
         <!-- Filtros -->
-        <form id="formFiltros" action='{{ route('incidencias.filtrar') }}' method="POST">
-            @csrf
-            <div class="row my-1 ">
-                <div class="col-md-2">
-                    <input type="text" id="descripcion" name="descripcion" class="form-control"
-                        placeholder="Descripción">
-                </div>
-                <div class="col-md-2">
-                    <input type="text" id="tipo" name="tipo" class="form-control" placeholder="Tipo">
-                </div>
+        <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Filtros
+            <i class="bi bi-filter"></i>
+        </a>
+        <div class="collapse my-2" id="collapseExample">
+            <form class="card card-body" id="formFiltros" action='{{ route('incidencias.filtrar') }}' method="POST">
+                @csrf
+                <div class="row my-1 gap-3">
+                    <div class="col-md-4">
+                        <input type="text" id="descripcion" name="descripcion" class="form-control"
+                            placeholder="Descripción">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" id="tipo" name="tipo" class="form-control" placeholder="Tipo">
+                    </div>
 
-                <div class="col-md-2">
-                    <input type="text" id="aula" name="aula" class="form-control" placeholder="Aula">
-                </div>
+                    <div class="col-md-1">
+                        <input type="text" id="aula" name="aula" class="form-control" placeholder="Aula">
+                    </div>
 
-                <div class="col-md-2">
+                    <div class="col-md-2">
+                        <select name="estado" id="estado" class="form-control">
+                            <option value="">--Estado--</option>
+                            <option value="abierta">Abierta</option>
+                            <option value="en proceso">En proceso</option>
+                            <option value="asignada">Asignada</option>
+                            <option value="enviada a Infortec">Enviada a Infortec</option>
+                            <option value="resuelta">Resuelta</option>
+                            <option value="cerrada">Cerrada</option>
+                        </select>
+                    </div>
 
-                    <select name="estado" id="estado" class="form-control">
-                        <option value="">--Estado--</option>
-                        <option value="abierta">abierta</option>
-                        <option value="en proceso">en proceso</option>
-                        <option value="asignada">asignada</option>
-                        <option value="enviada a Infortec">enviada a Infortec</option>
-                        <option value="resuelta">resuelta</option>
-                        <option value="cerrada">cerrada</option>
-                    </select>
-                </div>
 
-                <div class="col-md-2">
-                    <input type="text" id="creador" name="creador" class="form-control" placeholder="creador">
-                </div>
+                    <div class="col-md-2">
+                        <select name="prioridad" id="prioridad" class="form-control">
+                            <option value="">--Prioridad--</option>
+                            <option value="alta">Alta</option>
+                            <option value="media">Media</option>
+                            <option value="baja">Baja</option>
+                        </select>
+                    </div>
 
-                <div class="col-md-2">
-                    <input type="text" id="responsable" name="responsable" class="form-control"
-                        placeholder="Responsable">
                 </div>
+                <div class="row my-1">
+                    <div class="col-md-3">
+                        <input type="text" id="creador" name="creador" class="form-control" placeholder="Creador">
+                    </div>
 
-                <div class="col-md-2">
-                    <select name="prioridad" id="prioridad" class="form-control">
-                        <option value="">--Prioridad--</option>
-                        <option value="alta">alta</option>
-                        <option value="media">media</option>
-                        <option value="baja">baja</option>
-                    </select>
-                </div>
+                    <div class="col-md-3">
+                        <input type="text" id="responsable" name="responsable" class="form-control" placeholder="Responsable">
+                    </div>
 
-                <div class="col-md-2">
-                    <label for="desde">desde:</label>
-                    <input type="date" id="desde" name="desde" class="form-control">
-                </div>
 
-                <div class="col-md-2">
-                    <label for="hasta">hasta:</label>
-                    <input type="date" id="hasta" name="hasta" class="form-control">
-                </div>
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary text-white">Filtrar</button>
-                </div>
+                    <div class="col-md-2">
+                        <label for="desde">Desde:</label>
+                        <input type="date" id="desde" name="desde" class="form-control" >
+                    </div>
 
-            </div>
-        </form>
+
+                    <div class="col-md-2">
+                        <label for="hasta">Hasta:</label>
+                        <input type="date" id="hasta" name="hasta" class="form-control">
+                    </div>
+                </div>
+                <div class="d-flex flex-row-reverse">
+                    <button type="submit" class="btn btn-primary text-white ">Filtrar</button>
+                </div>
+            </form>
+        </div>
         <!-- Fin Filtros -->
-        <div class="d-flex flex-row gap-3 flex-wrap justify-content-center ">
+        <div class="d-flex flex-row gap-3 flex-wrap justify-content-center g-col-6 g-col-md-4">
 
 
             @if (count($incidencias) > 0)
