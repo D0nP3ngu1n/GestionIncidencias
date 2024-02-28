@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('incidencias', IncidenciaController::class);
 
-Route::post('incidencias', [IncidenciaController::class, 'filtrar'])->name('incidencias.filtrar');
+Route::post('incidencias/filtrar', [IncidenciaController::class, 'filtrar'])->name('incidencias.filtrar');
 
 Route::get('exports', [ExportController::class, 'index'])->name('exports.index');
 Route::get('exports/{incidencia}', [ExportController::class, 'show'])->name('exports.show');
