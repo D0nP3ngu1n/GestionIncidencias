@@ -4,7 +4,6 @@ namespace App\Mail;
 
 use App\Models\Incidencia;
 use App\Models\User;
-use DragonCode\Contracts\Cashier\Auth\Auth;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -12,7 +11,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class IncidenciaMail extends Mailable
+class IncidenciaUpdateMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -36,7 +35,7 @@ class IncidenciaMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Incidencia Creada',
+            subject: 'Incidencia Actualizada',
         );
     }
 
@@ -47,7 +46,7 @@ class IncidenciaMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.correoCreacion',
+            view: 'emails.correoActualizacion',
             with: ['incidencia' => $this->incidencia, 'usuario' => $this->user],
         );
     }
