@@ -9,7 +9,8 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ExportController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $incidencias = Incidencia::all();
         return view('exports.index', ['incidencias' => $incidencias]);
     }
@@ -19,11 +20,13 @@ class ExportController extends Controller
         return Excel::download(new IncidenciaExport, 'incidencias.xlsx');
     }
 
-    public function exportpdf(){
+    public function exportpdf()
+    {
         return Excel::download(new IncidenciaExport, 'incidencias.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
 
-    public function exportcsv(){
+    public function exportcsv()
+    {
         return Excel::download(new IncidenciaExport, 'incidencias.csv', \Maatwebsite\Excel\Excel::CSV);
     }
 
@@ -39,13 +42,18 @@ class ExportController extends Controller
         return Excel::download(new IncidenciaExport($incidencia), 'incidencia_' . $incidencia->id . '.xlsx');
     }
 
-    public function exportpdfInc(Incidencia $incidencia){
+    public function exportpdfInc(Incidencia $incidencia)
+    {
         return Excel::download(new IncidenciaExport($incidencia), 'incidencia_' . $incidencia->id . '.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
 
-    public function exportcsvInc(Incidencia $incidencia){
+    public function exportcsvInc(Incidencia $incidencia)
+    {
         return Excel::download(new IncidenciaExport($incidencia), 'incidencia_' . $incidencia->id . '.csv', \Maatwebsite\Excel\Excel::CSV);
     }
 
-
+    public function InformeVista()
+    {
+        return view('exports.informe', ['incidenciasAdmin' => Incidencia::all()->groupBy('responsable_id')]);
+    }
 }
