@@ -5,7 +5,7 @@
 <header class="navbar navbar-expand navbar-light bg-white shadow ml-auto d-flex justify-content-between">
     <div class="mx-5">
         <img class="img-logo" src={{ asset('assets/imagenes/logo_insti.svg') }}>
-        <span>Gestión de Incidencias</span>
+        <span class="fs-5">Gestión de Incidencias</span>
     </div>
     <div class="dropdown mx-5">
         <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
