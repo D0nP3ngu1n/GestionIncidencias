@@ -28,10 +28,9 @@
                 <tr class="align-middle" scope="row">
                     <td class="text-truncate">{{ $incidencia->id }}</td>
                     <td class=" text-truncate">{{ $incidencia->fecha_creacion }}</td>
-
                     <td class="text-truncate" style="max-width: 150px;">{{ $incidencia->descripcion }}</td>
                     <td class=" text-truncate">{{ $incidencia->tipo }}</td>
-
+                    <td class=" text-truncate">{{ $incidencia->equipo->aula->codigo }}</td>
                     <td class=" text-truncate">{{ $incidencia->creador->nombre_completo }}</td>
                     <td class=" text-truncate">
                         @empty($incidencia->responsable_id)
