@@ -236,7 +236,7 @@ class IncidenciaController extends Controller
                 $usuario->save();
             }
 
-        
+
 
             //el campo Creador id viene dado por el usuario actualmente logeado
             $incidencia->creador_id = auth()->user()->id;
@@ -250,7 +250,7 @@ class IncidenciaController extends Controller
             }
 
             //si el reuest recibe un sub-subtipo, buscamos el subtipo con los dos datos
-            if ($request->has('sub-subtipo') && $request->filled('sub-subtipo') ) {
+            if ($request->has('sub-subtipo') && $request->filled('sub-subtipo')) {
                 $subtipo = $request->subtipo;
                 $sub_subtipo = $request->sub_subtipo;
                 $sub_final = IncidenciaSubtipo::where('subtipo_nombre', $subtipo)->where('sub_subtipo', $sub_subtipo)->first()->id;
@@ -261,8 +261,6 @@ class IncidenciaController extends Controller
                 $equipo_etiqueta = $request->numero_etiqueta;
                 $equipo = Equipo::where('etiqueta', $equipo_etiqueta)->firstOrFail()->id;
                 $incidencia->equipo_id = $equipo;
-            }else{
-
             }
 
             if ($request->hasFile('adjunto')) {
@@ -281,16 +279,13 @@ class IncidenciaController extends Controller
             Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
 
 
-              return redirect()->route('incidencias.index')->with('error', 'Error al crear la incidencia. Detalles: ' . $ex->getMessage());
-
-
+            return redirect()->route('incidencias.index')->with('error', 'Error al crear la incidencia. Detalles: ' . $ex->getMessage());
         } catch (PDOException $e) {
             DB::rollBack();
             // si no se completa la creacion borro el fichero que venia en el formulario de edicion
             Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
 
-           return redirect()->route('incidencias.index')->with('error', 'Error al crear la incidencia. Detalles: ' . $e->getMessage());
-
+            return redirect()->route('incidencias.index')->with('error', 'Error al crear la incidencia. Detalles: ' . $e->getMessage());
         }
     }
 }
