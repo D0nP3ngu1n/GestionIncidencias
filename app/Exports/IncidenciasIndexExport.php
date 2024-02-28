@@ -3,11 +3,10 @@
 namespace App\Exports;
 
 use App\Models\Incidencia;
-use Illuminate\Contracts\View\View;
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
+use Illuminate\Contracts\View\View;
 
-class IndenciasIndexExport implements FromView
+class IncidenciasIndexExport implements FromView
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -15,7 +14,7 @@ class IndenciasIndexExport implements FromView
     public function view(): View
     {
         return view('incidencias.index', [
-            'incidencias' => Incidencia::paginate(10)
+            'incidencias' => Incidencia::all()
         ]);
     }
 }

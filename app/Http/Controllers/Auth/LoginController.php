@@ -25,7 +25,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/incidencias/index';
+    protected $redirectTo = '/incidencias';
 
     /**
      * Create a new controller instance.
@@ -36,8 +36,7 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-    public function username() //NECESARIO PARA REALIZAR EL INICIO DE SESION
-                               //USUARIO EN VEZ DE EMAIL
+    public function username() //esto es para que en vez de usar el email use el nombre
     {
         return 'name';
     }

@@ -63,9 +63,8 @@ return [
         'users' => [
             'driver' => 'ldap',
             'model' => LdapRecord\Models\ActiveDirectory\User::class,
-            //'rules' => [App\Ldap\Rules\FiltradoUsuarioRegla::class],
-            //'rules' => [],
-            //'scopes' => [App\Ldap\Scopes\FiltradoUsuarioOU::class],
+            //le pongo la regla para solo admitir profesores
+            'rules' => [App\Ldap\Rules\onlyProfesores::class],
             'scopes' => [],
             'database' => [
                 'model' => App\Models\User::class,

@@ -72,6 +72,7 @@
                         </select>
                     </div>
 
+
                     <div class="col-md-2">
                         <select name="prioridad" id="prioridad" class="form-control">
                             <option value="">--Prioridad--</option>
@@ -80,6 +81,7 @@
                             <option value="baja">Baja</option>
                         </select>
                     </div>
+
                 </div>
                 <div class="row my-1">
                     <div class="col-md-3">
@@ -90,10 +92,12 @@
                         <input type="text" id="responsable" name="responsable" class="form-control" placeholder="Responsable">
                     </div>
 
+
                     <div class="col-md-2">
                         <label for="desde">Desde:</label>
                         <input type="date" id="desde" name="desde" class="form-control" >
                     </div>
+
 
                     <div class="col-md-2">
                         <label for="hasta">Hasta:</label>
@@ -131,7 +135,7 @@
                                 <td class="text-truncate">{{ $incidencia->id }}</td>
                                 <td class=" text-truncate">{{ $incidencia->fecha_creacion }}</td>
 
-                                <td class="text-truncate" style="max-width: 150px;" >{{ $incidencia->descripcion }}</td>
+                                <td class="text-truncate" style="max-width: 150px;">{{ $incidencia->descripcion }}</td>
                                 <td class=" text-truncate">{{ $incidencia->tipo }}</td>
                                 <td class=" text-truncate">{{ $incidencia->equipo->aula->codigo }}</td>
                                 <td class=" text-truncate">{{ $incidencia->creador->nombre_completo }}</td>
