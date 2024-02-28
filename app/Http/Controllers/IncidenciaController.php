@@ -138,9 +138,9 @@ class IncidenciaController extends Controller
             $incidencia->delete();
         } catch (PDOException $e) {
 
-            return redirect()->route('incidencias.index', ['Error' => "Error al borrar la incidencia " . $e->getMessage()]);
+            return redirect()->route('incidencias.index')->with('error', 'Error al borrar la incidencia '. $e->getMessage());
         }
-        return redirect()->route('incidencias.index', ['Success' => "Incidencia borrada"]);
+        return redirect()->route('incidencias.index')->with('success', 'Incidencia borrada');
     }
 
     /**
@@ -161,7 +161,7 @@ class IncidenciaController extends Controller
             $incidencia->estado = $request->estado;
             $incidencia->save();
             DB::commit();
-            return redirect()->route('incidencias.show', ['incidencia' => $incidencia])->with('Success', 'Incidencia editada');
+            return redirect()->route('incidencias.show', ['incidencia' => $incidencia])->with('success', 'Incidencia editada');
             $incidencia->estado = $request->prioridad;
 
 
