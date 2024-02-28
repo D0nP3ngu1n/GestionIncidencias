@@ -11,13 +11,6 @@ class Departamento extends Model
     protected $table = "departamentos";
     public $timestamps = false;
 
-    /**
-     * Relacion uno a muchos entre departamento y usuario
-     * @param null no recibe parametros
-     * @return
-     */
-    public function usuarios()
-    {
-        return $this->hasMany(User::class);
-    }
+
+    
 }

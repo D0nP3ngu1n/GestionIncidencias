@@ -35,17 +35,6 @@
                         </div>
                         <span>Editar usuario</span>
                     </a>
-                    <form action="{{ route('usuarios.destroy', $usuario) }}" method="post">
-                        @csrf
-                        @method('delete')
-                        <div class="svg-wrapper-1">
-                            <div class="svg-wrapper">
-                                <input type="submit" value="eliminar Usuario" />
-                            </div>
-                        </div>
-                    </form>
-
-
 
                 </div>
             </div>
@@ -54,12 +43,16 @@
         <div class="row">
             <div class="col-md-5">
                 <div class="project-info-box mt-0">
-                    <h5>Nombre</h5>
-                    <p class="mb-0">{{ $usuario->nombreCompleto }}</p>
+                    <h5>{{ $usuario->nombreCompleto }}</h5>
                 </div>
 
                 <div class="project-info-box">
-                    <p> <strong>Numero de usuario:</strong> {{ $usuario->id }}</p>
+                    <p> <strong>Departamento de usuario:</strong> @empty($usuario->departamento)
+                            Todavía no asignado
+                        @else
+                            {{ $usuario->departamentoNombre->nombre }}
+                        @endempty
+                    </p>
                     <p><strong>Email de usuario:</strong> {{ $usuario->email }}</p>
                 </div>
             </div>

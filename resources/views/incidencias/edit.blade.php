@@ -17,7 +17,7 @@
         @method('put')
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" value="{{ $incidencia->creador->nombreCompleto }}"
+            <input type="text" id="nombre" name="nombre" value="{{ $incidencia->creador->nombre_completo }}"
                 class="form-control">
         </div>
 

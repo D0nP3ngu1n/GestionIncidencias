@@ -22,23 +22,20 @@
         @method('put')
         <div class="mb-3">
             <label for="nombreCompleto" class="form-label">Nombre completo:</label>
-            <input type="text" id="nombreCompleto" name="nombreCompleto" class="form-control"
-                value="{{ $usuario->nombreCompleto }}">
+            <input type="text" id="nombreCompleto" name="nombreCompleto" class="form-control" value="{{ $usuario->nombre_completo }}">
         </div>
+
         <div class="mb-3">
             <label for="email" class="form-label">email:</label>
             <input type="text" id="email" name="email" class="form-control" value="{{ $usuario->email }}">
         </div>
         <div class="mb-3">
-            <label for="password" class="form-label">Contraseña:</label>
-            <input type="password" id="password" name="password" class="form-control" value="{{ $usuario->password }}">
-        </div>
-        <div class="mb-3">
             <label for="departamento_id" class="form-label">Departamentos</label>
             <select id="departamento_id" name="departamento_id" class="form-select">
-                <option selected="true">...</option>
+                <option selected>...</option>
+
                 @foreach ($departamentos as $departamento)
-                    @if ($departamento->nombre == $departamentoUsuario)
+                    @if (!@empty($usuario->departamentoNombre->nombre) && $departamento->nombre == $usuario->departamentoNombre->nombre)
                         <option value="{{ $departamento->id }}" selected>{{ $departamento->nombre }}</option>
                     @else
                         <option value="{{ $departamento->id }}">{{ $departamento->nombre }}</option>
@@ -46,6 +43,6 @@
                 @endforeach
             </select>
         </div>
-        <input type="submit" id="crear "class="btn btn-outline-primary col" value="Crear Incidencia">
+        <input type="submit" id="crear "class="btn btn-outline-primary col" value="Editar usuario">
     </form>
 @endsection

@@ -59,7 +59,9 @@ class User extends Authenticatable implements LdapAuthenticatable
         'profile_photo_url',
     ];
 
+
     // Métodos adicionales requeridos por LdapAuthenticatable, si es necesario.
+
 
     /**
      * Relacion uno a muchos entre persona (creador) e incidencias
@@ -94,6 +96,7 @@ class User extends Authenticatable implements LdapAuthenticatable
 
     public function departamento()
     {
-        return $this->belongsTo(Departamento::class);
+        return $this->belongsTo(Departamento::class,'departamento_id','id');
     }
 }
+
