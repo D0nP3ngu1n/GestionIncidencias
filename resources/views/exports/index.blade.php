@@ -20,7 +20,6 @@
                             <th scope="col">Fecha</th>
                             <th scope="col">Descripción</th>
                             <th scope="col">Tipo</th>
-                            <th scope="col">Aula</th>
                             <th scope="col">Creado por</th>
                             <th scope="col">Responsable</th>
                             <th scope="col">Estado</th>
@@ -35,7 +34,6 @@
 
                                 <td class="text-truncate" style="max-width: 150px;">{{ $incidencia->descripcion }}</td>
                                 <td class=" text-truncate">{{ $incidencia->tipo }}</td>
-                                <td class=" text-truncate">{{ $incidencia->equipo->aula->codigo }}</td>
                                 <td class=" text-truncate">{{ $incidencia->creador->nombre_completo }}</td>
                                 <td class=" text-truncate">
                                     @empty($incidencia->responsable_id)

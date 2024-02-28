@@ -10,12 +10,21 @@ use Maatwebsite\Excel\Concerns\FromView;
 class IncidenciaExport implements FromCollection
 {
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
+    protected $incidencia;
 
-        public function collection()
-        {
+    public function __construct(Incidencia $incidencia = null)
+    {
+        $this->incidencia = $incidencia;
+    }
+
+    public function collection()
+    {
+        if ($this->incidencia) {
+            return collect([$this->incidencia]);
+        } else {
             return Incidencia::all();
         }
-
+    }
 }
