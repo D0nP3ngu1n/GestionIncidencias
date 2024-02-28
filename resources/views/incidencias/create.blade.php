@@ -51,11 +51,11 @@
                         <div class="col-sm-12">
                             @if ($user = auth()->user()->departamento)
                                 <input type="text" id="departamento" name="departamento"
-                                    value={{ $user = auth()->user()->departamento }} class="form-control" readonly>
+                                    value={{ $user = auth()->user()->departamento->nombre }} class="form-control" readonly>
                             @else
                                 <select id="departamento" name="departamento" class="form-select">
                                     <option selected="true">...</option>
-                                    @foreach ($departamentos as $departameno)
+                                    @foreach ($departamentos as $departamento)
                                         <option value="{{ $departamento->id }}">{{ $departamento->nombre }}</option>
                                     @endforeach
                                 </select>
@@ -241,7 +241,7 @@
                         <label for="numero_etiqueta " class="form-label col-sm-4">Etiqueta del equipo:</label>
                         <div class="col-sm-12">
                             <select id='numero_etiqueta' name='numero_etiqueta' class="form-select">
-                                <option selected>...</option>
+                                <option selected value="null">...</option>
                             </select>
                         </div>
                     </div>
