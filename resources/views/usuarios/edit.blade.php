@@ -22,7 +22,7 @@
         @method('put')
         <div class="mb-3">
             <label for="nombreCompleto" class="form-label">Nombre completo:</label>
-            <input type="text" id="nombreCompleto" name="nombreCompleto" class="form-control" value="{{ $usuario->nombre_completo }}">
+            <input type="text" id="nombreCompleto" name="nombreCompleto" class="form-control" readonly value="{{ $usuario->nombre_completo }}">
         </div>
 
         <div class="mb-3">
@@ -35,7 +35,7 @@
                 <option selected>...</option>
 
                 @foreach ($departamentos as $departamento)
-                    @if (!@empty($usuario->departamentoNombre->nombre) && $departamento->nombre == $usuario->departamentoNombre->nombre)
+                    @if (!@empty($usuario->departamento->nombre) && $departamento->nombre == $usuario->departamento->nombre)
                         <option value="{{ $departamento->id }}" selected>{{ $departamento->nombre }}</option>
                     @else
                         <option value="{{ $departamento->id }}">{{ $departamento->nombre }}</option>

@@ -43,14 +43,14 @@
         <div class="row">
             <div class="col-md-5">
                 <div class="project-info-box mt-0">
-                    <h5>{{ $usuario->nombreCompleto }}</h5>
+                    <h5>{{ $usuario->nombre_completo }}</h5>
                 </div>
 
                 <div class="project-info-box">
                     <p> <strong>Departamento de usuario:</strong> @empty($usuario->departamento)
                             Todavía no asignado
                         @else
-                            {{ $usuario->departamentoNombre->nombre }}
+                            {{ $usuario->departamento->nombre }}
                         @endempty
                     </p>
                     <p><strong>Email de usuario:</strong> {{ $usuario->email }}</p>
