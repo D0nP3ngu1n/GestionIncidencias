@@ -14,10 +14,10 @@
         </div>
     @endif
 
+
     <div id="caja-formulario" class="container">
         <form action="{{ route('incidencias.store') }}" method="POST" enctype="multipart/form-data" class="form-horizantal">
             @csrf
-            <input type="text" id="user_id" name="user_id" value="{{ $user = auth()->user()->id }}">
             <div class="col-sm-12">
                 <label for="nombre" class="form-label">Nombre Completo:</label>
                 <input type="text" id="nombre" name="nombre" class="form-control"
@@ -30,7 +30,7 @@
                             <label for="correo_asociado" class="form-label col-sm-4">Correo electrónico:</label>
                             <div class="col-sm-12">
                                 <input type="correo_asociado" id="correo_asociado" name="correo_asociado"
-                                    class="form-control" value={{ $user = auth()->user()->email }} disabled>
+                                    class="form-control" value={{ $user = auth()->user()->email }} readonly>
                             </div>
                         </div>
                     </div>
@@ -49,7 +49,17 @@
                     <div class="form-group">
                         <label for="departamento" class="form-label col-sm-4">Departamento:</label>
                         <div class="col-sm-12">
-                            <input type="text" id="departamento" name="departamento" class="form-control">
+                            @if ($user = auth()->user()->departamento)
+                                <input type="text" id="departamento" name="departamento"
+                                    value={{ $user = auth()->user()->departamento }} class="form-control" readonly>
+                            @else
+                                <select id="departamento" name="departamento" class="form-select">
+                                    <option selected="true">...</option>
+                                    @foreach ($departamentos as $departameno)
+                                        <option value="{{ $departamento->id }}">{{ $departamento->nombre }}</option>
+                                    @endforeach
+                                </select>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -58,7 +68,7 @@
                 <div class="col-sm-4">
                     <label for="" class="form-label">Tipo</label>
                     <select id="tipo" name="tipo" class="form-select">
-                        <option selected value>...</option>
+                        <option selected="true" value>...</option>
                         <option value="EQUIPOS">Equipos</option>
                         <option value="CUENTAS">Cuentas</option>
                         <option value="WIFI">Wifi</option>
@@ -75,6 +85,7 @@
                     <select id="sub_subtipo" name="sub_subtipo" class="form-select"></select>
                 </div>
             </div>
+
             <script>
                 window.addEventListener('load', inicio, false);
                 let array = new Array();
@@ -158,7 +169,7 @@
                         document.getElementById('sel1').classList.add('invisible');
                         document.getElementById('sel2').classList.add('invisible');
                     }
-
+                    console.log(document.getElementById('subtipo').value);
                 }
 
                 /**
@@ -190,6 +201,7 @@
                             break;
                         default:
                             //hace invisible el select si no es necesario para la opción
+                            document.getElementById('sub_subtipo').value = null;
                             document.getElementById('sel2').classList.add('invisible');
                             break;
                     }
@@ -214,15 +226,13 @@
                     <div class="form-group">
                         <label for="aula" class="form-label col-sm-4">Aula:</label>
                         <div class="col-sm-12">
-                            <input type="text" id="aula" name="aula" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label for="puesto" class="form-label col-sm-4">Puesto en el aula:</label>
-                        <div class="col-sm-12">
-                            <input type="text" id="puesto" name="puesto" class="form-control">
+
+                            <select id="aula" name="aula" class="form-select">
+                                <option selected>...</option>
+                                @foreach ($aulas as $aula)
+                                    <option value="{{ $aula->num }}">{{ $aula->codigo }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -230,11 +240,48 @@
                     <div class="form-group">
                         <label for="numero_etiqueta " class="form-label col-sm-4">Etiqueta del equipo:</label>
                         <div class="col-sm-12">
-                            <input type="text" id="numero_etiqueta" name="numero_etiqueta" class="form-control">
+                            <select id='numero_etiqueta' name='numero_etiqueta' class="form-select">
+                                <option selected>...</option>
+                            </select>
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="puesto" class="form-label col-sm-4">Puesto en el aula:</label>
+                        <input type="text" id="puesto" name="puesto">
+                    </div>
+                </div>
             </div>
+            <script>
+                var equipos = @json($equipos);
+                var equipoSelect = document.getElementById('numero_etiqueta');
+                document.getElementById('aula').addEventListener('change', function() {
+                    var selectedAulaNum = parseInt(document.getElementById('aula').value);
+                    // Limpiar el select de equipos
+                    equipoSelect.innerHTML = '';
+                    // Filtrar los equipos por el número de aula seleccionadovar
+                    equiposFiltrados = equipos.filter(function(equipo) {
+                        return equipo.aula_num === selectedAulaNum;
+                    });
+                    // Llenar el select de equipos filtrados
+                    equiposFiltrados.forEach(function(equipo) {
+                        var option = document.createElement("option");
+                        option.text = equipo.etiqueta;
+                        option.value = equipo.id;
+                        equipoSelect.add(option);
+                    });
+                });
+                document.getElementById('numero_etiqueta').addEventListener('change', function() {
+                    var selectedEquipo = parseInt(document.getElementById('numero_etiqueta').value);
+
+                    equipoFiltrado = equipos.filter(function(equipo) {
+                        return equipo.etiqueta === selectedEquipo;
+                    });
+
+                    document.getElementById('puesto').value = equipoFiltrado.puesto;
+                });
+            </script>
             <div class="d-flex justify-content-center mt-3">
                 <input type="submit" id="crear "class="btn btn-outline-primary col-sm-2" value="Crear Incidencia">
             </div>

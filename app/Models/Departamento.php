@@ -11,8 +11,6 @@ class Departamento extends Model
     protected $table = "departamentos";
     public $timestamps = false;
 
-    public function users()
-    {
-        return $this->hasMany(User::class, 'departamento');
-    }
+
+    
 }
