@@ -63,7 +63,7 @@
         </div>
         <div class="form-outline">
             <label for="descripcion" class="form-label">Descripcion:</label>
-            <textarea id="descripcion" name="descripcion" class="form-control" value="{{ $incidencia->descripcion }}"></textarea>
+            <textarea id="descripcion" name="descripcion" class="form-control">{{ $incidencia->descripcion }}</textarea>
         </div>
         <div class="mb-3">
             <label for="adjunto" class="form-label">Archivo Adjunto:</label>
@@ -81,7 +81,7 @@
         <div class="mb-3">
             <label for="estado" class="form-label">Estado:</label>
             <select id="estado" name="estado" class="form-select">
-                <option value="{{ $incidencia->estado }}">{{ $incidencia->estado }}</option>
+                <option value="{{ $incidencia->estado }}" selected>{{ $incidencia->estado }}</option>
                 <option value="abierta">Abierta</option>
                 <option value="asignada">Asignada</option>
                 <option value="en proceso">En proceso</option>
@@ -93,7 +93,7 @@
         <div class="mb-3">
             <label for="prioridad" class="form-label">Prioridad:</label>
             <select id="prioridad" name="prioridad" class="form-select">
-                <option value="{{ $incidencia->prioridad }}">{{ $incidencia->prioridad }}</option>
+                <option value="{{ $incidencia->prioridad }}" selected>{{ $incidencia->prioridad }}</option>
                 <option value="baja">Baja</option>
                 <option value="media">Media</option>
                 <option value="alta">Alta</option>

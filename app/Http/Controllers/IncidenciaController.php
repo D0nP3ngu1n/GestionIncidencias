@@ -12,8 +12,6 @@ use App\Models\Equipo;
 use Illuminate\Http\Request;
 use App\Models\Incidencia;
 use App\Models\IncidenciaSubtipo;
-use App\Models\Perfil;
-use App\Models\Persona;
 use App\Models\User;
 use Barryvdh\DomPDF\PDF;
 use Carbon\Carbon;
@@ -143,7 +141,7 @@ class IncidenciaController extends Controller
             $incidencia->delete();
         } catch (PDOException $e) {
 
-            return redirect()->route('incidencias.index')->with('error', 'Error al borrar la incidencia '. $e->getMessage());
+            return redirect()->route('incidencias.index')->with('error', 'Error al borrar la incidencia ' . $e->getMessage());
         }
         return redirect()->route('incidencias.index')->with('success', 'Incidencia borrada');
     }
@@ -163,24 +161,19 @@ class IncidenciaController extends Controller
             //modifico la incidencia que me pasan por parametros con lo que ha traido el request
             $incidencia->descripcion = $request->descripcion;
 
-            $incidencia->estado = $request->estado;
-            $incidencia->save();
-            DB::commit();
-            return redirect()->route('incidencias.show', ['incidencia' => $incidencia])->with('success', 'Incidencia editada');
-            $incidencia->estado = $request->prioridad;
+            if ($request->has('estado') && $request->filled('estado')) {
+                $incidencia->estado = $request->estado;
+            }
+            if ($incidencia->estado == "cerrada") {
+                $incidencia->fecha_cierre = Carbon::now();
+            }
+            if ($request->has('prioridad') && $request->filled('prioridad')) {
+                $incidencia->prioridad = $request->prioridad;
+            }
 
-
-            //como el creado y el responsable solo pueden ser modificados por el profesor pero si por el administrador,
-            // tengo que meter 2 if para controlarlo
-            if ($request->nombre)
-                $nombre = $request->nombre;
-            $perfil1 = User::where('email', $nombre)->firstOrFail()->id;
-            $incidencia->creador_id = $perfil1;
-
-            if ($request->responsable)
+            if ($request->has('responsable') && $request->filled('reponsable')) {
                 $incidencia->responsable_id  = $request->responsable;
-
-
+            }
 
 
             //si en el edit me viene un fichero adjunto elimino el anterior y subo el nuevo ademas de guardar su URL
@@ -196,9 +189,11 @@ class IncidenciaController extends Controller
                 $incidencia->adjunto_url = $url;
             }
 
+            $incidencia->save();
+            DB::commit();
 
             //si se crea correctamente redirigo a la pagina de la incidencia con un mensaje de succes
-
+            return redirect()->route('incidencias.show', ['incidencia' => $incidencia])->with('success', 'Incidencia editada');
         } catch (PDOException $e) {
             DB::rollBack();
             // si no se completa la creacion borro el fichero que venia en el formulario de edicion
@@ -225,18 +220,30 @@ class IncidenciaController extends Controller
             $incidencia->estado = "abierta";
             $incidencia->fecha_creacion = Carbon::now();
 
+
             //si el usuario logueado no tiene email asociado, se le asocia el que introduzca en el formulario
             $usuario = User::where('id', auth()->user()->id)->first();
+
             if ($usuario->email == null) {
                 $usuario->email = $request->correo_asociado;
                 $usuario->save();
             }
 
+
+            //si el usuario logueado no tiene departamento asociado, se le asocia el que introduzca en el formulario
+            if ($usuario->departamento_id == null) {
+                $usuario->departamento_id = $request->departamento;
+                $usuario->save();
+            }
+
+        
+
             //el campo Creador id viene dado por el usuario actualmente logeado
             $incidencia->creador_id = auth()->user()->id;
 
+
             //si el request recibe un subtipo, buscamos el subtipo en la tabla subtipos y añadimos el id a la incidencia
-            if ($request->has('subtipo')) {
+            if ($request->has('subtipo') && $request->filled('subtipo')) {
                 $subtipo = $request->subtipo;
                 $sub_final = IncidenciaSubtipo::where('subtipo_nombre', $subtipo)->first()->id;
                 $incidencia->subtipo_id = $sub_final;
