@@ -288,12 +288,16 @@ class IncidenciaController extends Controller
                 $usuario->email = $request->correo_asociado;
                 $usuario->save();
             }
-
+            //si el usuario logueado no tiene departamento asociado, se le associa el que elija en la select
+            if ($usuario->departamento_id == null) {
+                $usuario->departamento_id = $request->departamento;
+                $usuario->save();
+            }
             //el campo user_id oculto del formulario captura el id del usuario logueado, por lo que se le añadimos a la incidencia com id del creador
             $incidencia->creador_id = $request->user_id;
 
             //si el request recibe un subtipo, buscamos el subtipo en la tabla subtipos y añadimos el id a la incidencia
-            if ($request->has('subtipo')) {
+            if ($request->has('subtipo') && $request->filled('subtipo')) {
                 $subtipo = $request->subtipo;
                 $sub_final = IncidenciaSubtipo::where('subtipo_nombre', $subtipo)->first()->id;
                 $incidencia->subtipo_id = $sub_final;
