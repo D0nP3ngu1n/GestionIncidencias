@@ -4,7 +4,15 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Nuevo Usuario')
 @section('contenido')
-    <h1>Nuevo usuario</h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Listado usuarios</a></li>
+            <li class="breadcrumb-item">Ver usuario</li>
+            <li class="breadcrumb-item active" aria-current="page">Editar usuario</li>
+        </ol>
+    </nav>
+    <h1>Editar usuario</h1>
 
     @if ($errors->any())
         <div class="alert alert-danger" role="alert">

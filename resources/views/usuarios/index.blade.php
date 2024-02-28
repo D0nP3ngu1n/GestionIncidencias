@@ -2,6 +2,12 @@
 @section('titulo', 'Listar usuarios')
 @section('contenido')
     <div class=" border-1 rounded-4 p-2 ">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Listado de usuarios</li>
+            </ol>
+        </nav>
         <div class="row my-3 py-3 w-auto rounded-4 bg-colorSecundario">
             <h1 class="text-2xl font-bold mx-8 col-10">Listado de usuarios</h1>
 
