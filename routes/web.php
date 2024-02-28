@@ -18,19 +18,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('incidencias', IncidenciaController::class);
+Route::resource('incidencias', IncidenciaController::class)->middleware('auth');
 
-Route::post('incidencias/filtrar', [IncidenciaController::class, 'filtrar'])->name('incidencias.filtrar');
+Route::post('incidencias/filtrar', [IncidenciaController::class, 'filtrar'])->name('incidencias.filtrar')->middleware('auth');
 
-Route::get('exports', [ExportController::class, 'index'])->name('exports.index');
-Route::get('exports/{incidencia}', [ExportController::class, 'show'])->name('exports.show');
-Route::post('exports', [ExportController::class, 'export'])->name('exports.export');
-Route::post('exports/pdf', [ExportController::class, 'exportpdf'])->name('exports.pdf');
-Route::post('exports/csv', [ExportController::class, 'exportcsv'])->name('exports.csv');
+Route::get('exports', [ExportController::class, 'index'])->name('exports.index')->middleware('auth');
+Route::get('exports/{incidencia}', [ExportController::class, 'show'])->name('exports.show')->middleware('auth');
+Route::post('exports', [ExportController::class, 'export'])->name('exports.export')->middleware('auth');
+Route::post('exports/pdf', [ExportController::class, 'exportpdf'])->name('exports.pdf')->middleware('auth');
+Route::post('exports/csv', [ExportController::class, 'exportcsv'])->name('exports.csv')->middleware('auth');
 
-Route::post('exports/{incidencia}', [ExportController::class, 'exportInc'])->name('exports.exportInc');
-Route::post('exports/{incidencia}/pdf', [ExportController::class, 'exportpdfInc'])->name('exports.exportpdfInc');
-Route::post('exports/{incidencia}/csv', [ExportController::class, 'exportcsvInc'])->name('exports.exportcsvInc');
+Route::post('exports/{incidencia}', [ExportController::class, 'exportInc'])->name('exports.exportInc')->middleware('auth');
+Route::post('exports/{incidencia}/pdf', [ExportController::class, 'exportpdfInc'])->name('exports.exportpdfInc')->middleware('auth');
+Route::post('exports/{incidencia}/csv', [ExportController::class, 'exportcsvInc'])->name('exports.exportcsvInc')->middleware('auth');
 
 
 
@@ -46,7 +46,7 @@ Route::controller(UserController::class)->group(function () {
 
 Route::get('/', function () {
     return redirect('/incidencias');
-});
+})->middleware('auth');
 
 Route::middleware([
     'auth:sanctum',

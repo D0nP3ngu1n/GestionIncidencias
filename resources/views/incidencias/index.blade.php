@@ -40,7 +40,8 @@
 
     <div class="bg-colorSecundario rounded-3 p-3">
         <!-- Filtros -->
-        <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#collapseExample" role="button"
+            aria-expanded="false" aria-controls="collapseExample">
             Filtros
             <i class="bi bi-filter"></i>
         </a>
@@ -89,13 +90,14 @@
                     </div>
 
                     <div class="col-md-3">
-                        <input type="text" id="responsable" name="responsable" class="form-control" placeholder="Responsable">
+                        <input type="text" id="responsable" name="responsable" class="form-control"
+                            placeholder="Responsable">
                     </div>
 
 
                     <div class="col-md-2">
                         <label for="desde">Desde:</label>
-                        <input type="date" id="desde" name="desde" class="form-control" >
+                        <input type="date" id="desde" name="desde" class="form-control">
                     </div>
 
 
@@ -111,8 +113,6 @@
         </div>
         <!-- Fin Filtros -->
         <div class="d-flex flex-row gap-3 flex-wrap justify-content-center g-col-6 g-col-md-4">
-
-
             @if (count($incidencias) > 0)
                 <table id="tablaIncidencias" class="table table-striped">
                     <thead>
@@ -147,11 +147,25 @@
                                     @endempty
                                 </td>
                                 <td class=" text-truncate">{{ $incidencia->estado }}</td>
-                                <td class="text-truncate">{{ $incidencia->prioridad }}</td>
+                                <td class="text-truncate">
+                                    @empty($incidencia->prioridad)
+                                        Todavía no asignado
+                                    @else
+                                        {{ $incidencia->prioridad }}
+                                    @endempty
+                                </td>
                                 <td class=" text-truncate">
                                     <a href="{{ route('incidencias.show', $incidencia) }}"
-                                        class="btn btn-primary text-white ">Ver
-                                        Detalles</a>
+                                        class="btn btn-primary text-white "><i class="bi bi-eye"></i></a>
+
+                                    <form action="{{ route('incidencias.destroy', $incidencia) }}" method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </button>
+                                    </form>
+
                                     <!-- Aquí podrías agregar botones para editar y eliminar la incidencia -->
                                 </td>
                             </tr>
