@@ -59,5 +59,41 @@ class User extends Authenticatable implements LdapAuthenticatable
         'profile_photo_url',
     ];
 
-    // Métodos adicionales requeridos por LdapAuthenticatable, si es necesario.
+// Métodos adicionales requeridos por LdapAuthenticatable, si es necesario.
+
+    /**
+     * Relacion uno a muchos entre persona (creador) e incidencias
+     * @param null no recibe parametros
+     * @return
+     */
+    public function incidenciasCreadas()
+    {
+        return $this->hasMany(Incidencia::class, 'creador_id');
+    }
+
+    /**
+     * Relacion uno a muchos entre persona (responsable) e incidencias
+     * @param null no recibe parametros
+     * @return
+     */
+    public function incidenciasResponsable()
+    {
+        return $this->hasMany(Incidencia::class, 'responsable_id');
+    }
+
+    /**
+     * Relacion uno a muchos entre persona y comentarios
+     * @param null no recibe parametros
+     * @return
+     */
+    public function comentarios()
+    {
+        return $this->hasMany(Comentario::class, 'personal_id');
+    }
+
+
+    public function departamento()
+    {
+        return $this->belongsTo(Departamento::class,'departamento_id','id');
+    }
 }

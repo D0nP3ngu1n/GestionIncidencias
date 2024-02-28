@@ -24,7 +24,6 @@ class EditarUserRequest extends FormRequest
         return [
             'nombreCompleto' => 'required',
             'email' => 'required|email|ends_with:@educantabria.es',
-            'password' => 'required|min:8|max:15',
         ];
     }
 
@@ -40,9 +39,6 @@ class EditarUserRequest extends FormRequest
             'nombreCompleto.required' => 'El campo nombre es obligatorio.',
             'email.ends_with' => 'El campo email debe acabar con @educantabria.es.',
             'email.required' => 'El campo email es obligatorio.',
-            'password.required' => 'El campo contraseña es obligatorio.',
-            'password.min' => 'El campo contraseña debe de tener al menos 8 caracteres',
-            'password.max' => 'El campo contraseña debe tener menos de 15 caracteres.',
         ];
     }
 }

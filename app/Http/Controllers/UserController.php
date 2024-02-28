@@ -81,8 +81,7 @@ class UserController extends Controller
     public function edit(User $usuario)
     {
         $departamentos = Departamento::all();
-        $departamentoUsuario = Departamento::where('id', $usuario->departamento_id);
-        return view('usuarios.edit', ['departamentos' => $departamentos, 'usuario' => $usuario, 'departamentoUsuario' => $departamentoUsuario]);
+        return view('usuarios.edit', ['departamentos' => $departamentos, 'usuario' => $usuario]);
     }
 
     /**
@@ -96,9 +95,9 @@ class UserController extends Controller
         try {
             //empiezo una transaccion por si al intentar crear al usuario falla algo poder volver atras
             DB::beginTransaction();
-            $usuario->nombreCompleto = $request->nombreCompleto;
+            $usuario->nombre_completo = $request->nombreCompleto;
             $usuario->email = $request->email;
-            $usuario->password = Hash::make($request->password);
+
             if ($usuario->departamento_id != null) {
                 $usuario->departamento_id = $request->departamento_id;
             } else {
@@ -107,11 +106,11 @@ class UserController extends Controller
             $usuario->save();
             DB::commit();
             //si se crea correctamente redirigo a la pagina del usuario con un mensaje de success
-            return redirect()->route('usuarios.show', ['usuario' => $usuario])->with('Success', 'usuario actualizado');
+            return redirect()->route('usuarios.show', ['usuario' => $usuario])->with('success', 'usuario actualizado');
         } catch (PDOException $e) {
             DB::rollBack();
 
-            return redirect()->route('usuarios.index')->with('Error', 'Error al actualizar el usuario. Detalles: ' . $e->getMessage());
+            return redirect()->route('usuarios.index')->with('error', 'Error al actualizar el usuario. Detalles: ' . $e->getMessage());
         }
     }
 

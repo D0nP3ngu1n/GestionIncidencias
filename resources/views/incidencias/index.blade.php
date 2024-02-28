@@ -112,8 +112,8 @@
             </form>
         </div>
         <!-- Fin Filtros -->
-        <div class="d-flex flex-row gap-3 flex-wrap justify-content-center g-col-6 g-col-md-4">
-            @if (count($incidencias) > 0)
+        @if (count($incidencias) > 0)
+            <div class="table-responsive">
                 <table id="tablaIncidencias" class="table table-striped">
                     <thead>
                         <tr>
@@ -133,20 +133,19 @@
                         @foreach ($incidencias as $incidencia)
                             <tr class="align-middle" scope="row">
                                 <td class="text-truncate">{{ $incidencia->id }}</td>
-                                <td class=" text-truncate">{{ $incidencia->fecha_creacion }}</td>
-
+                                <td class="text-truncate">{{ $incidencia->fecha_creacion }}</td>
                                 <td class="text-truncate" style="max-width: 150px;">{{ $incidencia->descripcion }}</td>
-                                <td class=" text-truncate">{{ $incidencia->tipo }}</td>
-                                <td class=" text-truncate">{{ $incidencia->equipo->aula->codigo }}</td>
-                                <td class=" text-truncate">{{ $incidencia->creador->nombre_completo }}</td>
-                                <td class=" text-truncate">
+                                <td class="text-truncate">{{ $incidencia->tipo }}</td>
+                                <td class="text-truncate">{{ $incidencia->equipo->aula->codigo }}</td>
+                                <td class="text-truncate">{{ $incidencia->creador->nombre_completo }}</td>
+                                <td class="text-truncate">
                                     @empty($incidencia->responsable_id)
                                         Todavía no asignado
                                     @else
                                         {{ $incidencia->responsable_id }}
                                     @endempty
                                 </td>
-                                <td class=" text-truncate">{{ $incidencia->estado }}</td>
+                                <td class="text-truncate">{{ $incidencia->estado }}</td>
                                 <td class="text-truncate">
                                     @empty($incidencia->prioridad)
                                         Todavía no asignado
@@ -154,9 +153,11 @@
                                         {{ $incidencia->prioridad }}
                                     @endempty
                                 </td>
-                                <td class=" text-truncate">
+                                <td class="text-truncate">
                                     <a href="{{ route('incidencias.show', $incidencia) }}"
-                                        class="btn btn-primary text-white "><i class="bi bi-eye"></i></a>
+                                        class="btn btn-primary text-white"><i class="bi bi-eye"></i></a>
+                                    <a href="{{ route('incidencias.edit', $incidencia) }}"
+                                        class="btn btn-success text-white"><i class="bi bi-pencil-square"></i></a>
 
                                     <form action="{{ route('incidencias.destroy', $incidencia) }}" method="POST">
                                         @csrf
@@ -165,7 +166,6 @@
                                             <i class="bi bi-trash-fill"></i>
                                         </button>
                                     </form>
-
                                     <!-- Aquí podrías agregar botones para editar y eliminar la incidencia -->
                                 </td>
                             </tr>
@@ -174,40 +174,41 @@
                 </table>
             @else
                 <p>No existen incidencias</p>
-            @endif
+        @endif
+    </div>
 
 
-        </div>
-        <div class="d-flex justify-content-center">
-            {{ $incidencias->links() }}
-        </div>
-        @push('scripts')
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script>
-                $(document).ready(function() {
-                    // Maneja el envío del formulario de filtros
-                    $('#formFiltros').submit(function(event) {
-                        event.preventDefault(); // Evita que se recargue la página al enviar el formulario
-                        filtrar(); // Llama a la función de filtrar
-                    });
 
-                    // Función para filtrar mediante AJAX
-                    function filtrar() {
-                        $.ajax({
-                            url: '{{ route('incidencias.filtrar') }}', // Ruta definida en las rutas de Laravel
-                            type: 'POST',
-                            data: $('#formFiltros').serialize(), // Serializa los datos del formulario
-                            success: function(response) {
-                                $('#lista-incidencias').html(response); // Actualiza la lista de incidencias
-                            },
-                            error: function(xhr, status, error) {
-                                console.error(error); // Maneja los errores, si los hay
-                            }
-                        });
-                    }
+    <div class="d-flex justify-content-center">
+        {{ $incidencias->links() }}
+    </div>
+    @push('scripts')
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                // Maneja el envío del formulario de filtros
+                $('#formFiltros').submit(function(event) {
+                    event.preventDefault(); // Evita que se recargue la página al enviar el formulario
+                    filtrar(); // Llama a la función de filtrar
                 });
-            </script>
-        @endpush
+
+                // Función para filtrar mediante AJAX
+                function filtrar() {
+                    $.ajax({
+                        url: '{{ route('incidencias.filtrar') }}', // Ruta definida en las rutas de Laravel
+                        type: 'POST',
+                        data: $('#formFiltros').serialize(), // Serializa los datos del formulario
+                        success: function(response) {
+                            $('#lista-incidencias').html(response); // Actualiza la lista de incidencias
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error); // Maneja los errores, si los hay
+                        }
+                    });
+                }
+            });
+        </script>
+    @endpush
     </div>
     </div>
     </div>
