@@ -10,49 +10,82 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class ExportController extends Controller
 {
-    public function index(){
+    /**
+     * Vista del listado de incidencias a exportar
+     * @return mixed Devuelve la vista del listado de incidencias a exportar
+     */
+    public function index()
+    {
         $incidencias = Incidencia::all();
         return view('exports.index', ['incidencias' => $incidencias]);
     }
 
+    /**
+     * Exporta el listado de incidencias a excel
+     * @return mixed Realiza la exportacion a excel
+     */
     public function export()
     {
         return Excel::download(new IncidenciaExport, 'incidencias.xlsx');
     }
 
+    /**
+     * Exporta el listado de incidencias a pdf
+     * @return mixed Realiza la exportacion a pdf
+     */
     public function exportpdf()
     {
         $pdf = Pdf::loadView('exports.index', ['incidencias' => Incidencia::all()]);
-        //return Excel::download(new IncidenciaExport, 'incidencias.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
         return $pdf->download('incidencias.pdf');
     }
 
-    public function exportcsv(){
+    /**
+     * Exporta el listado de incidencias a csv
+     * @return mixed Realiza la exportacion a csv
+     */
+    public function exportcsv()
+    {
         return Excel::download(new IncidenciaExport, 'incidencias.csv', \Maatwebsite\Excel\Excel::CSV);
     }
 
-
-
+    /**
+     * Vista de la incidencia a exportar
+     * @param Incidencia $incidencia objeto Incidencia
+     * @return mixed Devuelve la vista para ver la incidencia a exportar
+     */
     public function show(Incidencia $incidencia)
     {
         return view('exports.show', ['incidencia' => $incidencia]);
     }
 
+    /**
+     * Exporta el listado de incidencias a excel
+     * @param Incidencia $incidencia objeto Incidencia
+     * @return mixed realiza la exportacion a excel de la incidencia
+     */
     public function exportInc(Incidencia $incidencia)
     {
         return Excel::download(new IncidenciaExport($incidencia), 'incidencia_' . $incidencia->id . '.xlsx');
     }
 
-    public function exportpdfInc(Incidencia $incidencia){
+    /**
+     * Exporta el listado de incidencias a pdf
+     * @param Incidencia $incidencia objeto Incidencia
+     * @return mixed realiza la exportacion a pdf de la incidencia
+     */
+    public function exportpdfInc(Incidencia $incidencia)
+    {
         $pdf = Pdf::loadView('exports.showpdf', ['incidencia' => $incidencia]);
         return $pdf->download('incidencia_' . $incidencia->id . '.pdf');
-
-        //return Excel::download(new IncidenciaExport($incidencia), 'incidencia_' . $incidencia->id . '.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
 
-    public function exportcsvInc(Incidencia $incidencia){
+    /**
+     * Exporta el listado de incidencias a csv
+     * @param Incidencia $incidencia objeto Incidencia
+     * @return mixed realiza la exportacion a csv de la incidencia
+     */
+    public function exportcsvInc(Incidencia $incidencia)
+    {
         return Excel::download(new IncidenciaExport($incidencia), 'incidencia_' . $incidencia->id . '.csv', \Maatwebsite\Excel\Excel::CSV);
     }
-
-
 }
