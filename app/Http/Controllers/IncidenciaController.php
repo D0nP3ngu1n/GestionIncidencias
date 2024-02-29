@@ -32,10 +32,11 @@ class IncidenciaController extends Controller
     public function index()
     {
         //$incidencias = Incidencia::all();
-
+        $usuarios = User::all();
+        $aulas = Aula::all();
         // Obtener todas las incidencias paginadas
         $incidencias = Incidencia::paginate(10); // 10 registros por página
-        return view('incidencias.index', ['incidencias' => $incidencias]);
+        return view('incidencias.index', ['incidencias' => $incidencias, 'aulas' => $aulas, 'usuarios' => $usuarios]);
     }
 
     /**
@@ -87,11 +88,12 @@ class IncidenciaController extends Controller
         }
 
 
-
+        $usuarios = User::all();
+        $aulas = Aula::all();
 
         $incidencias = $query->paginate(10);
 
-        return view('incidencias.index', ['incidencias' => $incidencias]);
+        return view('incidencias.index', ['incidencias' => $incidencias, 'aulas' => $aulas, 'usuarios' => $usuarios]);
     }
 
 

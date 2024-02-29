@@ -54,15 +54,27 @@
                             placeholder="Descripción">
                     </div>
                     <div class="col-md-2">
-                        <input type="text" id="tipo" name="tipo" class="form-control" placeholder="Tipo">
+                        <select id="tipo" name="tipo" class="form-select">
+                            <option value="">--Tipo--</option>
+                            <option value="EQUIPOS">EQUIPOS</option>
+                            <option value="CUENTAS">CUENTAS</option>
+                            <option value="WIFI">WIFI</option>
+                            <option value="SOFTWARE">SOFTWARE</option>
+                            <option value="INTERNET">INTERNET</option>
+                        </select>
                     </div>
 
                     <div class="col-md-1">
-                        <input type="text" id="aula" name="aula" class="form-control" placeholder="Aula">
+                        <select id="aula" name="aula" class="form-select">
+                            <option value="">--Aula--</option>
+                            @foreach ($aulas as $aula)
+                                <option value="{{ $aula->num }}">{{ $aula->codigo }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="col-md-2">
-                        <select name="estado" id="estado" class="form-control">
+                        <select name="estado" id="estado" class="form-select">
                             <option value="">--Estado--</option>
                             <option value="abierta">Abierta</option>
                             <option value="en proceso">En proceso</option>
@@ -75,7 +87,7 @@
 
 
                     <div class="col-md-2">
-                        <select name="prioridad" id="prioridad" class="form-control">
+                        <select name="prioridad" id="prioridad" class="form-select">
                             <option value="">--Prioridad--</option>
                             <option value="alta">Alta</option>
                             <option value="media">Media</option>
@@ -86,12 +98,21 @@
                 </div>
                 <div class="row my-1">
                     <div class="col-md-3">
-                        <input type="text" id="creador" name="creador" class="form-control" placeholder="Creador">
+                        <select id="creador" name="creador" class="form-select">
+                            <option value="">--Creador--</option>
+                            @foreach ($usuarios as $usuario)
+                                <option value="{{ $usuario->nombre_completo }}">{{ $usuario->nombre_completo }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="col-md-3">
-                        <input type="text" id="responsable" name="responsable" class="form-control"
-                            placeholder="Responsable">
+                        <select id="responsable" name="responsable" class="form-select">
+                            <option value="">--Responsable--</option>
+                            @foreach ($usuarios as $usuario)
+                                <option value="{{ $usuario->nombre_completo }}">{{ $usuario->nombre_completo }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
 
@@ -137,7 +158,7 @@
                                 <td class="text-truncate" style="max-width: 150px;">{{ $incidencia->descripcion }}</td>
                                 <td class="text-truncate">{{ $incidencia->tipo }}</td>
                                 <td class="text-truncate">
-                                @empty($incidencia->equipo)
+                                    @empty($incidencia->equipo)
                                         Sin aula
                                     @else
                                         {{ $incidencia->equipo->aula->codigo }}
