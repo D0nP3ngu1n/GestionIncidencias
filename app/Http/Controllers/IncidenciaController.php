@@ -35,18 +35,23 @@ class IncidenciaController extends Controller
      */
     public function index()
     {
+
+        //$incidencias = Incidencia::all();
+        $usuarios = User::all();
+        $aulas = Aula::all();
+
         //saco el usuario logeado actualmente
-        $user=auth()->user();
+        $user = auth()->user();
 
         //reviso que tipo de rol tiene y dependiendo de su rol solo le dejo ver sus incidencias o las de todos
-        if ( $user->hasRole('Profesor')){
-            $incidencias = Incidencia::where('creador_id',$user->id)->paginate(10); // 10 registros por página
-        }else{
+        if ($user->hasRole('Profesor')) {
+            $incidencias = Incidencia::where('creador_id', $user->id)->paginate(10); // 10 registros por página
+        } else {
             $incidencias = Incidencia::paginate(10); // 10 registros por página
         }
-       // $incidencias = Incidencia::paginate(10); // 10 registros por página
+        // $incidencias = Incidencia::paginate(10); // 10 registros por página
 
-        return view('incidencias.index', ['incidencias' => $incidencias]);
+        return view('incidencias.index', ['incidencias' => $incidencias, 'aulas' => $aulas, 'usuarios' => $usuarios]);
     }
 
     /**
@@ -68,13 +73,12 @@ class IncidenciaController extends Controller
         $query = Incidencia::query();
 
         //saco el id del usuario logeado actualmente
-        $user=auth()->user();
+        $user = auth()->user();
 
-        if ( $user->hasRole('Profesor')){
-            $query->where('creador_id',$user->id);
-
-        }else{
-            $query->where('creador_id',$user->id);
+        if ($user->hasRole('Profesor')) {
+            $query->where('creador_id', $user->id);
+        } else {
+            $query->where('creador_id', $user->id);
         }
 
         // Filtrar por cada parámetro recibido
@@ -100,7 +104,10 @@ class IncidenciaController extends Controller
         }
 
         if ($request->has('aula') && $request->filled('aula')) {
-            $query->where('aula_num', '=', $request->input('aula') );
+            $incidencias = Incidencia::join('equipos', 'equipos.id', '=', 'incidencias.equipo_id')
+                ->join('aulas', 'aulas.num', '=', 'equipos.aula_num')
+                ->where('aulas.num', $request->aula);
+            //where('aula', '=', $request->input('aula'));
         }
 
 
@@ -112,9 +119,13 @@ class IncidenciaController extends Controller
             $query->whereBetween('fecha_creacion', [$desde, $hasta])->get();
         }
 
+
+        $usuarios = User::all();
+        $aulas = Aula::all();
+
         $incidencias = $query->paginate(10);
 
-        return view('incidencias.index', ['incidencias' => $incidencias]);
+        return view('incidencias.index', ['incidencias' => $incidencias, 'aulas' => $aulas, 'usuarios' => $usuarios]);
     }
 
 
