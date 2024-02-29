@@ -35,6 +35,11 @@ class IncidenciaController extends Controller
      */
     public function index()
     {
+
+        //$incidencias = Incidencia::all();
+        $usuarios = User::all();
+        $aulas = Aula::all();
+
         //saco el usuario logeado actualmente
         $user=auth()->user();
 
@@ -46,7 +51,8 @@ class IncidenciaController extends Controller
         }
        // $incidencias = Incidencia::paginate(10); // 10 registros por página
 
-        return view('incidencias.index', ['incidencias' => $incidencias]);
+        return view('incidencias.index', ['incidencias' => $incidencias,'aulas' => $aulas, 'usuarios' => $usuarios]]);
+
     }
 
     /**
@@ -112,9 +118,13 @@ class IncidenciaController extends Controller
             $query->whereBetween('fecha_creacion', [$desde, $hasta])->get();
         }
 
+
+        $usuarios = User::all();
+        $aulas = Aula::all();
+
         $incidencias = $query->paginate(10);
 
-        return view('incidencias.index', ['incidencias' => $incidencias]);
+        return view('incidencias.index', ['incidencias' => $incidencias, 'aulas' => $aulas, 'usuarios' => $usuarios]);
     }
 
 
