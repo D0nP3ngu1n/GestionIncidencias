@@ -30,20 +30,32 @@
                 <tbody>
                     <tr class="align-middle" scope="row">
                         <td class="text-truncate">{{ $incidencia->id }}</td>
-                        <td class=" text-truncate">{{ $incidencia->fecha_creacion }}</td>
+                        <td class="text-truncate">{{ $incidencia->fecha_creacion }}</td>
                         <td class="text-truncate" style="max-width: 150px;">{{ $incidencia->descripcion }}</td>
-                        <td class=" text-truncate">{{ $incidencia->tipo }}</td>
-                        <td class=" text-truncate">{{ $incidencia->equipo->aula->codigo }}</td>
-                        <td class=" text-truncate">{{ $incidencia->creador->nombre_completo }}</td>
-                        <td class=" text-truncate">
+                        <td class="text-truncate">{{ $incidencia->tipo }}</td>
+                        <td class="text-truncate">
+                            @empty($incidencia->equipo)
+                                Sin aula
+                            @else
+                                {{ $incidencia->equipo->aula->codigo }}
+                            @endempty
+                        </td>
+                        <td class="text-truncate">{{ $incidencia->creador->nombre_completo }}</td>
+                        <td class="text-truncate">
                             @empty($incidencia->responsable_id)
                                 Todavía no asignado
                             @else
                                 {{ $incidencia->responsable_id }}
                             @endempty
                         </td>
-                        <td class=" text-truncate">{{ $incidencia->estado }}</td>
-                        <td class="text-truncate">{{ $incidencia->prioridad }}</td>
+                        <td class="text-truncate">{{ $incidencia->estado }}</td>
+                        <td class="text-truncate">
+                            @empty($incidencia->prioridad)
+                                Todavía no asignado
+                            @else
+                                {{ $incidencia->prioridad }}
+                            @endempty
+                        </td>
                     </tr>
                 </tbody>
             </table>
