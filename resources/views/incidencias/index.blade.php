@@ -101,6 +101,27 @@
 
             </div>
         </form>
+
+        <!-- Desplegable de opciones para exportar -->
+        <form id="exportForm" action="{{ route('exports.export') }}" method="POST">
+            @csrf
+            <label for="exportOption">Exportar como:</label>
+            <select id="exportOption" name="exportOption">
+                <option value="">--Elija una opción--</option>
+                <option value="{{ route('exports.export') }}">Excel</option>
+                <option value="{{ route('exports.pdf') }}">PDF</option>
+                <option value="{{ route('exports.csv') }}">CSV</option>
+            </select>
+        </form>
+        <script>
+            document.getElementById('exportOption').addEventListener('change', function() {
+                if (this.value !== '') {
+                    document.getElementById('exportForm').action = this.value;
+                    document.getElementById('exportForm').submit();
+                }
+            });
+        </script>
+
         <!-- Fin Filtros -->
         <div class="d-flex flex-row gap-3 flex-wrap justify-content-center ">
 
