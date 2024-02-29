@@ -1,7 +1,13 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Crear Usuario')
 @section('contenido')
-    <h1>Nueva incidencia</h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Crear usuario</li>
+        </ol>
+    </nav>
+    <h1>Nuevo usuario</h1>
 
     @if ($errors->any())
         <div class="alert alert-danger" role="alert">

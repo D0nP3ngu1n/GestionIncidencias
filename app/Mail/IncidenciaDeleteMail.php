@@ -35,7 +35,7 @@ class IncidenciaDeleteMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Incidencia Borrada',
+            subject: 'Incidencia Cerrada',
         );
     }
 
@@ -46,7 +46,7 @@ class IncidenciaDeleteMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.correoEliminicacion',
+            view: 'emails.correoEliminacion',
             with: ['incidencia' => $this->incidencia, 'usuario' => $this->user],
         );
     }
