@@ -2,7 +2,12 @@
 @section('titulo', 'Detalle de Incidencia')
 @section('contenido')
 
-
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Ver incidencia</li>
+        </ol>
+    </nav>
     <div class="p-3 w-auto rounded-4 bg-colorSecundario">
         @if (session('error'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert">

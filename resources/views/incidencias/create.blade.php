@@ -1,7 +1,16 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Nueva Incidencia')
 @section('contenido')
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Crear incidencia</li>
+        </ol>
+    </nav>
+
     <h1 class="text-center">Nueva incidencia</h1>
+
 
     @if ($errors->any())
         <div class="alert alert-danger" role="alert">
