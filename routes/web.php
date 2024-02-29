@@ -22,26 +22,23 @@ Route::resource('incidencias', IncidenciaController::class)->middleware('auth');
 
 Route::post('incidencias/filtrar', [IncidenciaController::class, 'filtrar'])->name('incidencias.filtrar')->middleware('auth');
 
-Route::get('exports', [ExportController::class, 'index'])->name('exports.index')->middleware('auth');
-Route::get('exports/{incidencia}', [ExportController::class, 'show'])->name('exports.show')->middleware('auth');
-Route::post('exports', [ExportController::class, 'export'])->name('exports.export')->middleware('auth');
-Route::post('exports/pdf', [ExportController::class, 'exportpdf'])->name('exports.pdf')->middleware('auth');
-Route::post('exports/csv', [ExportController::class, 'exportcsv'])->name('exports.csv')->middleware('auth');
+Route::get('exports', [ExportController::class, 'index'])->name('exports.index')->middleware('auth','role:Administrador');
+Route::get('exports/{incidencia}', [ExportController::class, 'show'])->name('exports.show')->middleware('auth','role:Administrador');
+Route::post('exports', [ExportController::class, 'export'])->name('exports.export')->middleware('auth','role:Administrador');
+Route::post('exports/pdf', [ExportController::class, 'exportpdf'])->name('exports.pdf')->middleware('auth','role:Administrador');
+Route::post('exports/csv', [ExportController::class, 'exportcsv'])->name('exports.csv')->middleware('auth','role:Administrador');
 
-Route::post('exports/{incidencia}', [ExportController::class, 'exportInc'])->name('exports.exportInc')->middleware('auth');
-Route::post('exports/{incidencia}/pdf', [ExportController::class, 'exportpdfInc'])->name('exports.exportpdfInc')->middleware('auth');
-Route::post('exports/{incidencia}/csv', [ExportController::class, 'exportcsvInc'])->name('exports.exportcsvInc')->middleware('auth');
+Route::post('exports/{incidencia}', [ExportController::class, 'exportInc'])->name('exports.exportInc')->middleware('auth','role:Administrador');
+Route::post('exports/{incidencia}/pdf', [ExportController::class, 'exportpdfInc'])->name('exports.exportpdfInc')->middleware('auth','role:Administrador');
+Route::post('exports/{incidencia}/csv', [ExportController::class, 'exportcsvInc'])->name('exports.exportcsvInc')->middleware('auth','role:Administrador');
 
 
 
 Route::controller(UserController::class)->group(function () {
-    Route::get('usuarios', 'index')->name('usuarios.index')->middleware('auth');
-    Route::get('usuarios/create', 'create')->name('usuarios.create');
-    Route::post('usuarios', 'store')->name('usuarios.store');
-    Route::get('usuarios/{usuario}', 'show')->name('usuarios.show');
+    Route::get('usuarios', 'index')->name('usuarios.index')->middleware('auth','role:Administrador');
+    Route::get('usuarios/{usuario}', 'show')->name('usuarios.show')->middleware('auth');
     Route::get('usuarios/{usuario}/edit', 'edit')->name('usuarios.edit')->middleware('auth');
-    Route::put('usuarios/{usuario}', 'update')->name('usuarios.update');
-    Route::delete('usuarios/{usuario}', 'destroy')->name('usuarios.destroy');
+    Route::put('usuarios/{usuario}', 'update')->name('usuarios.update')->middleware('auth');
 })->middleware('auth');
 
 Route::get('/', function () {
