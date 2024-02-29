@@ -1,13 +1,16 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Nueva Incidencia')
 @section('contenido')
+
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">Crear incidencia</li>
         </ol>
     </nav>
-    <h1>Nueva incidencia</h1>
+
+    <h1 class="text-center">Nueva incidencia</h1>
+
 
     @if ($errors->any())
         <div class="alert alert-danger" role="alert">
@@ -26,7 +29,7 @@
             @csrf
             <div class="col-sm-12">
                 <label for="nombre" class="form-label">Nombre Completo:</label>
-                <input type="text" id="nombre" name="nombre" class="form-control"
+                <input type="text" id="nombre" name="nombre" class="form-control readonly-custom"
                     value="{{ $user = auth()->user()->nombre_completo }}" readonly>
             </div>
             <div class="row">
@@ -36,7 +39,7 @@
                             <label for="correo_asociado" class="form-label col-sm-4">Correo electrónico:</label>
                             <div class="col-sm-12">
                                 <input type="correo_asociado" id="correo_asociado" name="correo_asociado"
-                                    class="form-control" value={{ $user = auth()->user()->email }} readonly>
+                                    class="form-control readonly-custom" value={{ $user = auth()->user()->email }} readonly>
                             </div>
                         </div>
                     </div>
@@ -57,7 +60,8 @@
                         <div class="col-sm-12">
                             @if ($user = auth()->user()->departamento)
                                 <input type="text" id="departamento" name="departamento"
-                                    value={{ $user = auth()->user()->departamento->nombre }} class="form-control" readonly>
+                                    value={{ $user = auth()->user()->departamento->nombre }}
+                                    class="form-control readonly-custom" readonly>
                             @else
                                 <select id="departamento" name="departamento" class="form-select">
                                     <option selected="true">...</option>
@@ -129,52 +133,52 @@
                     let sel = document.getElementById('subtipo');
                     sel.innerHTML = '';
                     //solo actualizará los datos si la opción es distinta a INTERNET
-                    if (opc !== "INTERNET") {
-                        document.getElementById('sel1').classList.remove('invisible');
-                        sel.innerHTML += `<option selected>...</option>`;
-                        switch (opc) {
-                            case "EQUIPOS":
-                                var arr = array['EQUIPOS'];
-                                for (let i = 0; i < arr.length; i++) {
-                                    sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
-                                    //Con esta linea hago que la caja de informacion del equipo sea visible
-                                    document.getElementById('info-equipo').classList.remove('invisible');
-                                }
+                    document.getElementById('sel1').classList.remove('invisible');
+                    sel.innerHTML += `<option selected>...</option>`;
+                    switch (opc) {
+                        case "EQUIPOS":
+                            var arr = array['EQUIPOS'];
+                            for (let i = 0; i < arr.length; i++) {
+                                document.getElementById('sel1').classList.remove('invisible');
+                                sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
+                                //Con esta linea hago que la caja de informacion del equipo sea visible
+                                document.getElementById('info-equipo').classList.remove('invisible');
+                            }
 
-                                break;
-                            case "CUENTAS":
-                                var arr = array['CUENTAS'];
-                                for (let i = 0; i < arr.length; i++) {
-                                    sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
-                                    document.getElementById('info-equipo').classList.add('invisible');
-                                }
-                                break;
-                            case "WIFI":
-                                var arr = array['WIFI'];
-                                for (let i = 0; i < arr.length; i++) {
-                                    sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
-                                    document.getElementById('info-equipo').classList.add('invisible');
-                                }
-
-                                break;
-                            case "SOFTWARE":
-                                var arr = array['SOFTWARE'];
-                                for (let i = 0; i < arr.length; i++) {
-                                    sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
-                                    document.getElementById('info-equipo').classList.add('invisible');
-                                }
-
-                                break;
-                            default:
-                                document.getElementById('sel1').classList.add('invisible');
-                                document.getElementById('sel2').classList.add('invisible');
-                                break;
-                        }
-                    } else {
-                        //hace invisibles los otros dos selects si se vueleve a una opcion que no los necesite
-                        document.getElementById('sel1').classList.add('invisible');
-                        document.getElementById('sel2').classList.add('invisible');
+                            break;
+                        case "CUENTAS":
+                            var arr = array['CUENTAS'];
+                            document.getElementById('sel1').classList.remove('invisible');
+                            for (let i = 0; i < arr.length; i++) {
+                                sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
+                                document.getElementById('info-equipo').classList.add('invisible');
+                            }
+                            document.getElementById('sel2').classList.add('invisible');
+                            break;
+                        case "WIFI":
+                            document.getElementById('sel1').classList.remove('invisible');
+                            var arr = array['WIFI'];
+                            for (let i = 0; i < arr.length; i++) {
+                                sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
+                                document.getElementById('info-equipo').classList.add('invisible');
+                            }
+                            document.getElementById('sel2').classList.add('invisible');
+                            break;
+                        case "SOFTWARE":
+                            document.getElementById('sel1').classList.remove('invisible');
+                            var arr = array['SOFTWARE'];
+                            for (let i = 0; i < arr.length; i++) {
+                                sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
+                                document.getElementById('info-equipo').classList.add('invisible');
+                            }
+                            document.getElementById('sel2').classList.add('invisible');
+                            break;
+                        default:
+                            document.getElementById('sel1').classList.add('invisible');
+                            document.getElementById('sel2').classList.add('invisible');
+                            break;
                     }
+
                     console.log(document.getElementById('subtipo').value);
                 }
 
@@ -255,7 +259,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label for="puesto" class="form-label col-sm-4">Puesto en el aula:</label>
-                        <input type="text" id="puesto" name="puesto">
+                        <input type="text" id="puesto" name="puesto" class="form-control readonly-custom">
                     </div>
                 </div>
             </div>
@@ -266,6 +270,7 @@
                     var selectedAulaNum = parseInt(document.getElementById('aula').value);
                     // Limpiar el select de equipos
                     equipoSelect.innerHTML = '';
+                    equipoSelect.innerHTML = `<option selected value="null">...</option>`;
                     // Filtrar los equipos por el número de aula seleccionadovar
                     equiposFiltrados = equipos.filter(function(equipo) {
                         return equipo.aula_num === selectedAulaNum;
@@ -274,22 +279,25 @@
                     equiposFiltrados.forEach(function(equipo) {
                         var option = document.createElement("option");
                         option.text = equipo.etiqueta;
-                        option.value = equipo.id;
+                        option.value = equipo.etiqueta;
                         equipoSelect.add(option);
                     });
                 });
                 document.getElementById('numero_etiqueta').addEventListener('change', function() {
                     var selectedEquipo = parseInt(document.getElementById('numero_etiqueta').value);
+                    var puesto;
+                    for (let i = 0; i < equiposFiltrados.length; i++) {
+                        if (equiposFiltrados[i].etiqueta == selectedEquipo) {
+                            puesto = equiposFiltrados[i].puesto;
+                        }
+                    }
 
-                    equipoFiltrado = equipos.filter(function(equipo) {
-                        return equipo.etiqueta === selectedEquipo;
-                    });
-
-                    document.getElementById('puesto').value = equipoFiltrado.puesto;
+                    document.getElementById('puesto').value = puesto;
+                    console.log(puesto);
                 });
             </script>
             <div class="d-flex justify-content-center mt-3">
-                <input type="submit" id="crear "class="btn btn-outline-primary col-sm-2" value="Crear Incidencia">
+                <input type="submit" id="crear "class="btn btn-primary col-sm-2 text-white" value="Crear Incidencia">
             </div>
         </form>
     </div>
