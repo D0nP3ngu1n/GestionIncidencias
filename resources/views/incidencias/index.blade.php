@@ -90,9 +90,12 @@
 
                 </div>
                 <div class="row my-1">
+                    @hasrole('Administrador')
                     <div class="col-md-3">
                         <input type="text" id="creador" name="creador" class="form-control" placeholder="Creador">
                     </div>
+                    @endhasrole
+
 
                     <div class="col-md-3">
                         <input type="text" id="responsable" name="responsable" class="form-control"
@@ -142,7 +145,7 @@
                                 <td class="text-truncate" style="max-width: 150px;">{{ $incidencia->descripcion }}</td>
                                 <td class="text-truncate">{{ $incidencia->tipo }}</td>
                                 <td class="text-truncate">
-                                @empty($incidencia->equipo)
+                                    @empty($incidencia->equipo)
                                         Sin aula
                                     @else
                                         {{ $incidencia->equipo->aula->codigo }}
@@ -169,7 +172,7 @@
                                         class="btn btn-primary text-white"><i class="bi bi-eye"></i></a>
                                     <a href="{{ route('incidencias.edit', $incidencia) }}"
                                         class="btn btn-success text-white"><i class="bi bi-pencil-square"></i></a>
-
+                                    @hasrole('Administrador')
                                     <form action="{{ route('incidencias.destroy', $incidencia) }}" method="POST">
                                         @csrf
                                         @method('delete')
@@ -177,6 +180,8 @@
                                             <i class="bi bi-trash-fill"></i>
                                         </button>
                                     </form>
+                                    @endhasrole
+
                                     <!-- Aquí podrías agregar botones para editar y eliminar la incidencia -->
                                 </td>
                             </tr>

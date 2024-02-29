@@ -35,10 +35,17 @@ class IncidenciaController extends Controller
      */
     public function index()
     {
-        //$incidencias = Incidencia::all();
+        //saco el usuario logeado actualmente
+        $user=auth()->user();
 
-        // Obtener todas las incidencias paginadas
-        $incidencias = Incidencia::paginate(10); // 10 registros por página
+        //reviso que tipo de rol tiene y dependiendo de su rol solo le dejo ver sus incidencias o las de todos
+        if ( $user->hasRole('Profesor')){
+            $incidencias = Incidencia::where('creador_id',$user->id)->paginate(10); // 10 registros por página
+        }else{
+            $incidencias = Incidencia::paginate(10); // 10 registros por página
+        }
+       // $incidencias = Incidencia::paginate(10); // 10 registros por página
+
         return view('incidencias.index', ['incidencias' => $incidencias]);
     }
 
@@ -57,7 +64,18 @@ class IncidenciaController extends Controller
     public function filtrar(Request $request)
     {
 
+
         $query = Incidencia::query();
+
+        //saco el id del usuario logeado actualmente
+        $user=auth()->user();
+
+        if ( $user->hasRole('Profesor')){
+            $query->where('creador_id',$user->id);
+
+        }else{
+            $query->where('creador_id',$user->id);
+        }
 
         // Filtrar por cada parámetro recibido
         if ($request->has('descripcion') && $request->filled('descripcion')) {
@@ -81,6 +99,10 @@ class IncidenciaController extends Controller
             $query->where('prioridad', 'like', '%' . $request->input('prioridad') . '%');
         }
 
+        if ($request->has('aula') && $request->filled('aula')) {
+            $query->where('aula_num', '=', $request->input('aula') );
+        }
+
 
 
         if ($request->has('desde') && $request->has('hasta') && $request->filled('desde') && $request->filled('hasta')) {
@@ -89,9 +111,6 @@ class IncidenciaController extends Controller
 
             $query->whereBetween('fecha_creacion', [$desde, $hasta])->get();
         }
-
-
-
 
         $incidencias = $query->paginate(10);
 

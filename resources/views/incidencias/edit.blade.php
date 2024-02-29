@@ -30,6 +30,7 @@
                         class="form-control readonly-custom" readonly>
                 </div>
 
+
                 <div class="form-group col-sm-4">
                     <label for="correo_asociado" class="form-label">Correo electrónico:</label>
                     <input type="correo_asociado" id="correo" name="correo"
@@ -38,9 +39,14 @@
 
                 <div class="form froup col-sm-4">
                     <label for="departamento" class="form-label">Departamento:</label>
-                    <input type="text" id="departamento" name="departamento"
-                        value="{{ $incidencia->creador->departamento->nombre }}" class="form-control readonly-custom"
-                        readonly>
+            <input type="text" id="departamento" name="departamento"
+                value="
+                @empty($incidencia->creador->departamento)
+                Sin departamento
+                @else
+                    {{ $incidencia->creador->departamento->Nombre }}
+                @endempty"
+                class="form-control" disabled>
                 </div>
             </div>
             <div class="row">

@@ -14,12 +14,15 @@
                     </a>
                 </li>
                 <!-- Nav Item - Gestion Usuario -->
+                @hasrole('Administrador')
+
                 <li class="nav-item">
-                    <a class="nav-link texto-nav" href="{{ route('incidencias.create') }}">
+                    <a class="nav-link texto-nav" href="{{ route('usuarios.index') }}">
                         <i class="fs-4 bi bi-person-lines-fill"></i>
                         <span class="fs-5">Gestión Usuario</span>
                     </a>
                 </li>
+                @endhasrole
                 <!-- Nav Item - Informes -->
                 <li class="nav-item">
                     <a class="nav-link texto-nav" href="{{ route('incidencias.create') }}">

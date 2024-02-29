@@ -6,17 +6,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
+use PDOException;
 use Spatie\Permission\Traits\HasRoles;
 
 
 class User extends Authenticatable implements LdapAuthenticatable
 {
-    use HasApiTokens, HasFactory, HasProfilePhoto, Notifiable, TwoFactorAuthenticatable, AuthenticatesWithLdap, HasRoles;
+    use HasApiTokens, HasRoles, HasFactory, HasProfilePhoto, Notifiable, TwoFactorAuthenticatable, AuthenticatesWithLdap;
 
     /**
      * The attributes that are mass assignable.
@@ -59,9 +61,42 @@ class User extends Authenticatable implements LdapAuthenticatable
         'profile_photo_url',
     ];
 
+    // funcion para sacar su rol
+    /**
+     * @param none
+     * @return string retorna una cadena con el rol que tiene el usuario
+     */
+    public function getRol()
+    {
+
+        $rol = DB::table('roles')
+            ->where('id', function ($query) {
+                $query->select('role_id')
+                    ->from('model_has_roles')
+                    ->where('model_id', $this->id);
+            })
+            ->pluck('name')
+            ->first();
+
+        return $rol;
+    }
+
+    /**
+     * @param int $nuevoRol , ID del rol que quieres poner al usuario
+     * @return int 1 si es correcto 0 si es fallo
+     */
+    public function setRol($nuevoRol){
+        try{
+            return DB::table('model_has_roles')
+            ->where('model_id', $this->id)
+            ->update(['role_id' => $nuevoRol]);
+        }catch(PDOException $e){
+                return redirect()->route('usuarios.index')->with('error', 'Error al actualizar el actualizar el rol');
+           return 0;
+        }
+    }
 
     // Métodos adicionales requeridos por LdapAuthenticatable, si es necesario.
-
 
     /**
      * Relacion uno a muchos entre persona (creador) e incidencias
@@ -96,7 +131,6 @@ class User extends Authenticatable implements LdapAuthenticatable
 
     public function departamento()
     {
-        return $this->belongsTo(Departamento::class,'departamento_id','id');
+        return $this->belongsTo(Departamento::class, 'departamento_id', 'id');
     }
 }
-
