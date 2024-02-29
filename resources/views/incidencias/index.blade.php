@@ -3,6 +3,11 @@
 @section('contenido')
 
     <div class="border-1 rounded-4 p-2 ">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Home</li>
+        </ol>
+    </nav>
         <div class="row my-3 py-3 w-auto rounded-4 bg-colorSecundario">
             <h1 class="text-2xl font-bold mx-8 col-10">Listado de incidencias</h1>
             <div class="col -2">
