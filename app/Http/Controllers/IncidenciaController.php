@@ -6,6 +6,9 @@ use App\Exports\IncidenciaExport;
 use App\Exports\IndenciasIndexExport;
 use App\Http\Requests\CrearIncidenciaRequest;
 use App\Http\Requests\EditarIncidenciaRequest;
+use App\Mail\IncidenciaDeleteMail;
+use App\Mail\IncidenciaMail;
+use App\Mail\IncidenciaUpdateMail;
 use App\Models\Aula;
 use App\Models\Departamento;
 use App\Models\Equipo;
@@ -17,6 +20,7 @@ use Barryvdh\DomPDF\PDF;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use PDOException;
@@ -138,9 +142,16 @@ class IncidenciaController extends Controller
     public function destroy(Incidencia $incidencia)
     {
         try {
+            //Recojo el usuario para pasar a las funciones del mail
+            $usuario = User::where('id', $incidencia->creador_id)->first();
+            //Recojo la incidencia antes de borrarla para pasarla al mail
+            $incidenciaEliminada = $incidencia;
             $incidencia->delete();
+            /*Con el usuario recogido anteriormente, en el to le indico donde envia el email,
+            y en el send le mando el email configurado, pasando la vista y el usuario creador
+            */
+            Mail::to($usuario->email)->send(new IncidenciaDeleteMail($incidenciaEliminada, $usuario));
         } catch (PDOException $e) {
-
             return redirect()->route('incidencias.index')->with('error', 'Error al borrar la incidencia ' . $e->getMessage());
         }
         return redirect()->route('incidencias.index')->with('success', 'Incidencia borrada');
@@ -190,6 +201,12 @@ class IncidenciaController extends Controller
             }
 
             $incidencia->save();
+            //Recojo el usuario para pasar a las funciones del mail
+            $usuario = User::where('id', $incidencia->creador_id)->first();
+            /*Con el usuario recogido anteriormente, en el to le indico donde envia el email,
+            y en el send le mando el email configurado, pasando la vista y el usuario creador
+            */
+            Mail::to($usuario->email)->send(new IncidenciaUpdateMail($incidencia, $usuario));
             DB::commit();
 
             //si se crea correctamente redirigo a la pagina de la incidencia con un mensaje de succes
@@ -270,8 +287,11 @@ class IncidenciaController extends Controller
             }
 
             $incidencia->save();
+            /*Con el usuario recogido anteriormente, en el to le indico donde envia el email,
+            y en el send le mando el email configurado, pasando la vista y el usuario
+            */
+            Mail::to($usuario->email)->send(new IncidenciaMail($incidencia, $usuario));
             DB::commit();
-
             return redirect()->route('incidencias.show', ['incidencia' => $incidencia])->with('success', 'Incidencia creada');
         } catch (Exception $ex) {
             DB::rollBack();
@@ -284,7 +304,6 @@ class IncidenciaController extends Controller
             DB::rollBack();
             // si no se completa la creacion borro el fichero que venia en el formulario de edicion
             Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
-
             return redirect()->route('incidencias.index')->with('error', 'Error al crear la incidencia. Detalles: ' . $e->getMessage());
         }
     }
