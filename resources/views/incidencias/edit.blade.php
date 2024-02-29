@@ -29,7 +29,13 @@
         <div class="mb-3">
             <label for="departamento" class="form-label">Departamento:</label>
             <input type="text" id="departamento" name="departamento"
-                value="{{ $incidencia->creador->departamento->nombre }}" class="form-control" disabled>
+                value="
+                @empty($incidencia->creador->departamento)
+                Sin departamento
+                @else
+                    {{ $incidencia->creador->departamento->Nombre }}
+                @endempty"
+                class="form-control" disabled>
         </div>
         <div class="mb-3">
             <label for="tipo" class="form-label">Tipo:</label>

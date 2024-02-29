@@ -22,27 +22,49 @@
         @method('put')
         <div class="mb-3">
             <label for="nombreCompleto" class="form-label">Nombre completo:</label>
-            <input type="text" id="nombreCompleto" name="nombreCompleto" class="form-control" readonly value="{{ $usuario->nombre_completo }}">
+            <input type="text" id="nombreCompleto" name="nombreCompleto" class="form-control" readonly
+                value="{{ $usuario->nombre_completo }}">
         </div>
 
         <div class="mb-3">
             <label for="email" class="form-label">email:</label>
             <input type="text" id="email" name="email" class="form-control" value="{{ $usuario->email }}">
         </div>
-        <div class="mb-3">
-            <label for="departamento_id" class="form-label">Departamentos</label>
-            <select id="departamento_id" name="departamento_id" class="form-select">
-                <option selected>...</option>
+        {{-- Si el usuario ya tiene un departamento no le dejo editarlo --}}
+        @if (@empty($usuario->departamento->nombre) || auth()->user()->hasRole('Administrador'))
+            <div class="mb-3">
+                <label for="departamento_id" class="form-label">Departamentos</label>
+                <select id="departamento_id" name="departamento_id" class="form-select">
+                    <option selected>...</option>
 
-                @foreach ($departamentos as $departamento)
-                    @if (!@empty($usuario->departamento->nombre) && $departamento->nombre == $usuario->departamento->nombre)
-                        <option value="{{ $departamento->id }}" selected>{{ $departamento->nombre }}</option>
-                    @else
-                        <option value="{{ $departamento->id }}">{{ $departamento->nombre }}</option>
-                    @endif
-                @endforeach
+                    @foreach ($departamentos as $departamento)
+                        @if (!@empty($usuario->departamento->nombre) && $departamento->nombre == $usuario->departamento->nombre)
+                            <option value="{{ $departamento->id }}" selected>{{ $departamento->nombre }}</option>
+                        @else
+                            <option value="{{ $departamento->id }}">{{ $departamento->nombre }}</option>
+                        @endif
+                    @endforeach
+                </select>
+            </div>
+
+    @endif
+
+    @hasrole('Administrador')
+        <div class="mb-3">
+            <label for="rol_id" class="form-label">Roles</label>
+            <select id="rol_id" name="rol_id" class="form-select">
+                @if ($usuario->getRol() == 'Administrador')
+                    <option value="2"> Administrador</option>
+                    <option value="1"> Profesor</option>
+                @else
+                    <option value="1"> Profesor</option>
+                    <option value="2"> Administrador</option>
+                @endif
+
             </select>
         </div>
-        <input type="submit" id="crear "class="btn btn-outline-primary col" value="Editar usuario">
-    </form>
+    @endhasrole
+
+    <input type="submit" id="crear "class="btn btn-outline-primary col" value="Editar usuario">
+</form>
 @endsection
