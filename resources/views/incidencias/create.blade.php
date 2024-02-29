@@ -124,52 +124,52 @@
                     let sel = document.getElementById('subtipo');
                     sel.innerHTML = '';
                     //solo actualizará los datos si la opción es distinta a INTERNET
-                    if (opc !== "INTERNET") {
-                        document.getElementById('sel1').classList.remove('invisible');
-                        sel.innerHTML += `<option selected>...</option>`;
-                        switch (opc) {
-                            case "EQUIPOS":
-                                var arr = array['EQUIPOS'];
-                                for (let i = 0; i < arr.length; i++) {
-                                    sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
-                                    //Con esta linea hago que la caja de informacion del equipo sea visible
-                                    document.getElementById('info-equipo').classList.remove('invisible');
-                                }
+                    document.getElementById('sel1').classList.remove('invisible');
+                    sel.innerHTML += `<option selected>...</option>`;
+                    switch (opc) {
+                        case "EQUIPOS":
+                            var arr = array['EQUIPOS'];
+                            for (let i = 0; i < arr.length; i++) {
+                                document.getElementById('sel1').classList.remove('invisible');
+                                sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
+                                //Con esta linea hago que la caja de informacion del equipo sea visible
+                                document.getElementById('info-equipo').classList.remove('invisible');
+                            }
 
-                                break;
-                            case "CUENTAS":
-                                var arr = array['CUENTAS'];
-                                for (let i = 0; i < arr.length; i++) {
-                                    sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
-                                    document.getElementById('info-equipo').classList.add('invisible');
-                                }
-                                break;
-                            case "WIFI":
-                                var arr = array['WIFI'];
-                                for (let i = 0; i < arr.length; i++) {
-                                    sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
-                                    document.getElementById('info-equipo').classList.add('invisible');
-                                }
-
-                                break;
-                            case "SOFTWARE":
-                                var arr = array['SOFTWARE'];
-                                for (let i = 0; i < arr.length; i++) {
-                                    sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
-                                    document.getElementById('info-equipo').classList.add('invisible');
-                                }
-
-                                break;
-                            default:
-                                document.getElementById('sel1').classList.add('invisible');
-                                document.getElementById('sel2').classList.add('invisible');
-                                break;
-                        }
-                    } else {
-                        //hace invisibles los otros dos selects si se vueleve a una opcion que no los necesite
-                        document.getElementById('sel1').classList.add('invisible');
-                        document.getElementById('sel2').classList.add('invisible');
+                            break;
+                        case "CUENTAS":
+                            var arr = array['CUENTAS'];
+                            document.getElementById('sel1').classList.remove('invisible');
+                            for (let i = 0; i < arr.length; i++) {
+                                sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
+                                document.getElementById('info-equipo').classList.add('invisible');
+                            }
+                            document.getElementById('sel2').classList.add('invisible');
+                            break;
+                        case "WIFI":
+                            document.getElementById('sel1').classList.remove('invisible');
+                            var arr = array['WIFI'];
+                            for (let i = 0; i < arr.length; i++) {
+                                sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
+                                document.getElementById('info-equipo').classList.add('invisible');
+                            }
+                            document.getElementById('sel2').classList.add('invisible');
+                            break;
+                        case "SOFTWARE":
+                            document.getElementById('sel1').classList.remove('invisible');
+                            var arr = array['SOFTWARE'];
+                            for (let i = 0; i < arr.length; i++) {
+                                sel.innerHTML += `<option value="${arr[i]}">${arr[i]}</option>`;
+                                document.getElementById('info-equipo').classList.add('invisible');
+                            }
+                            document.getElementById('sel2').classList.add('invisible');
+                            break;
+                        default:
+                            document.getElementById('sel1').classList.add('invisible');
+                            document.getElementById('sel2').classList.add('invisible');
+                            break;
                     }
+
                     console.log(document.getElementById('subtipo').value);
                 }
 
