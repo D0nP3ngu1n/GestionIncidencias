@@ -14,6 +14,23 @@ class IncidenciaExport implements FromCollection,WithHeadings
     /**
      * @return \Illuminate\Support\Collection
      */
+
+     /*protected $data;
+
+    public function __construct($data = null)
+    {
+        $this->data = $data;
+    }
+
+    public function collection()
+    {
+        if ($this->data instanceof Incidencia) {
+            return collect([$this->data]);
+        } else {
+            return Incidencia::all();
+        }
+    }*/
+
     protected $data;
 
     public function __construct($data)

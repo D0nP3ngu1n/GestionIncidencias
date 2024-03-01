@@ -19,10 +19,11 @@ class ExportController extends Controller
 
     public function export(Request $request)
     {
-        $incidencias = json_decode($request->input('incidencias'));
+        //$incidencias = json_decode($request->input('incidencias'));
 
         // Realizar la exportación de las incidencias
-        return Excel::download(new IncidenciaExport($incidencias), 'incidencias.xlsx');
+        //return Excel::download(new IncidenciaExport($incidencias), 'incidencias.xlsx');
+        return Excel::download(new IncidenciaExport, 'incidencias.xlsx');
     }
 
     public function exportpdf()
