@@ -3,11 +3,11 @@
 @section('contenido')
 
     <div class="border-1 rounded-4 p-2 ">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">Home</li>
-        </ol>
-    </nav>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">Home</li>
+            </ol>
+        </nav>
         <div class="row my-3 py-3 w-auto rounded-4 bg-colorSecundario">
             <h1 class="text-2xl font-bold mx-8 col-10">Listado de incidencias</h1>
             <div class="col -2">
@@ -23,6 +23,21 @@
                         </div>
                     </div>
                     <span>Crear Incidencia</span>
+                </a>
+            </div>
+            <div class="col -2">
+                <a id="botonCrear" href="{{ route('export.informe.resueltas.admin') }}">
+                    <div class="svg-wrapper-1">
+                        <div class="svg-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2"
+                                stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24"
+                                fill="none" class="svg">
+                                <line y2="19" y1="5" x2="12" x1="12"></line>
+                                <line y2="12" y1="12" x2="19" x1="5"></line>
+                            </svg>
+                        </div>
+                    </div>
+                    <span>Exportar</span>
                 </a>
             </div>
         </div>
@@ -59,15 +74,27 @@
                             placeholder="Descripción">
                     </div>
                     <div class="col-md-2">
-                        <input type="text" id="tipo" name="tipo" class="form-control" placeholder="Tipo">
+                        <select id="tipo" name="tipo" class="form-select">
+                            <option value="">--Tipo--</option>
+                            <option value="EQUIPOS">EQUIPOS</option>
+                            <option value="CUENTAS">CUENTAS</option>
+                            <option value="WIFI">WIFI</option>
+                            <option value="SOFTWARE">SOFTWARE</option>
+                            <option value="INTERNET">INTERNET</option>
+                        </select>
                     </div>
 
                     <div class="col-md-1">
-                        <input type="text" id="aula" name="aula" class="form-control" placeholder="Aula">
+                        <select id="aula" name="aula" class="form-select">
+                            <option value="">--Aula--</option>
+                            @foreach ($aulas as $aula)
+                                <option value="{{ $aula->num }}">{{ $aula->codigo }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="col-md-2">
-                        <select name="estado" id="estado" class="form-control">
+                        <select name="estado" id="estado" class="form-select">
                             <option value="">--Estado--</option>
                             <option value="abierta">Abierta</option>
                             <option value="en proceso">En proceso</option>
@@ -80,7 +107,7 @@
 
 
                     <div class="col-md-2">
-                        <select name="prioridad" id="prioridad" class="form-control">
+                        <select name="prioridad" id="prioridad" class="form-select">
                             <option value="">--Prioridad--</option>
                             <option value="alta">Alta</option>
                             <option value="media">Media</option>
@@ -90,13 +117,25 @@
 
                 </div>
                 <div class="row my-1">
-                    <div class="col-md-3">
-                        <input type="text" id="creador" name="creador" class="form-control" placeholder="Creador">
-                    </div>
+                    @hasrole('Administrador')
+                        <div class="col-md-3">
+                            <select id="creador" name="creador" class="form-select">
+                                <option value="">--Creador--</option>
+                                @foreach ($usuarios as $usuario)
+                                    <option value="{{ $usuario->nombre_completo }}">{{ $usuario->nombre_completo }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endhasrole
+
 
                     <div class="col-md-3">
-                        <input type="text" id="responsable" name="responsable" class="form-control"
-                            placeholder="Responsable">
+                        <select id="responsable" name="responsable" class="form-select">
+                            <option value="">--Responsable--</option>
+                            @foreach ($usuarios as $usuario)
+                                <option value="{{ $usuario->nombre_completo }}">{{ $usuario->nombre_completo }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
 
@@ -116,6 +155,26 @@
                 </div>
             </form>
         </div>
+
+        <form id="exportForm" action="{{ route('exports.export') }}" method="POST">
+            @csrf
+            <input type="hidden" name="incidencias" value="{{ json_encode($incidencias) }}">
+            <label for="exportOption">Exportar como:</label>
+            <select id="exportOption" name="exportOption">
+                <option value="">--Elija una opción--</option>
+                <option value="{{ route('exports.export') }}">Excel</option>
+                <option value="{{ route('exports.pdf') }}">PDF</option>
+                <option value="{{ route('exports.csv') }}">CSV</option>
+            </select>
+        </form>
+        <script>
+            document.getElementById('exportOption').addEventListener('change', function() {
+                if (this.value !== '') {
+                    document.getElementById('exportForm').action = this.value;
+                    document.getElementById('exportForm').submit();
+                }
+            });
+        </script>
         <!-- Fin Filtros -->
         @if (count($incidencias) > 0)
             <div class="table-responsive">
@@ -142,7 +201,7 @@
                                 <td class="text-truncate" style="max-width: 150px;">{{ $incidencia->descripcion }}</td>
                                 <td class="text-truncate">{{ $incidencia->tipo }}</td>
                                 <td class="text-truncate">
-                                @empty($incidencia->equipo)
+                                    @empty($incidencia->equipo)
                                         Sin aula
                                     @else
                                         {{ $incidencia->equipo->aula->codigo }}
@@ -167,16 +226,18 @@
                                 <td class="text-truncate">
                                     <a href="{{ route('incidencias.show', $incidencia) }}"
                                         class="btn btn-primary text-white"><i class="bi bi-eye"></i></a>
-                                    <a href="{{ route('incidencias.edit', $incidencia) }}"
-                                        class="btn btn-success text-white"><i class="bi bi-pencil-square"></i></a>
+                                    @hasrole('Administrador')
+                                        <a href="{{ route('incidencias.edit', $incidencia) }}"
+                                            class="btn btn-success text-white"><i class="bi bi-pencil-square"></i></a>
+                                        <form action="{{ route('incidencias.destroy', $incidencia) }}" method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-danger">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                        </form>
+                                    @endhasrole
 
-                                    <form action="{{ route('incidencias.destroy', $incidencia) }}" method="POST">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-danger">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </button>
-                                    </form>
                                     <!-- Aquí podrías agregar botones para editar y eliminar la incidencia -->
                                 </td>
                             </tr>

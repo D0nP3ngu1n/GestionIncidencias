@@ -59,7 +59,7 @@ class UserController extends Controller
         } catch (PDOException $e) {
             DB::rollBack();
 
-            return redirect()->route('usuarios.index')->with('Error', 'Error al crear el usuario. Detalles: ' . $e->getMessage());
+            return redirect()->route('usuarios.index')->with('error', 'Error al crear el usuario. Detalles: ' . $e->getMessage());
         }
     }
 
@@ -97,19 +97,19 @@ class UserController extends Controller
             DB::beginTransaction();
             $usuario->nombre_completo = $request->nombreCompleto;
             $usuario->email = $request->email;
+            $usuario->departamento_id = $request->departamento_id;
 
-            if ($usuario->departamento_id != null) {
-                $usuario->departamento_id = $request->departamento_id;
-            } else {
-                $usuario->departamento_id = null;
+            if($request->has('rol_id')){
+                //cambio el rol al usuario
+                $usuario->setRol($request->rol_id);
             }
+
             $usuario->save();
             DB::commit();
             //si se crea correctamente redirigo a la pagina del usuario con un mensaje de success
             return redirect()->route('usuarios.show', ['usuario' => $usuario])->with('success', 'usuario actualizado');
         } catch (PDOException $e) {
             DB::rollBack();
-
             return redirect()->route('usuarios.index')->with('error', 'Error al actualizar el usuario. Detalles: ' . $e->getMessage());
         }
     }
@@ -126,8 +126,8 @@ class UserController extends Controller
             $usuario->delete();
         } catch (PDOException $e) {
 
-            return redirect()->route('usuarios.index', ['Error' => "Error al borrar el usuario " . $e->getMessage()]);
+            return redirect()->route('usuarios.index', ['error' => "Error al borrar el usuario " . $e->getMessage()]);
         }
-        return redirect()->route('usuarios.index', ['Success' => "usuario borrado"]);
+        return redirect()->route('usuarios.index', ['euccess' => "usuario borrado"]);
     }
 }

@@ -13,6 +13,7 @@
                         <span>Listado Incidencias</span>
                     </a>
                 </li>
+
                  <!-- Nav Item - Informes -->
                  <li class="nav-item">
                     <a class="nav-link texto-nav d-flex" href="{{ route('exports.index') }}">
@@ -20,6 +21,7 @@
                         <span>Informes</span>
                     </a>
                 </li>
+                
                 <!-- Nav Item - Gestion Usuario -->
                 @hasrole('Administrador')
                     <li class="nav-item">
@@ -29,6 +31,7 @@
                         </a>
                     </li>
                 @endhasrole
+           
                  <!-- Nav Item - Dashboard -->
                  <li class="nav-item">
                     <a class="nav-link texto-nav d-flex" href="#">

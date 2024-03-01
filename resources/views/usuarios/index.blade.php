@@ -1,6 +1,18 @@
 @extends('layouts.plantilla')
 @section('titulo', 'Listar usuarios')
 @section('contenido')
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error:</strong> {{ session('error') }}.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Confirmacion:</strong> {{ session('success') }}.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <div class=" border-1 rounded-4 p-2 ">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -10,20 +22,7 @@
         </nav>
         <div class="row my-3 py-3 w-auto rounded-4 bg-colorSecundario">
             <h1 class="text-2xl font-bold mx-8 col-10">Listado de usuarios</h1>
-
         </div>
-        @if (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Error:</strong> {{ session('error') }}.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Confirmacion:</strong> {{ session('success') }}.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
 
 
         <div class="bg-colorSecundario rounded-3 p-3">
@@ -57,23 +56,24 @@
                                         @empty($usuario->departamento_id)
                                             Todavía no asignado
                                         @else
-                                             {{ $usuario->departamento->nombre }}
+                                            {{ $usuario->departamento->nombre }}
                                         @endempty
                                     </td>
                                     <td class="text-truncate">
-                                        @if ($usuario->hasRole('profesor'))
-
-                                            Administrador
-                                            @else
-                                            Profesor
-                                        @endif
+                                        {{-- @if ($usuario->hasRole('Profesor'))
+                                        Profesor
+                                    @else
+                                        Administrador
+                                    @endif --}}
+                                        {{ $usuario->getRol() }}
                                     </td>
 
 
                                     <td class="text-truncate">
                                         <a href="{{ route('usuarios.show', $usuario) }}"
                                             class="btn btn-primary text-white"><i class="bi bi-eye"></i></a>
-                                            <a href="{{ route('usuarios.edit', $usuario) }}" class="btn btn-success text-white"><i class="bi bi-pencil-square"></i></a>
+                                        <a href="{{ route('usuarios.edit', $usuario) }}"
+                                            class="btn btn-success text-white"><i class="bi bi-pencil-square"></i></a>
                                         <!-- Aquí podrías agregar botones para editar y eliminar la incidencia -->
                                     </td>
                                 </tr>
