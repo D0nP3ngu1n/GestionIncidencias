@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use LogicException;
 use PDOException;
 
 class ComentarioController extends Controller
@@ -62,15 +63,18 @@ class ComentarioController extends Controller
      * @return mixed Elimina una incidencia concreta
      */
     public function destroy(Comentario $comentario)
-    {
-        try {
-            $incidencia = Incidencia::where('id',$comentario->incidencia_id);
-            $comentario->delete();
-        } catch (PDOException $e) {
-            return redirect()->route('incidencias.show',$incidencia)->with('error', 'Error de base de datos al borrar el comentario ' . $e->getMessage());
-        } catch (Exception $e) {
-            return redirect()->route('incidencias.show',$incidencia)->with('error', 'Error general al borrar la incidencia ' . $e->getMessage());
-        }
-        return redirect()->route('incidencias.show',$incidencia)->with('success', 'Confirmacion: Comentario Borrado');
+{
+    $incidencia = DB::table('incidencias')->where('id', $comentario->incidencia_id)->first();
+
+    try {
+        $comentario->delete();
+    } catch (PDOException $e) {
+        return redirect()->route('incidencias.index')->with('error', 'Error de base de datos al borrar el comentario '.$e->getMessage());
+    } catch (LogicException $e) {
+        return redirect()->route('incidencias.index')->with('error', 'Error general al borrar el comentario '.$e->getMessage());
     }
+
+    return redirect()->route('incidencias.show', ['incidencia' => $incidencia->id])->with('success', 'Comentario creado');
+}
+
 }

@@ -5,7 +5,9 @@
     <div class="border-1 rounded-4 p-2 ">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page">Home</li>
+
+                <li class="breadcrumb-item active" aria-current="page">Incidencias</li>
+
             </ol>
         </nav>
         <div class="row my-3 py-3 w-auto rounded-4 bg-colorSecundario">
@@ -212,7 +214,7 @@
                                     @empty($incidencia->responsable_id)
                                         Todavía no asignado
                                     @else
-                                        {{ $incidencia->responsable_id }}
+                                        {{ $incidencia->responsable->nombre_completo }}
                                     @endempty
                                 </td>
                                 <td class="text-truncate">{{ $incidencia->estado }}</td>
