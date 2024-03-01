@@ -26,9 +26,9 @@ Route::post('incidencias/filtrar', [IncidenciaController::class, 'filtrar'])->na
 Route::get('incidencias/{incidencia}/crearComentario',  [ComentarioController::class, 'create'])->name('comentario.create')->middleware('auth');
 Route::post('incidencias/{incidencia}',  [ComentarioController::class, 'store'])->name('comentario.store')->middleware('auth');
 
+Route::get('exports', [ExportController::class, 'index'])->name('exports.index')->middleware('auth','role:Administrador');
+Route::get('exports/{incidencia}', [ExportController::class, 'show'])->name('exports.show')->middleware('auth','role:Administrador');
 
-//Route::get('exports', [ExportController::class, 'index'])->name('exports.index')->middleware('auth','role:Administrador');
-//Route::get('exports/{incidencia}', [ExportController::class, 'show'])->name('exports.show')->middleware('auth','role:Administrador');
 Route::post('exports', [ExportController::class, 'export'])->name('exports.export')->middleware('auth','role:Administrador');
 Route::post('exports/pdf', [ExportController::class, 'exportpdf'])->name('exports.pdf')->middleware('auth','role:Administrador');
 Route::post('exports/csv', [ExportController::class, 'exportcsv'])->name('exports.csv')->middleware('auth','role:Administrador');
