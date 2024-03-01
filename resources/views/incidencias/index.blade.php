@@ -223,22 +223,37 @@
                                         {{ $incidencia->prioridad }}
                                     @endempty
                                 </td>
-                                <td class="text-truncate">
-                                    <a href="{{ route('incidencias.show', $incidencia) }}"
-                                        class="btn btn-primary text-white"><i class="bi bi-eye"></i></a>
-                                    @hasrole('Administrador')
-                                        <a href="{{ route('incidencias.edit', $incidencia) }}"
-                                            class="btn btn-success text-white"><i class="bi bi-pencil-square"></i></a>
-                                        <form action="{{ route('incidencias.destroy', $incidencia) }}" method="POST">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn btn-danger">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </button>
-                                        </form>
-                                    @endhasrole
-
-                                    <!-- Aquí podrías agregar botones para editar y eliminar la incidencia -->
+                                <td>
+                                    <div class="dropdown">
+                                        <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownAccionLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-gear"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownAccionLink">
+                                            <li class="px-3">
+                                                <a class="btn btn-primary text-white" role="button" href="{{ route('incidencias.show', $incidencia) }}">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                            </li>
+                                            <li class="px-3 pt-1">
+                                                @hasrole('Administrador')
+                                                    <a class="btn btn-success" role="button" href="{{ route('incidencias.edit', $incidencia) }}">
+                                                        <i class="bi bi-pencil-square"></i>
+                                                    </a>
+                                                @endhasrole
+                                            </li>
+                                            <li>
+                                                @hasrole('Administrador')
+                                                    <form action="{{ route('incidencias.destroy', $incidencia) }}" class="dropdown-item" method="POST">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit" class="btn btn-danger">
+                                                            <i class="bi bi-trash-fill"></i>
+                                                        </button>
+                                                    </form>
+                                                @endhasrole
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
