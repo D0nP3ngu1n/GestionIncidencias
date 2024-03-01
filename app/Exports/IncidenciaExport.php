@@ -33,7 +33,7 @@ class IncidenciaExport implements FromCollection,WithHeadings
 
     protected $data;
 
-    public function __construct($data=null)
+    public function __construct($data = null)
     {
         $this->data = $data;
     }
@@ -42,12 +42,11 @@ class IncidenciaExport implements FromCollection,WithHeadings
     {
         if ($this->data instanceof Incidencia) {
             return collect([$this->data]);
-        } elseif ($this->data instanceof Collection) {
-            return $this->data;
         } else {
             return Incidencia::all();
         }
     }
+
 
     public function headings(): array
     {
