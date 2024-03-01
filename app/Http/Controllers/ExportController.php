@@ -22,8 +22,15 @@ class ExportController extends Controller
     {
         $incidencias = json_decode($request->input('incidencias'));
 
-        // Realizar la exportación de las incidencias
-        return Excel::download(new IncidenciaExport($incidencias), 'incidencias.xlsx');
+
+        // Verificar si hay incidencias
+        if ($incidencias && !empty($incidencias)) {
+            // Realizar la exportación de las incidencias filtradas
+            return Excel::download(new IncidenciaExport($incidencias), 'incidencias.xlsx');
+        } else {
+            // Si no hay incidencias, cargar todas las incidencias
+            return Excel::download(new IncidenciaExport, 'incidencias.xlsx');
+        }
     }
 
     public function exportpdf()
@@ -166,7 +173,7 @@ class ExportController extends Controller
         $incidencias = Incidencia::all();
         $tiemposResolucion = InformeExport::tiemposResolucionPorTipo($incidencias);
 
-        return Excel::download(new InformeExport($tiemposResolucion), 'informe_tiempos_resolucion_por_tipo.xlsx', );
+        return Excel::download(new InformeExport($tiemposResolucion), 'informe_tiempos_resolucion_por_tipo.xlsx',);
     }
     public function informeTiemposResolucionPorTipoCsv()
     {
@@ -206,6 +213,4 @@ class ExportController extends Controller
 
         return Excel::download(new InformeExport($informeCombinado), 'informe_tiempo_dedicado_e_incidencias_por_admin.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
-
-
 }

@@ -9,13 +9,13 @@ use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class IncidenciaExport implements FromCollection,WithHeadings
+class IncidenciaExport implements FromCollection, WithHeadings
 {
     /**
      * @return \Illuminate\Support\Collection
      */
 
-     /*protected $data;
+    /*protected $data;
 
     public function __construct($data = null)
     {
@@ -31,21 +31,26 @@ class IncidenciaExport implements FromCollection,WithHeadings
         }
     }*/
 
-    protected $data;
+    protected $incidencias;
 
-    public function __construct($data = null)
+    public function __construct($incidencias = null)
     {
-        $this->data = $data;
+        $this->incidencias = $incidencias;
     }
 
     public function collection()
     {
-        if ($this->data instanceof Incidencia) {
-            return collect([$this->data]);
+        if ($this->incidencias instanceof Incidencia) {
+            return collect([$this->incidencias]);
+        } elseif (is_array($this->incidencias) && count($this->incidencias) > 0) {
+            // Si $this->incidencias es un array y contiene datos, simplemente lo devolvemos
+            return collect($this->incidencias);
         } else {
+            // Si no hay datos proporcionados, retornamos todas las incidencias
             return Incidencia::all();
         }
     }
+
 
 
     public function headings(): array
@@ -68,4 +73,3 @@ class IncidenciaExport implements FromCollection,WithHeadings
         ];
     }
 }
-
