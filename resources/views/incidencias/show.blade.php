@@ -45,6 +45,25 @@
                     </div>
                 @endhasrole
             </div>
+            <form id="exportForm" action="{{ route('exports.export') }}" method="POST">
+                @csrf
+                <input type="hidden" name="incidencias" value="{{ json_encode($incidencia) }}">
+                <label for="exportOption">Exportar como:</label>
+                <select id="exportOption" name="exportOption">
+                    <option value="">--Elija una opción--</option>
+                    <option value="{{ route('exports.exportInc',$incidencia->id) }}">Excel</option>
+                    <option value="{{ route('exports.exportpdfInc',$incidencia->id) }}">PDF</option>
+                    <option value="{{ route('exports.exportcsvInc',$incidencia->id) }}">CSV</option>
+                </select>
+            </form>
+            <script>
+                document.getElementById('exportOption').addEventListener('change', function() {
+                    if (this.value !== '') {
+                        document.getElementById('exportForm').action = this.value;
+                        document.getElementById('exportForm').submit();
+                    }
+                });
+            </script>
         </div>
 
         <div class="row">
