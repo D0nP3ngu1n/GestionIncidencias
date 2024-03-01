@@ -41,15 +41,12 @@ class IncidenciaExport implements FromCollection, WithHeadings
     public function collection()
     {
         //dd($this->incidencias);
-        $this->incidencias = $this->incidencias->data;  //array de las incidencias filtradas
+
         if ($this->incidencias instanceof Incidencia) {
             return collect([$this->incidencias]);
-        } elseif (is_array($this->incidencias) && count($this->incidencias) > 0) {
-            // Si $this->incidencias es un array y contiene datos, simplemente lo devolvemos
-            return collect($this->incidencias);
         } else {
-            // Si no hay datos proporcionados, retornamos todas las incidencias
-            return Incidencia::all();
+            $this->incidencias = $this->incidencias->data;  //array de las incidencias filtradas
+            return collect($this->incidencias);
         }
     }
 

@@ -28,8 +28,12 @@ class ExportController extends Controller
 
     public function exportpdf(Request $request)
     {
-        $incidencias = json_decode($request->input('incidencias'));
+        $data = json_decode($request->input('incidencias'));
 
+        // Obtener los datos de las incidencias
+        $incidencias = collect($data->data);
+
+        // Cargar la vista con los datos de las incidencias
         $pdf = Pdf::loadView('exports.pdf', ['incidencias' => $incidencias]);
         return $pdf->download('incidencias.pdf');
     }
