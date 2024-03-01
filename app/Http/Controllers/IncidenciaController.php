@@ -21,6 +21,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
@@ -77,8 +78,6 @@ class IncidenciaController extends Controller
         $user = auth()->user();
 
         if ($user->hasRole('Profesor')) {
-            $query->where('creador_id', $user->id);
-        } else {
             $query->where('creador_id', $user->id);
         }
 
@@ -183,6 +182,8 @@ class IncidenciaController extends Controller
             */
             Mail::to($usuario->email)->send(new IncidenciaDeleteMail($incidenciaEliminada, $usuario));
         } catch (PDOException $e) {
+            return redirect()->route('incidencias.index')->with('error', 'Error de base de datos al borrar la incidencia ' . $e->getMessage());
+        } catch (Exception $e) {
             return redirect()->route('incidencias.index')->with('error', 'Error al borrar la incidencia ' . $e->getMessage());
         }
         return redirect()->route('incidencias.index')->with('success', 'Incidencia borrada');
@@ -213,8 +214,14 @@ class IncidenciaController extends Controller
                 $incidencia->prioridad = $request->prioridad;
             }
 
+
             if ($request->has('responsable') && $request->filled('responsable')) {
-                $incidencia->responsable_id  = $request->responsable;
+
+          
+
+            if ($request->has('actuaciones') && $request->filled('actuaciones')) {
+                $incidencia->actuaciones = $request->actuaciones;
+
             }
 
 
@@ -227,7 +234,7 @@ class IncidenciaController extends Controller
                 }
 
                 //guardo el fichero y cojo su ruta para guardarla en la URL de la incidencia
-                $url = 'assets/ficheros/' . $request->fichero->store('', 'ficheros');
+                $url = $request->fichero->store('', 'ficheros');
                 $incidencia->adjunto_url = $url;
             }
 
@@ -247,6 +254,8 @@ class IncidenciaController extends Controller
             // si no se completa la creacion borro el fichero que venia en el formulario de edicion
             Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
 
+            return redirect()->route('incidencias.index')->with('error', 'Error de base de datos al editar la incidencia. Detalles: ' . $e->getMessage());
+        } catch (Exception $e) {
             return redirect()->route('incidencias.index')->with('error', 'Error al editar la incidencia. Detalles: ' . $e->getMessage());
         }
     }
@@ -284,8 +293,6 @@ class IncidenciaController extends Controller
                 $usuario->save();
             }
 
-
-
             //el campo Creador id viene dado por el usuario actualmente logeado
             $incidencia->creador_id = auth()->user()->id;
 
@@ -313,7 +320,7 @@ class IncidenciaController extends Controller
 
             if ($request->hasFile('adjunto')) {
                 //guardo el fichero y cojo su ruta para guardarla en la URL de la incidencia
-                $url = 'assets/ficheros/' . $request->fichero->store('', 'ficheros');
+                $url = $request->adjunto->store('', 'ficheros');
                 $incidencia->adjunto_url = $url;
             }
 
@@ -321,21 +328,37 @@ class IncidenciaController extends Controller
             /*Con el usuario recogido anteriormente, en el to le indico donde envia el email,
             y en el send le mando el email configurado, pasando la vista y el usuario
             */
-            Mail::to($usuario->email)->send(new IncidenciaMail($incidencia, $usuario));
             DB::commit();
+            Mail::to($usuario->email)->send(new IncidenciaMail($incidencia, $usuario));
             return redirect()->route('incidencias.show', ['incidencia' => $incidencia])->with('success', 'Incidencia creada');
-        } catch (Exception $ex) {
-            DB::rollBack();
-            // si no se completa la creacion borro el fichero que venia en el formulario de edicion
-            Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
-
-
-            return redirect()->route('incidencias.index')->with('error', 'Error al crear la incidencia. Detalles: ' . $ex->getMessage());
         } catch (PDOException $e) {
+
             DB::rollBack();
             // si no se completa la creacion borro el fichero que venia en el formulario de edicion
             Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
+            return redirect()->route('incidencias.index')->with('error', 'Error de base de datos al crear la incidencia. Detalles: ' . $e->getMessage());
+
+        }catch (Exception $e) {
+
+            DB::rollBack();
+            // si no se completa la creacion borro el fichero que venia en el formulario de edicion
+            Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
+
             return redirect()->route('incidencias.index')->with('error', 'Error al crear la incidencia. Detalles: ' . $e->getMessage());
+        }
+
+    }
+
+    public function descargarArchivo(Incidencia $incidencia)
+    {
+
+        if ($incidencia) {
+
+            // Redirige a la URL del archivo para iniciar la descarga
+            return Response::download('assets/ficheros/'.$incidencia->adjunto_url);
+        } else {
+            // Maneja el caso en el que la incidencia no se encuentre
+            abort(404, 'Incidencia no encontrada');
         }
     }
     public function descargarArchivo(Incidencia $incidencia)

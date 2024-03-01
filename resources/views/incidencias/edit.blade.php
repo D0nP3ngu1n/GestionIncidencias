@@ -3,7 +3,7 @@
 @section('contenido')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('incidencias.index') }}">Incidencias</a></li>
             <li class="breadcrumb-item active" aria-current="page">Editar incidencia</li>
         </ol>
     </nav>
@@ -86,6 +86,11 @@
             <div class="form-outline mb-3">
                 <label for="descripcion" class="form-label">Descripcion:</label>
                 <textarea id="descripcion" name="descripcion" class="form-control readonly-custom" readonly>{{ $incidencia->descripcion }}</textarea>
+            </div>
+
+            <div class="form-outline mb-3">
+                <label for="actuaciones" class="form-label">Actuaciones:</label>
+                <textarea id="actuaciones" name="actuaciones" class="form-control" >{{ $incidencia->actuaciones }}</textarea>
             </div>
             <div class="row">
                 <div class="form-group col-sm-4">

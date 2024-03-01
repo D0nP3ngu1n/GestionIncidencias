@@ -6,39 +6,40 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 
-*{
+* {
     margin: 0;
     padding: 0;
 }
 
 
-.bg-colorPrincipal{
+.bg-colorPrincipal {
     background-color: #d8d5d5;
 }
 
-.bg-colorSecundario{
+.bg-colorSecundario {
     background-color: #F7F7F9;
 }
+
 .bg-c-blue {
-    background: linear-gradient(45deg,#4099ff,#73b4ff);
+    background: linear-gradient(45deg, #4099ff, #73b4ff);
 }
 
 .bg-c-green {
-    background: linear-gradient(45deg,#20c74a,#2ba11b);
+    background: linear-gradient(45deg, #20c74a, #2ba11b);
 }
 
 .bg-c-yellow {
-    background: linear-gradient(45deg,#d4c81d,#ffcb80);
+    background: linear-gradient(45deg, #d4c81d, #ffcb80);
 }
 
 .bg-c-red {
-    background: linear-gradient(45deg,#FF5370,#ff869a);
+    background: linear-gradient(45deg, #FF5370, #ff869a);
 }
 
 .card {
     border-radius: 5px;
-    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
-    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
     border: none;
     margin-bottom: 30px;
     -webkit-transition: all 0.3s ease-in-out;
@@ -69,45 +70,45 @@
     overflow: hidden;
     transition: all 0.2s;
     cursor: pointer;
-  }
+}
 
-  #botonCrear span {
+#botonCrear span {
     display: block;
     margin-left: 0.3em;
     transition: all 0.3s ease-in-out;
-  }
+}
 
-  #botonCrear svg {
+#botonCrear svg {
     display: block;
     transform-origin: center center;
     transition: transform 0.3s ease-in-out;
-  }
+}
 
-  #botonCrear:hover .svg-wrapper {
+#botonCrear:hover .svg-wrapper {
     animation: fly-1 0.6s ease-in-out infinite alternate;
-  }
+}
 
-  #botonCrear:hover svg {
+#botonCrear:hover svg {
     transform: translateX(1.2em) rotate(45deg) scale(1.1);
-  }
+}
 
-  #botonCrear:hover span {
+#botonCrear:hover span {
     transform: translateX(5em);
-  }
+}
 
-  #botonCrear:active {
+#botonCrear:active {
     transform: scale(0.95);
-  }
+}
 
-  @keyframes fly-1 {
+@keyframes fly-1 {
     from {
-      transform: translateY(0.1em);
+        transform: translateY(0.1em);
     }
 
     to {
-      transform: translateY(-0.1em);
+        transform: translateY(-0.1em);
     }
-  }
+}
 
 /* Estilo para botones circulares */
 .rounded-circle {
@@ -115,18 +116,22 @@
 }
 
 /* Estilo header */
-.img-profile{
+.img-profile {
     height: 1.5rem;
     width: 1.5rem;
 }
 
-.img-logo{
+.img-logo {
     height: 3.5rem;
     width: 3.5rem;
 }
 
+#span-titulo {
+    font-size: 16px;
+}
+
 /* Estilo imagen login */
-.img-login{
+.img-login {
     max-width: 100%;
     height: 90%;
     border-radius: 5px;
@@ -138,21 +143,64 @@
 }
 
 /* Estilo para el card del filtro en 'Lista de incidencias' */
-#formFiltros{
-    background: linear-gradient(45deg,#8b7a7a65,#d6d6d6);
+#formFiltros {
+    background: linear-gradient(45deg, #8b7a7a65, #d6d6d6);
 }
 
 /* Estilo para menú lateral */
 #sidebar {
     background: royalblue;
+    height: 175vh;
 }
 
-#navbarNav ul{
+#navbarNav ul {
     height: 100vh;
 }
 
-.texto-nav{
+.texto-nav {
     color: white;
+    font-size: 17px;
+}
+
+.texto-nav > span{
+    display: block;
+}
+
+#navbarNav{
+    margin-top: -550px;
+}
+
+/* Estilo responsivo navbar */
+
+@media (max-width: 856px) {
+    .texto-nav {
+        font-size: 14px;
+    }
+    #sidebar {
+        height: 100%;
+    }
+    #navbarNav{
+        margin-top: -450px;
+    }
+}
+
+@media (max-width: 765px) {
+    .navbar-toggler {
+        margin-top: -1300px;
+    }
+
+    .texto-nav>span {
+        display: none;
+    }
+
+    .texto-nav {
+        font-size: 16px
+    }
+
+    #navbarNav{
+        margin-top: -350px;
+    }
+
 }
 
 
@@ -171,16 +219,16 @@ body.sidebar-toggled footer.sticky-footer {
     width: 100%;
 }
 
-#caja-formulario{
+#caja-formulario {
     background-color: #fff;
-    border:#737c86 solid 1px;
+    border: #737c86 solid 1px;
     border-radius: 10px;
     padding: 10px;
 }
 
-.readonly-custom{
+.readonly-custom {
     background-color: #c3ccd8;
-    color:#363535;
+    color: #363535;
 }
 .descripcion{
     border:2px #737c86 solid ;

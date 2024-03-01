@@ -4,7 +4,7 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('incidencias.index') }}">Incidencias</a></li>
             <li class="breadcrumb-item active" aria-current="page">Ver incidencia</li>
         </ol>
     </nav>
@@ -28,7 +28,6 @@
             <h1 class="text-2xl font-bold mx-8 col-10">INCIDENCIA Nº {{ $incidencia->id }}</h1>
             @hasrole('Administrador')
                 <div class="col-2">
-
                     <a id="botonCrear" href="{{ route('incidencias.edit', $incidencia) }}">
                         <div class="svg-wrapper-1">
                             <div class="svg-wrapper">
@@ -44,6 +43,7 @@
                     </a>
                 </div>
             @endhasrole
+       
         </div>
 
 
@@ -70,10 +70,10 @@
                         @empty($incidencia->responsable_id)
                             todavia no asignada
                         @else
-                            {{ $incidencia->responsable->nombre }}, {{ $incidencia->responsable->apellido1 }}
-                            {{ $incidencia->responsable->apellido2 }}
+                            {{ $incidencia->responsable->nombre_completo }}
                         @endempty
                     </p>
+
                     <p><strong>Estado:</strong> {{ $incidencia->estado }}</p>
                     <div class="row">
                         <p class="col-sm-5"><strong>Fecha de creación:</strong> {{ $incidencia->fecha_creacion }} </p>
@@ -89,6 +89,7 @@
                         <a href="{{ route('descargar.archivo', ['incidencia' => $incidencia]) }}"
                             id="ruta">{{ $incidencia->adjunto_url }}</a>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -138,7 +139,9 @@
             <h1 class="col">Comentarios</h1>
             <div class="col-2">
 
-                <a id="botonCrear" href="{{ route('comentario.create', $incidencia) }}">
+
+                <a id="botonCrear" href="{{ route('comentario.create',$incidencia) }}">
+
                     <div class="svg-wrapper-1">
                         <div class="svg-wrapper">
                             <?xml version="1.0" ?><svg class="feather feather-edit" fill="none" height="24"
@@ -150,10 +153,23 @@
                         </div>
                     </div>
                     <span>Crear Comentario</span>
+
                 </a>
             </div>
         </div>
 
+
+
+                    <p> <strong>Actuaciones:</strong>
+                        @empty($incidencia->actuaciones)
+                            todavia no asignada
+                        @else
+                            {{ $incidencia->actuaciones }}
+                        @endempty
+                    </p>
+                </a>
+            </div>
+        </div>
 
         <ul class="list-unstyled">
             @empty($incidencia->comentarios)
@@ -165,13 +181,24 @@
                     <div class="d-flex justify-content-between my-4">
                         <div class="card">
 
-                            <div class="card-header d-flex justify-content-between p-3 ">
 
+
+                            <div class="card-header d-flex justify-content-between p-3 " >
                                 <p class="fw-bold mb-0 mx-2">{{ $comentario->user->nombre_completo }}</p>
-                                <p class="text-muted small mb-0"><i class="far fa-clock"></i>
-                                    {{ $comentario->getFecha() }}
+                                <p class="text-muted small mb-0 mx-1"><i class="far fa-clock"></i> {{ $comentario->getFecha() }}
+
                                     dias</p>
+                                @hasrole('Administrador')
+                                    <form action="{{ route('comentario.destroy',$comentario) }}" method="POST" class="mx-1">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </button>
+                                    </form>
+                                @endhasrole
                             </div>
+
                             <div class="card-body">
                                 <p class="mb-0">
                                     {{ $comentario->texto }}

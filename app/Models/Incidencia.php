@@ -2,14 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Incidencia extends Model
 {
     use HasFactory;
     protected $table = "incidencias";
     public $timestamps = false;
+
+    // public function getRouteKey()
+    // {
+    //     return 'id';
+    // }
 
     /**
      * Relacion uno a uno entre subtipo e incidendia

@@ -83,7 +83,7 @@ class User extends Authenticatable implements LdapAuthenticatable
 
     /**
      * @param int $nuevoRol , ID del rol que quieres poner al usuario
-     * @return int 1 si es correcto 0 si es fallo
+     * @return mixed 1 si es correcto redirect si es fallo
      */
     public function setRol($nuevoRol){
         try{
@@ -91,8 +91,7 @@ class User extends Authenticatable implements LdapAuthenticatable
             ->where('model_id', $this->id)
             ->update(['role_id' => $nuevoRol]);
         }catch(PDOException $e){
-                return redirect()->route('usuarios.index')->with('error', 'Error al actualizar el actualizar el rol');
-           return 0;
+            return redirect()->route('usuarios.index')->with('error', 'Error al actualizar el actualizar el rol');
         }
     }
 
