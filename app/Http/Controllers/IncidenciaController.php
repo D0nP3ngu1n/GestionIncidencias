@@ -77,8 +77,6 @@ class IncidenciaController extends Controller
 
         if ($user->hasRole('Profesor')) {
             $query->where('creador_id', $user->id);
-        } else {
-            $query->where('creador_id', $user->id);
         }
 
         // Filtrar por cada parámetro recibido
