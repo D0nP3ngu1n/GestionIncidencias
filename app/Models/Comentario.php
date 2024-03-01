@@ -11,12 +11,13 @@ class Comentario extends Model
     use HasFactory;
     protected $table = "comentarios";
     public $timestamps = false;
-/**
+    /**
      * Funcion para sacar el tiempo que ha pasado desde que se ha creado el comentario
      * @param none no recibe parametros
      * @return
      */
-    public function getFecha(){
+    public function getFecha()
+    {
         $fechaFormateada = Carbon::parse($this->fechahora);
         return $fechaFormateada->diffInDays(Carbon::now());
     }
@@ -27,9 +28,9 @@ class Comentario extends Model
      * @param none no recibe parametros
      * @return
      */
-    public function persona()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class, 'users_id', 'id');
     }
 
     /**

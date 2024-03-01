@@ -21,6 +21,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use PDOException;
@@ -335,6 +336,18 @@ class IncidenciaController extends Controller
             // si no se completa la creacion borro el fichero que venia en el formulario de edicion
             Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
             return redirect()->route('incidencias.index')->with('error', 'Error al crear la incidencia. Detalles: ' . $e->getMessage());
+        }
+    }
+    public function descargarArchivo(Incidencia $incidencia)
+    {
+
+        if ($incidencia) {
+
+            // Redirige a la URL del archivo para iniciar la descarga
+            return Redirect::away($incidencia->adjunto_url);
+        } else {
+            // Maneja el caso en el que la incidencia no se encuentre
+            abort(404, 'Incidencia no encontrada');
         }
     }
 }

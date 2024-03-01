@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="project-info-box">
-                    <p> <strong>Numero de la incidencia:</strong> {{ $incidencia->num }}</p>
+                    <p> <strong>Numero de la incidencia:</strong> {{ $incidencia->id }}</p>
                     <p><strong>Tipo de la incidencia:</strong> {{ $incidencia->tipo }}</p>
                     <p><strong>Subtipo:</strong> {{ $incidencia->subtipo->subtipo_nombre }}</p>
                     <p><strong>Descripción:</strong> {{ $incidencia->descripcion }} </p>
@@ -73,6 +73,7 @@
                             {{ $incidencia->responsable->apellido2 }}
                         @endempty
                     </p>
+                    <a href="{{ route('descargar.archivo', ['incidencia' => $incidencia]) }}">Descargar Archivo</a>
                 </div>
             </div>
         </div>
@@ -87,10 +88,10 @@
                 </div>
             @else
                 @foreach ($incidencia->comentarios as $comentario)
-                    <li class="d-flex justify-content-between mb-4">
+                    <div class="d-flex justify-content-between my-4">
                         <div class="card">
-                            <div class="card-header d-flex justify-content-between p-3">
-                                <p class="fw-bold mb-0 mx-2">{{ $comentario->persona->nombreCompleto }}</p>
+                            <div class="card-header d-flex justify-content-between p-3 ">
+                                <p class="fw-bold mb-0 mx-2">{{ $comentario->user->nombre_completo }}</p>
                                 <p class="text-muted small mb-0"><i class="far fa-clock"></i> {{ $comentario->getFecha() }}
                                     dias</p>
                             </div>
@@ -100,11 +101,9 @@
                                 </p>
                             </div>
                         </div>
-                    </li>
+                    </div>
                 @endforeach
             @endempty
-
-        </ul>
 
     </div>
     </div>
