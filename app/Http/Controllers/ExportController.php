@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Incidencia;
 use Illuminate\Http\Request;
 use App\Exports\informeExport;
@@ -22,19 +23,41 @@ class ExportController extends Controller
     {
         $incidencias = json_decode($request->input('incidencias'));
 
-        // Realizar la exportación de las incidencias
+        // Realizar la exportación de las incidencias filtradas
         return Excel::download(new IncidenciaExport($incidencias), 'incidencias.xlsx');
     }
 
-    public function exportpdf()
+    public function exportpdf(Request $request)
     {
-        $pdf = Pdf::loadView('exports.pdf', ['incidencias' => Incidencia::all()]);
+        /*$data = json_decode($request->input('incidencias'));
+
+        // Obtener los datos de las incidencias
+        $incidencias = collect($data->data);
+
+        // Cargar la vista con los datos de las incidencias
+        $pdf = Pdf::loadView('exports.pdf', ['incidencias' => $incidencias]);
+        return $pdf->download('incidencias.pdf');*/
+
+        $data = json_decode($request->input('incidencias'));
+
+        // Obtener los datos de las incidencias
+        $incidencias = collect($data->data);
+
+        // Cargar la relación "creador" para cada incidencia
+        foreach ($incidencias as $incidencia) {
+            $incidencia->creador = User::find($incidencia->creador_id);
+        }
+
+        // Cargar la vista con los datos de las incidencias
+        $pdf = Pdf::loadView('exports.pdf', ['incidencias' => $incidencias]);
         return $pdf->download('incidencias.pdf');
     }
 
-    public function exportcsv()
+    public function exportcsv(Request $request)
     {
-        return Excel::download(new IncidenciaExport, 'incidencias.csv', \Maatwebsite\Excel\Excel::CSV);
+        $incidencias = json_decode($request->input('incidencias'));
+
+        return Excel::download(new IncidenciaExport($incidencias), 'incidencias.csv', \Maatwebsite\Excel\Excel::CSV);
     }
 
 
@@ -166,7 +189,7 @@ class ExportController extends Controller
         $incidencias = Incidencia::all();
         $tiemposResolucion = InformeExport::tiemposResolucionPorTipo($incidencias);
 
-        return Excel::download(new InformeExport($tiemposResolucion), 'informe_tiempos_resolucion_por_tipo.xlsx', );
+        return Excel::download(new InformeExport($tiemposResolucion), 'informe_tiempos_resolucion_por_tipo.xlsx',);
     }
     public function informeTiemposResolucionPorTipoCsv()
     {
@@ -206,6 +229,4 @@ class ExportController extends Controller
 
         return Excel::download(new InformeExport($informeCombinado), 'informe_tiempo_dedicado_e_incidencias_por_admin.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
-
-
 }

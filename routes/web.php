@@ -29,8 +29,8 @@ Route::post('incidencias/{incidencia}',  [ComentarioController::class, 'store'])
 Route::delete('comentarios/{comentario}/eliminar',  [ComentarioController::class, 'destroy'])->name('comentario.destroy')->middleware('auth','role:Administrador');
 
 
-Route::get('exports', [ExportController::class, 'index'])->name('exports.index')->middleware('auth','role:Administrador');
-Route::get('exports/{incidencia}', [ExportController::class, 'show'])->name('exports.show')->middleware('auth','role:Administrador');
+//Route::get('exports', [ExportController::class, 'index'])->name('exports.index')->middleware('auth','role:Administrador');
+//Route::get('exports/{incidencia}', [ExportController::class, 'show'])->name('exports.show')->middleware('auth','role:Administrador');
 Route::post('exports', [ExportController::class, 'export'])->name('exports.export')->middleware('auth','role:Administrador');
 Route::post('exports/pdf', [ExportController::class, 'exportpdf'])->name('exports.pdf')->middleware('auth','role:Administrador');
 Route::post('exports/csv', [ExportController::class, 'exportcsv'])->name('exports.csv')->middleware('auth','role:Administrador');
