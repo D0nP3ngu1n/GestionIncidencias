@@ -183,6 +183,9 @@ class IncidenciaController extends Controller
             Mail::to($usuario->email)->send(new IncidenciaDeleteMail($incidenciaEliminada, $usuario));
         } catch (PDOException $e) {
             return redirect()->route('incidencias.index')->with('error', 'Error al borrar la incidencia ' . $e->getMessage());
+        } catch (Exception $mailException) {
+            // En caso de error al enviar el correo, redirige con un mensaje de error y la información de la excepción de correo
+            return redirect()->route('incidencias.index')->with('error', 'Error al enviar el correo: ' . $mailException->getMessage());
         }
         return redirect()->route('incidencias.index')->with('success', 'Incidencia borrada');
     }
@@ -213,7 +216,7 @@ class IncidenciaController extends Controller
             }
 
             if ($request->has('responsable') && $request->filled('reponsable')) {
-                $incidencia->responsable_id  = $request->responsable;
+                $incidencia->responsable_id = $request->responsable;
             }
 
 
@@ -247,6 +250,9 @@ class IncidenciaController extends Controller
             Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
 
             return redirect()->route('incidencias.index')->with('error', 'Error al editar la incidencia. Detalles: ' . $e->getMessage());
+        } catch (Exception $mailException) {
+            // En caso de error al enviar el correo, redirige con un mensaje de error y la información de la excepción de correo
+            return redirect()->route('incidencias.index')->with('error', 'Error al enviar el correo: ' . $mailException->getMessage());
         }
     }
 
@@ -335,6 +341,9 @@ class IncidenciaController extends Controller
             // si no se completa la creacion borro el fichero que venia en el formulario de edicion
             Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
             return redirect()->route('incidencias.index')->with('error', 'Error al crear la incidencia. Detalles: ' . $e->getMessage());
+        } catch (Exception $mailException) {
+            // En caso de error al enviar el correo, redirige con un mensaje de error y la información de la excepción de correo
+            return redirect()->route('incidencias.index')->with('error', 'Error al enviar el correo: ' . $mailException->getMessage());
         }
     }
 }
