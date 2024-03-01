@@ -2,12 +2,12 @@
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
 </script>
 
-<header class="navbar navbar-expand navbar-light bg-white shadow ml-auto d-flex justify-content-between">
-    <div class="mx-5">
+<header class="navbar navbar-expand col-12 navbar-light bg-white shadow ml-auto d-flex justify-content-between">
+    <div class="mx-4">
         <img class="img-logo" src={{ asset('assets/imagenes/logo_insti.svg') }}>
-        <span class="fs-5">Gestión de Incidencias</span>
+        <span id="span-titulo" >Gestión de Incidencias</span>
     </div>
-    <div class="dropdown mx-5">
+    <div class="dropdown px-5 col-auto">
         <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
             data-bs-toggle="dropdown" aria-expanded="false">
             @if (Auth::check())
