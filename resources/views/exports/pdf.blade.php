@@ -38,7 +38,7 @@
                                 {{ $incidencia->equipo->aula->codigo ?? '' }}
                             @endempty
                         </td>
-                        <td class="text-truncate">{{ $incidencia->creador_id }}</td>
+                        <td class="text-truncate">{{ $incidencia->creador->nombre_completo }}</td>
                         <td class="text-truncate">
                             @empty($incidencia->responsable_id)
                                 Todavía no asignado

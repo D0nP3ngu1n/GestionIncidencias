@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Incidencia;
 use Illuminate\Http\Request;
 use App\Exports\informeExport;
@@ -28,10 +29,24 @@ class ExportController extends Controller
 
     public function exportpdf(Request $request)
     {
+        /*$data = json_decode($request->input('incidencias'));
+
+        // Obtener los datos de las incidencias
+        $incidencias = collect($data->data);
+
+        // Cargar la vista con los datos de las incidencias
+        $pdf = Pdf::loadView('exports.pdf', ['incidencias' => $incidencias]);
+        return $pdf->download('incidencias.pdf');*/
+
         $data = json_decode($request->input('incidencias'));
 
         // Obtener los datos de las incidencias
         $incidencias = collect($data->data);
+
+        // Cargar la relación "creador" para cada incidencia
+        foreach ($incidencias as $incidencia) {
+            $incidencia->creador = User::find($incidencia->creador_id);
+        }
 
         // Cargar la vista con los datos de las incidencias
         $pdf = Pdf::loadView('exports.pdf', ['incidencias' => $incidencias]);
