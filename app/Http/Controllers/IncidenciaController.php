@@ -220,6 +220,10 @@ class IncidenciaController extends Controller
                 $incidencia->responsable_id = $request->responsable;
             }
 
+            if ($request->has('actuaciones') && $request->filled('actuaciones')) {
+                $incidencia->actuaciones = $request->actuaciones;
+            }
+
 
             //si en el edit me viene un fichero adjunto elimino el anterior y subo el nuevo ademas de guardar su URL
             if ($request->hasFile('adjunto')) {
@@ -230,7 +234,7 @@ class IncidenciaController extends Controller
                 }
 
                 //guardo el fichero y cojo su ruta para guardarla en la URL de la incidencia
-                $url = 'assets/ficheros/' . $request->fichero->store('', 'ficheros');
+                $url = $request->fichero->store('', 'ficheros');
                 $incidencia->adjunto_url = $url;
             }
 
@@ -289,8 +293,6 @@ class IncidenciaController extends Controller
                 $usuario->save();
             }
 
-
-
             //el campo Creador id viene dado por el usuario actualmente logeado
             $incidencia->creador_id = auth()->user()->id;
 
@@ -318,7 +320,7 @@ class IncidenciaController extends Controller
 
             if ($request->hasFile('adjunto')) {
                 //guardo el fichero y cojo su ruta para guardarla en la URL de la incidencia
-                $url = 'assets/ficheros/' . $request->adjunto->store('', 'ficheros');
+                $url = $request->adjunto->store('', 'ficheros');
                 $incidencia->adjunto_url = $url;
             }
 
@@ -343,8 +345,8 @@ class IncidenciaController extends Controller
             Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
 
             return redirect()->route('incidencias.index')->with('error', 'Error al crear la incidencia. Detalles: ' . $e->getMessage());
-
         }
+
     }
 
     public function descargarArchivo(Incidencia $incidencia)
@@ -353,7 +355,7 @@ class IncidenciaController extends Controller
         if ($incidencia) {
 
             // Redirige a la URL del archivo para iniciar la descarga
-            return Response::download($incidencia->adjunto_url);
+            return Response::download('assets/ficheros/'.$incidencia->adjunto_url);
         } else {
             // Maneja el caso en el que la incidencia no se encuentre
             abort(404, 'Incidencia no encontrada');

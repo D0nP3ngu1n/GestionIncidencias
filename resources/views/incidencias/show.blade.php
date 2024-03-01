@@ -72,10 +72,10 @@
                         @empty($incidencia->responsable_id)
                             todavia no asignada
                         @else
-                            {{ $incidencia->responsable->nombre }}, {{ $incidencia->responsable->apellido1 }}
-                            {{ $incidencia->responsable->apellido2 }}
+                            {{ $incidencia->responsable->nombre_completo }}
                         @endempty
                     </p>
+
                     <a href="{{ route('descargar.archivo', ['incidencia' => $incidencia]) }}">Descargar Archivo</a>
                 </div>
             </div>
@@ -99,11 +99,16 @@
                         </div>
                     </div>
                     <span>Crear Comentario</span>
+                    <p> <strong>Actuaciones:</strong>
+                        @empty($incidencia->actuaciones)
+                            todavia no asignada
+                        @else
+                            {{ $incidencia->actuaciones }}
+                        @endempty
+                    </p>
                 </a>
             </div>
         </div>
-
-
         <ul class="list-unstyled">
             @empty($incidencia->comentarios)
                 <div class="d-flex justify-content-center">
@@ -115,10 +120,10 @@
                         <div class="card">
                             <div class="card-header d-flex justify-content-between p-3 " >
                                 <p class="fw-bold mb-0 mx-2">{{ $comentario->user->nombre_completo }}</p>
-                                <p class="text-muted small mb-0"><i class="far fa-clock"></i> {{ $comentario->getFecha() }}
+                                <p class="text-muted small mb-0 mx-1"><i class="far fa-clock"></i> {{ $comentario->getFecha() }}
                                     dias</p>
                                 @hasrole('Administrador')
-                                    <form action="{{ route('comentario.destroy',$comentario) }}" method="POST">
+                                    <form action="{{ route('comentario.destroy',$comentario) }}" method="POST" class="mx-1">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-danger">
