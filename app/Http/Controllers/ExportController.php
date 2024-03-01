@@ -27,14 +27,14 @@ class ExportController extends Controller
 
     public function exportpdf(Request $request)
     {
-        $incidencias = json_decode($request->input('incidencias'));
-        return Excel::download(new IncidenciaExport($incidencias), 'incidencias.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+        /*$incidencias = json_decode($request->input('incidencias'));
+        return Excel::download(new IncidenciaExport($incidencias), 'incidencias.pdf', \Maatwebsite\Excel\Excel::DOMPDF);*/
     }
 
     public function exportcsv(Request $request)
     {
-        $incidencias = json_decode($request->input('incidencias'));
-        return Excel::download(new IncidenciaExport($incidencias), 'incidencias.csv', \Maatwebsite\Excel\Excel::CSV);
+        /*$incidencias = json_decode($request->input('incidencias'));
+        return Excel::download(new IncidenciaExport($incidencias), 'incidencias.csv', \Maatwebsite\Excel\Excel::CSV);*/
     }
 
 
