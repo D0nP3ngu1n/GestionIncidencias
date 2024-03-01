@@ -217,38 +217,38 @@ class IncidenciaController extends Controller
 
             if ($request->has('responsable') && $request->filled('responsable')) {
 
-          
-
-            if ($request->has('actuaciones') && $request->filled('actuaciones')) {
-                $incidencia->actuaciones = $request->actuaciones;
-
-            }
 
 
-            //si en el edit me viene un fichero adjunto elimino el anterior y subo el nuevo ademas de guardar su URL
-            if ($request->hasFile('adjunto')) {
-
-                if ($request->fichero) {
-                    //elimino el fichero anterior que tiene la incidencia
-                    Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
+                if ($request->has('actuaciones') && $request->filled('actuaciones')) {
+                    $incidencia->actuaciones = $request->actuaciones;
                 }
 
-                //guardo el fichero y cojo su ruta para guardarla en la URL de la incidencia
-                $url = $request->fichero->store('', 'ficheros');
-                $incidencia->adjunto_url = $url;
-            }
 
-            $incidencia->save();
-            //Recojo el usuario para pasar a las funciones del mail
-            $usuario = User::where('id', $incidencia->creador_id)->first();
-            /*Con el usuario recogido anteriormente, en el to le indico donde envia el email,
+                //si en el edit me viene un fichero adjunto elimino el anterior y subo el nuevo ademas de guardar su URL
+                if ($request->hasFile('adjunto')) {
+
+                    if ($request->fichero) {
+                        //elimino el fichero anterior que tiene la incidencia
+                        Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
+                    }
+
+                    //guardo el fichero y cojo su ruta para guardarla en la URL de la incidencia
+                    $url = $request->fichero->store('', 'ficheros');
+                    $incidencia->adjunto_url = $url;
+                }
+
+                $incidencia->save();
+                //Recojo el usuario para pasar a las funciones del mail
+                $usuario = User::where('id', $incidencia->creador_id)->first();
+                /*Con el usuario recogido anteriormente, en el to le indico donde envia el email,
             y en el send le mando el email configurado, pasando la vista y el usuario creador
             */
-            Mail::to($usuario->email)->send(new IncidenciaUpdateMail($incidencia, $usuario));
-            DB::commit();
+                Mail::to($usuario->email)->send(new IncidenciaUpdateMail($incidencia, $usuario));
+                DB::commit();
 
-            //si se crea correctamente redirigo a la pagina de la incidencia con un mensaje de succes
-            return redirect()->route('incidencias.show', ['incidencia' => $incidencia])->with('success', 'Incidencia editada');
+                //si se crea correctamente redirigo a la pagina de la incidencia con un mensaje de succes
+                return redirect()->route('incidencias.show', ['incidencia' => $incidencia])->with('success', 'Incidencia editada');
+            }
         } catch (PDOException $e) {
             DB::rollBack();
             // si no se completa la creacion borro el fichero que venia en el formulario de edicion
@@ -337,8 +337,7 @@ class IncidenciaController extends Controller
             // si no se completa la creacion borro el fichero que venia en el formulario de edicion
             Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
             return redirect()->route('incidencias.index')->with('error', 'Error de base de datos al crear la incidencia. Detalles: ' . $e->getMessage());
-
-        }catch (Exception $e) {
+        } catch (Exception $e) {
 
             DB::rollBack();
             // si no se completa la creacion borro el fichero que venia en el formulario de edicion
@@ -346,21 +345,8 @@ class IncidenciaController extends Controller
 
             return redirect()->route('incidencias.index')->with('error', 'Error al crear la incidencia. Detalles: ' . $e->getMessage());
         }
-
     }
 
-    public function descargarArchivo(Incidencia $incidencia)
-    {
-
-        if ($incidencia) {
-
-            // Redirige a la URL del archivo para iniciar la descarga
-            return Response::download('assets/ficheros/'.$incidencia->adjunto_url);
-        } else {
-            // Maneja el caso en el que la incidencia no se encuentre
-            abort(404, 'Incidencia no encontrada');
-        }
-    }
     public function descargarArchivo(Incidencia $incidencia)
     {
 

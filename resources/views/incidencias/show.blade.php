@@ -43,7 +43,7 @@
                     </a>
                 </div>
             @endhasrole
-       
+
         </div>
 
 
@@ -92,6 +92,15 @@
 
                 </div>
             </div>
+            <p><strong>Actuaciones:</strong>
+            <p>
+            <p class="descripcion col-sm-6">
+                @empty($incidencia->actuaciones)
+                    todavia no asignada
+                @else
+                    {{ $incidencia->actuaciones }}
+                @endempty
+            </p>
         </div>
     </div>
     <script>
@@ -139,9 +148,7 @@
             <h1 class="col">Comentarios</h1>
             <div class="col-2">
 
-
-                <a id="botonCrear" href="{{ route('comentario.create',$incidencia) }}">
-
+                <a id="botonCrear" href="{{ route('comentario.create', $incidencia) }}">
                     <div class="svg-wrapper-1">
                         <div class="svg-wrapper">
                             <?xml version="1.0" ?><svg class="feather feather-edit" fill="none" height="24"
@@ -157,20 +164,6 @@
                 </a>
             </div>
         </div>
-
-
-
-                    <p> <strong>Actuaciones:</strong>
-                        @empty($incidencia->actuaciones)
-                            todavia no asignada
-                        @else
-                            {{ $incidencia->actuaciones }}
-                        @endempty
-                    </p>
-                </a>
-            </div>
-        </div>
-
         <ul class="list-unstyled">
             @empty($incidencia->comentarios)
                 <div class="d-flex justify-content-center">
@@ -180,16 +173,13 @@
                 @foreach ($incidencia->comentarios as $comentario)
                     <div class="d-flex justify-content-between my-4">
                         <div class="card">
-
-
-
-                            <div class="card-header d-flex justify-content-between p-3 " >
+                            <div class="card-header d-flex justify-content-between p-3 ">
                                 <p class="fw-bold mb-0 mx-2">{{ $comentario->user->nombre_completo }}</p>
-                                <p class="text-muted small mb-0 mx-1"><i class="far fa-clock"></i> {{ $comentario->getFecha() }}
-
+                                <p class="text-muted small mb-0 mx-1"><i class="far fa-clock"></i>
+                                    {{ $comentario->getFecha() }}
                                     dias</p>
                                 @hasrole('Administrador')
-                                    <form action="{{ route('comentario.destroy',$comentario) }}" method="POST" class="mx-1">
+                                    <form action="{{ route('comentario.destroy', $comentario) }}" method="POST" class="mx-1">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-danger">
@@ -209,9 +199,10 @@
                 @endforeach
             @endempty
 
-    </div>
-    </div>
+        </ul>
 
+    </div>
+    </div>
 
 
 
