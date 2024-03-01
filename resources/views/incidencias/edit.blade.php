@@ -39,14 +39,14 @@
 
                 <div class="form froup col-sm-4">
                     <label for="departamento" class="form-label">Departamento:</label>
-            <input type="text" id="departamento" name="departamento"
-                value="
+                    <input type="text" id="departamento" name="departamento"
+                        value="
                 @empty($incidencia->creador->departamento)
                 Sin departamento
                 @else
                     {{ $incidencia->creador->departamento->Nombre }}
                 @endempty"
-                class="form-control" disabled>
+                        class="form-control" disabled>
                 </div>
             </div>
             <div class="row">
@@ -90,7 +90,7 @@
 
             <div class="form-outline mb-3">
                 <label for="actuaciones" class="form-label">Actuaciones:</label>
-                <textarea id="actuaciones" name="actuaciones" class="form-control" >{{ $incidencia->actuaciones }}</textarea>
+                <textarea id="actuaciones" name="actuaciones" class="form-control">{{ $incidencia->actuaciones }}</textarea>
             </div>
             <div class="row">
                 <div class="form-group col-sm-4">
@@ -113,6 +113,7 @@
                 <div class="mb-3">
                     <label for="responsable" class="form-label">Responsable:</label>
                     <select id="responsable" name="responsable" class="form-select">
+                        <option value="" selected>...</option>
                         @foreach ($usuarios as $usuario)
                             <option value="{{ $usuario->id }}">{{ $usuario->nombre_completo }}</option>
                         @endforeach
