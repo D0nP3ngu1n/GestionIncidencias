@@ -26,21 +26,24 @@
         <div class="border-1 rounded-4 p-2 ">
             <div class="row my-3 py-3 w-auto rounded-4 bg-colorSecundario">
                 <h1 class="text-2xl font-bold mx-8 col-10">Listado de incidencias</h1>
-                <div class="col -2">
-                    <a id="botonCrear" href="{{ route('incidencias.edit', $incidencia) }}">
-                        <div class="svg-wrapper-1">
-                            <div class="svg-wrapper">
-                                <?xml version="1.0" ?><svg class="feather feather-edit" fill="none" height="24"
-                                    stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                                </svg>
+                @hasrole('Administrador')
+                    <div class="col-2">
+
+                        <a id="botonCrear" href="{{ route('incidencias.edit', $incidencia) }}">
+                            <div class="svg-wrapper-1">
+                                <div class="svg-wrapper">
+                                    <?xml version="1.0" ?><svg class="feather feather-edit" fill="none" height="24"
+                                        stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                    </svg>
+                                </div>
                             </div>
-                        </div>
-                        <span>Editar Incidencia Incidencia</span>
-                    </a>
-                </div>
+                            <span>Editar Incidencia Incidencia</span>
+                        </a>
+                    </div>
+                @endhasrole
             </div>
         </div>
 
@@ -80,7 +83,27 @@
     </div>
 
     <div class="mt-3 p-3 w-auto rounded-4 bg-colorSecundario">
-        <h1>Comentarios</h1>
+        <div class="row">
+            <h1 class="col">Comentarios</h1>
+            <div class="col-2">
+
+                <a id="botonCrear" href="{{ route('comentario.create',$incidencia) }}">
+                    <div class="svg-wrapper-1">
+                        <div class="svg-wrapper">
+                            <?xml version="1.0" ?><svg class="feather feather-edit" fill="none" height="24"
+                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <span>Crear Comentario</span>
+                </a>
+            </div>
+        </div>
+
+
         <ul class="list-unstyled">
             @empty($incidencia->comentarios)
                 <div class="d-flex justify-content-center">
@@ -90,7 +113,9 @@
                 @foreach ($incidencia->comentarios as $comentario)
                     <div class="d-flex justify-content-between my-4">
                         <div class="card">
-                            <div class="card-header d-flex justify-content-between p-3 ">
+
+                            <div class="card-header d-flex justify-content-between p-3 " >
+
                                 <p class="fw-bold mb-0 mx-2">{{ $comentario->user->nombre_completo }}</p>
                                 <p class="text-muted small mb-0"><i class="far fa-clock"></i> {{ $comentario->getFecha() }}
                                     dias</p>

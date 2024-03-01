@@ -23,7 +23,6 @@ class CrearComentarioRequest extends FormRequest
     {
         return [
             'texto' => 'required|max:250',
-            'fechaHora' => 'required|date_format:Y-m-d H:i:s',
         ];
     }
 
@@ -38,8 +37,6 @@ class CrearComentarioRequest extends FormRequest
         return [
             'texto.required' => 'El campo texto es obligatorio.',
             'texto.max' => 'El campo texto debe tener menos de 250 caracteres.',
-            'fechaHora.required' => 'El campo fecha y hora es obligatorio.',
-            'fechaHora.date_format' => 'El formato de fecha y hora proporcionado es inválido. (ejemplo: YYYY-MM-DD HH:MM:SS).',
         ];
     }
 }
