@@ -52,21 +52,6 @@
                                         {{ $incidencia->prioridad }}
                                     @endempty
                                 </td>
-                                <td class="text-truncate">
-                                    <a href="{{ route('incidencias.show', $incidencia) }}"
-                                        class="btn btn-primary text-white"><i class="bi bi-eye"></i></a>
-                                    <a href="{{ route('incidencias.edit', $incidencia) }}"
-                                        class="btn btn-success text-white"><i class="bi bi-pencil-square"></i></a>
-
-                                    <form action="{{ route('incidencias.destroy', $incidencia) }}" method="POST">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-danger">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </button>
-                                    </form>
-                                    <!-- Aquí podrías agregar botones para editar y eliminar la incidencia -->
-                                </td>
                             </tr>
                         @endforeach
             </tbody>

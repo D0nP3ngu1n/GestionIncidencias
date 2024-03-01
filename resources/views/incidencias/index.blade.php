@@ -105,6 +105,7 @@
         <!-- Desplegable de opciones para exportar -->
         <form id="exportForm" action="{{ route('exports.export') }}" method="POST">
             @csrf
+            <input type="hidden" name="incidencias" value="{{ json_encode($incidencias) }}">
             <label for="exportOption">Exportar como:</label>
             <select id="exportOption" name="exportOption">
                 <option value="">--Elija una opción--</option>

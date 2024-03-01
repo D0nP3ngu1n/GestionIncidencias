@@ -24,9 +24,12 @@ class ExportController extends Controller
      * Exporta el listado de incidencias a excel
      * @return mixed Realiza la exportacion a excel
      */
-    public function export()
+    public function export(Request $request)
     {
-        return Excel::download(new IncidenciaExport, 'incidencias.xlsx');
+        $incidencias = json_decode($request->input('incidencias'));
+
+        // Realizar la exportación de las incidencias
+        return Excel::download(new IncidenciaExport($incidencias), 'incidencias.xlsx');
     }
 
     /**
@@ -45,7 +48,7 @@ class ExportController extends Controller
      */
     public function exportcsv()
     {
-        return Excel::download(new IncidenciaExport, 'incidencias.csv', \Maatwebsite\Excel\Excel::CSV);
+        return Excel::download(new IncidenciaExport(Incidencia::all()), 'incidencias.csv', \Maatwebsite\Excel\Excel::CSV);
     }
 
     /**
