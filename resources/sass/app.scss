@@ -130,6 +130,19 @@
     font-size: 16px;
 }
 
+/* Estilo body */
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Estilo main */
+main{
+    flex: 1;
+}
+
 /* Estilo imagen login */
 .img-login {
     max-width: 100%;
@@ -150,11 +163,7 @@
 /* Estilo para menú lateral */
 #sidebar {
     background: royalblue;
-    height: 175vh;
-}
-
-#navbarNav ul {
-    height: 100vh;
+    height: 100%;
 }
 
 .texto-nav {
@@ -166,29 +175,15 @@
     display: block;
 }
 
-#navbarNav{
-    margin-top: -550px;
-}
 
 /* Estilo responsivo navbar */
-
 @media (max-width: 856px) {
     .texto-nav {
         font-size: 14px;
     }
-    #sidebar {
-        height: 100%;
-    }
-    #navbarNav{
-        margin-top: -450px;
-    }
 }
 
 @media (max-width: 765px) {
-    .navbar-toggler {
-        margin-top: -1300px;
-    }
-
     .texto-nav>span {
         display: none;
     }
@@ -196,13 +191,7 @@
     .texto-nav {
         font-size: 16px
     }
-
-    #navbarNav{
-        margin-top: -350px;
-    }
-
 }
-
 
 /* Estilo footer */
 footer.sticky-footer {

@@ -1,11 +1,11 @@
-<nav class="navbar navbar-expand-md bg-gradient-primary p-3" id="sidebar">
-    <div class="container-fluid" id="">
+<nav class="navbar navbar-expand-md bg-gradient-primary p-3 d-flex flex-column align-content-start" id="sidebar">
+    <div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav d-flex flex-column justify-content-start">
+            <ul class="navbar-nav d-flex flex-column g-2">
                 <!-- Nav Item - Listado de Incidencias -->
                 <li class="nav-item">
                     <a class="nav-link texto-nav d-flex" href="{{ route('incidencias.index') }}">
@@ -21,7 +21,7 @@
                         <span>Informes</span>
                     </a>
                 </li>
-                
+
                 <!-- Nav Item - Gestion Usuario -->
                 @hasrole('Administrador')
                     <li class="nav-item">
@@ -31,7 +31,7 @@
                         </a>
                     </li>
                 @endhasrole
-           
+
                  <!-- Nav Item - Dashboard -->
                  <li class="nav-item">
                     <a class="nav-link texto-nav d-flex" href="#">
