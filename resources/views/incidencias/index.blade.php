@@ -155,6 +155,7 @@
                 </div>
             </form>
         </div>
+
         <form id="exportForm" action="{{ route('exports.export') }}" method="POST">
             @csrf
             <input type="hidden" name="incidencias" value="{{ json_encode($incidencias) }}">
@@ -174,6 +175,7 @@
                 }
             });
         </script>
+
         <!-- Fin Filtros -->
         @if (count($incidencias) > 0)
             <div class="table-responsive">
@@ -284,6 +286,3 @@
     </div>
     </div>
 @endsection
-
-
-
