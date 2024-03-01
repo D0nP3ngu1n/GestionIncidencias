@@ -212,7 +212,7 @@ class IncidenciaController extends Controller
                 $incidencia->prioridad = $request->prioridad;
             }
 
-            if ($request->has('responsable') && $request->filled('reponsable')) {
+            if ($request->has('responsable') && $request->filled('responsable')) {
                 $incidencia->responsable_id  = $request->responsable;
             }
 
