@@ -326,24 +326,31 @@ class IncidenciaController extends Controller
             /*Con el usuario recogido anteriormente, en el to le indico donde envia el email,
             y en el send le mando el email configurado, pasando la vista y el usuario
             */
-            Mail::to($usuario->email)->send(new IncidenciaMail($incidencia, $usuario));
             DB::commit();
+            Mail::to($usuario->email)->send(new IncidenciaMail($incidencia, $usuario));
             return redirect()->route('incidencias.show', ['incidencia' => $incidencia])->with('success', 'Incidencia creada');
-        } catch (Exception $ex) {
-            DB::rollBack();
-            // si no se completa la creacion borro el fichero que venia en el formulario de edicion
-            Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
-
-
-            return redirect()->route('incidencias.index')->with('error', 'Error al crear la incidencia. Detalles: ' . $ex->getMessage());
         } catch (PDOException $e) {
+
             DB::rollBack();
             // si no se completa la creacion borro el fichero que venia en el formulario de edicion
             Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
             return redirect()->route('incidencias.index')->with('error', 'Error al crear la incidencia. Detalles: ' . $e->getMessage());
+
         } catch (Exception $mailException) {
+
             // En caso de error al enviar el correo, redirige con un mensaje de error y la información de la excepción de correo
+            DB::commit();
             return redirect()->route('incidencias.index')->with('error', 'Error al enviar el correo: ' . $mailException->getMessage());
+
+        }
+        catch (Exception $ex) {
+
+            DB::rollBack();
+            // si no se completa la creacion borro el fichero que venia en el formulario de edicion
+            Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
+
+            return redirect()->route('incidencias.index')->with('error', 'Error al crear la incidencia. Detalles: ' . $ex->getMessage());
+
         }
     }
 }
