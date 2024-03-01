@@ -25,7 +25,8 @@
 
 
     <div id="caja-formulario" class="container">
-        <form action="{{ route('incidencias.store') }}" method="POST" enctype="multipart/form-data" class="form-horizantal">
+        <form action="{{ route('incidencias.store') }}" method="POST" enctype="multipart/form-data"
+            class="form-horizantal">
             @csrf
             <div class="col-sm-12">
                 <label for="nombre" class="form-label">Nombre Completo:</label>
@@ -134,7 +135,7 @@
                     sel.innerHTML = '';
                     //solo actualizará los datos si la opción es distinta a INTERNET
                     document.getElementById('sel1').classList.remove('invisible');
-                    sel.innerHTML += `<option selected>...</option>`;
+                    sel.innerHTML += `<option value=null selected>...</option>`;
                     switch (opc) {
                         case "EQUIPOS":
                             var arr = array['EQUIPOS'];

@@ -214,12 +214,14 @@ class IncidenciaController extends Controller
                 $incidencia->prioridad = $request->prioridad;
             }
 
-            if ($request->has('responsable') && $request->filled('reponsable')) {
-                $incidencia->responsable_id = $request->responsable;
-            }
+
+            if ($request->has('responsable') && $request->filled('responsable')) {
+
+          
 
             if ($request->has('actuaciones') && $request->filled('actuaciones')) {
                 $incidencia->actuaciones = $request->actuaciones;
+
             }
 
 
@@ -354,6 +356,18 @@ class IncidenciaController extends Controller
 
             // Redirige a la URL del archivo para iniciar la descarga
             return Response::download('assets/ficheros/'.$incidencia->adjunto_url);
+        } else {
+            // Maneja el caso en el que la incidencia no se encuentre
+            abort(404, 'Incidencia no encontrada');
+        }
+    }
+    public function descargarArchivo(Incidencia $incidencia)
+    {
+
+        if ($incidencia) {
+
+            // Redirige a la URL del archivo para iniciar la descarga
+            return Response::download('assets/ficheros/' . $incidencia->adjunto_url);
         } else {
             // Maneja el caso en el que la incidencia no se encuentre
             abort(404, 'Incidencia no encontrada');
