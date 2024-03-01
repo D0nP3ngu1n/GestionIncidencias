@@ -15,7 +15,7 @@ use PDOException;
 class ComentarioController extends Controller
 {
 
-     /**
+    /**
      * Devuelve la vista para crear un comentario
      *
      * @return mixed Devuelve una vista de una comentario concreta
@@ -25,7 +25,7 @@ class ComentarioController extends Controller
         return view('comentarios.create', ['incidencia' => $incidencia]);
     }
 
-    public function store(CrearComentarioRequest $request,Incidencia $incidencia)
+    public function store(CrearComentarioRequest $request, Incidencia $incidencia)
     {
 
         try {
@@ -36,10 +36,10 @@ class ComentarioController extends Controller
             $comentario = new Comentario();
             $comentario->texto = $request->texto;
             //la fecha actual
-            $comentario->fechaHora=Carbon::now();
-            $comentario->incidencia_id=$incidencia->id;
+            $comentario->fechaHora = Carbon::now();
+            $comentario->incidencia_id = $incidencia->id;
             //el usuario logeado actualmente
-            $comentario->users_id=auth()->user()->id;
+            $comentario->users_id = auth()->user()->id;
 
             $comentario->save();
             DB::commit();
@@ -47,10 +47,30 @@ class ComentarioController extends Controller
             return redirect()->route('incidencias.show', ['incidencia' => $incidencia])->with('success', 'Comentario creado');
         } catch (PDOException $e) {
             DB::rollBack();
-            return redirect()->route('incidencias.show', ['incidencia' => $incidencia])->with('error', 'Error al crear el comentario '.$e->getMessage());
-        }catch (Exception $e) {
+            return redirect()->route('incidencias.show', ['incidencia' => $incidencia])->with('error', 'Error al crear el comentario ' . $e->getMessage());
+        } catch (Exception $e) {
             DB::rollBack();
-            return redirect()->route('incidencias.show', ['incidencia' => $incidencia])->with('error', 'Error al crear el comentario '.$e->getMessage());
+            return redirect()->route('incidencias.show', ['incidencia' => $incidencia])->with('error', 'Error al crear el comentario ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Elimina un Comentario
+     *
+     * @param Comentario $Comentario objeto Comentario
+     *
+     * @return mixed Elimina una incidencia concreta
+     */
+    public function destroy(Comentario $comentario)
+    {
+        try {
+            $incidencia = Incidencia::where('id',$comentario->incidencia_id);
+            $comentario->delete();
+        } catch (PDOException $e) {
+            return redirect()->route('incidencias.show',$incidencia)->with('error', 'Error de base de datos al borrar el comentario ' . $e->getMessage());
+        } catch (Exception $e) {
+            return redirect()->route('incidencias.show',$incidencia)->with('error', 'Error general al borrar la incidencia ' . $e->getMessage());
+        }
+        return redirect()->route('incidencias.show',$incidencia)->with('success', 'Confirmacion: Comentario Borrado');
     }
 }

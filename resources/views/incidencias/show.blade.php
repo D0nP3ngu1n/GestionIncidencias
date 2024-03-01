@@ -76,6 +76,7 @@
                             {{ $incidencia->responsable->apellido2 }}
                         @endempty
                     </p>
+                    <a href="{{ route('descargar.archivo', ['incidencia' => $incidencia]) }}">Descargar Archivo</a>
                 </div>
             </div>
         </div>
@@ -116,7 +117,17 @@
                                 <p class="fw-bold mb-0 mx-2">{{ $comentario->user->nombre_completo }}</p>
                                 <p class="text-muted small mb-0"><i class="far fa-clock"></i> {{ $comentario->getFecha() }}
                                     dias</p>
+                                @hasrole('Administrador')
+                                    <form action="{{ route('comentario.destroy',$comentario) }}" method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </button>
+                                    </form>
+                                @endhasrole
                             </div>
+
                             <div class="card-body">
                                 <p class="mb-0">
                                     {{ $comentario->texto }}
