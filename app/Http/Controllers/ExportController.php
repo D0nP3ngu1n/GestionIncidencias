@@ -51,7 +51,10 @@ class ExportController extends Controller
 
     public function exportpdfInc(Incidencia $incidencia)
     {
-        return Excel::download(new IncidenciaExport($incidencia), 'incidencia_' . $incidencia->id . '.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+        //return Excel::download(new IncidenciaExport($incidencia), 'incidencia_' . $incidencia->id . '.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+
+        $pdf = PDF::loadView('exports.showpdf', ['incidencia' => $incidencia]);
+        return $pdf->download('incidencia_' . $incidencia->id . '.pdf');
     }
 
     public function exportcsvInc(Incidencia $incidencia)
