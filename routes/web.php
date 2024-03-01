@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\chartsController;
 use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\DashController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\IncidenciaController;
 use App\Http\Controllers\UserController;
@@ -65,6 +67,8 @@ Route::prefix('/exports/informe')->group(function () {
     Route::get('/tiempo-dedicado-e-incidencias-admin/pdf', [ExportController::class, 'informeTiempoDedicadoEIncidenciasPorAdministradorPdf'])->name('export.informe.tiempo.dedicado.e.incidencias.admin.Pdf');
 });
 
+/* Parte de los charts*/
+Route::get('/dashboard', [DashController::class, 'index'])->name('dasboard.index')->middleware('auth','role:Administrador');;
 
 
 Route::controller(UserController::class)->group(function () {
