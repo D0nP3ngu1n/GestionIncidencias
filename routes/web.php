@@ -18,45 +18,73 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('incidencias', IncidenciaController::class);
+Route::resource('incidencias', IncidenciaController::class)->middleware('auth');
 
-Route::post('incidencias', [IncidenciaController::class, 'filtrar'])->name('incidencias.filtrar');
+Route::post('incidencias/filtrar', [IncidenciaController::class, 'filtrar'])->name('incidencias.filtrar')->middleware('auth');
 
-Route::get('exports', [ExportController::class, 'index'])->name('exports.index');
-Route::get('exports/{incidencia}', [ExportController::class, 'show'])->name('exports.show');
-Route::post('exports', [ExportController::class, 'export'])->name('exports.export');
-Route::post('exports/pdf', [ExportController::class, 'exportpdf'])->name('exports.pdf');
-Route::post('exports/csv', [ExportController::class, 'exportcsv'])->name('exports.csv');
+Route::get('exports', [ExportController::class, 'index'])->name('exports.index')->middleware('auth','role:Administrador');
+Route::get('exports/{incidencia}', [ExportController::class, 'show'])->name('exports.show')->middleware('auth','role:Administrador');
+Route::post('exports', [ExportController::class, 'export'])->name('exports.export')->middleware('auth','role:Administrador');
+Route::post('exports/pdf', [ExportController::class, 'exportpdf'])->name('exports.pdf')->middleware('auth','role:Administrador');
+Route::post('exports/csv', [ExportController::class, 'exportcsv'])->name('exports.csv')->middleware('auth','role:Administrador');
 
-Route::post('exports/{incidencia}', [ExportController::class, 'exportInc'])->name('exports.exportInc');
-Route::post('exports/{incidencia}/pdf', [ExportController::class, 'exportpdfInc'])->name('exports.exportpdfInc');
-Route::post('exports/{incidencia}/csv', [ExportController::class, 'exportcsvInc'])->name('exports.exportcsvInc');
+Route::post('exports/{incidencia}', [ExportController::class, 'exportInc'])->name('exports.exportInc')->middleware('auth','role:Administrador');
+Route::post('exports/{incidencia}/pdf', [ExportController::class, 'exportpdfInc'])->name('exports.exportpdfInc')->middleware('auth','role:Administrador');
+Route::post('exports/{incidencia}/csv', [ExportController::class, 'exportcsvInc'])->name('exports.exportcsvInc')->middleware('auth','role:Administrador');
+
+Route::prefix('/exports/informe')->group(function () {
+    Route::get('/resueltas-admin', [ExportController::class, 'informeResueltasPorAdmin'])->name('export.informe.resueltas.admin');
+    Route::get('/resueltas-admin/pdf', [ExportController::class, 'informeResueltasPorAdminPdf'])->name('export.informe.resueltas.admin.Pdf');
+    Route::get('/resueltas-admin/csv', [ExportController::class, 'informeResueltasPorAdminCsv'])->name('export.informe.resueltas.admin.Csv');
+
+    Route::get('/abiertas-usuario', [ExportController::class, 'informeAbiertasPorUsuario'])->name('export.informe.abiertas.usuario');
+    Route::get('/abiertas-usuario/csv', [ExportController::class, 'informeAbiertasPorUsuarioCsv'])->name('export.informe.abiertas.usuario.Csv');
+    Route::get('/abiertas-usuario/pdf', [ExportController::class, 'informeAbiertasPorUsuarioPdf'])->name('export.informe.abiertas.usuario.Pdf');
+
+    Route::get('/estadisticas-tipos', [ExportController::class, 'informeEstadisticasTipos'])->name('export.informe.estadisticas.tipos');
+    Route::get('/estadisticas-tipos/csv', [ExportController::class, 'informeEstadisticasTiposCsv'])->name('export.informe.estadisticas.tipos.Csv');
+    Route::get('/estadisticas-tipos/pdf', [ExportController::class, 'informeEstadisticasTiposPdf'])->name('export.informe.estadisticas.tipos.Pdf');
+
+    Route::get('/tiempo-dedicado', [ExportController::class, 'informeTiempoDedicadoPorIncidencia'])->name('export.informe.tiempo.dedicado');
+    Route::get('/tiempo-dedicado/csv', [ExportController::class, 'informeTiempoDedicadoPorIncidenciaCsv'])->name('export.informe.tiempo.dedicado.Csv');
+    Route::get('/tiempo-dedicado/pdf', [ExportController::class, 'informeTiempoDedicadoPorIncidenciaPdf'])->name('export.informe.tiempo.dedicado.Pdf');
+
+    Route::get('/tiempos-resolucion-tipo', [ExportController::class, 'informeTiemposResolucionPorTipo'])->name('export.informe.tiempos.resolucion.tipo');
+    Route::get('/tiempos-resolucion-tipo/csv', [ExportController::class, 'informeTiemposResolucionPorTipoCsv'])->name('export.informe.tiempos.resolucion.tipo.Csv');
+    Route::get('/tiempos-resolucion-tipo/pdf', [ExportController::class, 'informeTiemposResolucionPorTipoPdf'])->name('export.informe.tiempos.resolucion.tipo.Pdf');
+
+    Route::get('/tiempo-dedicado-e-incidencias-admin', [ExportController::class, 'informeTiempoDedicadoEIncidenciasPorAdministrador'])->name('export.informe.tiempo.dedicado.e.incidencias.admin');
+    Route::get('/tiempo-dedicado-e-incidencias-admin/csv', [ExportController::class, 'informeTiempoDedicadoEIncidenciasPorAdministradorCsv'])->name('export.informe.tiempo.dedicado.e.incidencias.admin.Csv');
+    Route::get('/tiempo-dedicado-e-incidencias-admin/pdf', [ExportController::class, 'informeTiempoDedicadoEIncidenciasPorAdministradorPdf'])->name('export.informe.tiempo.dedicado.e.incidencias.admin.Pdf');
+});
 
 
 
 Route::controller(UserController::class)->group(function () {
-    Route::get('usuarios', 'index')->name('usuarios.index');
-    Route::get('usuarios/create', 'create')->name('usuarios.create');
-    Route::post('usuarios', 'store')->name('usuarios.store');
-    Route::get('usuarios/{usuario}', 'show')->name('usuarios.show');
-    Route::get('usuarios/{usuario}/edit', 'edit')->name('usuarios.edit');
-    Route::put('usuarios/{usuario}', 'update')->name('usuarios.update');
-    Route::delete('usuarios/{usuario}', 'destroy')->name('usuarios.destroy');
+    Route::get('usuarios', 'index')->name('usuarios.index')->middleware('auth','role:Administrador');
+    Route::get('usuarios/{usuario}', 'show')->name('usuarios.show')->middleware('auth');
+    Route::get('usuarios/{usuario}/edit', 'edit')->name('usuarios.edit')->middleware('auth');
+    Route::put('usuarios/{usuario}', 'update')->name('usuarios.update')->middleware('auth');
 })->middleware('auth');
 
 Route::get('/', function () {
     return redirect('/incidencias');
-});
+})->middleware('auth');
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
+    Route::get('/', function () {
+        if (auth()->check()) {
+            return redirect()->route('incidencias.index');
+        }
+        return view('auth.login');
     })->name('dashboard');
 });
+
+
 
 Auth::routes();
 
