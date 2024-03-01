@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\IncidenciaController;
+use App\Http\Controllers\informeController;
+use App\Http\Controllers\InformeController as ControllersInformeController;
 use App\Http\Controllers\UserController;
 use App\Models\Incidencia;
 use Illuminate\Support\Facades\Auth;
@@ -33,29 +35,29 @@ Route::post('exports/{incidencia}/pdf', [ExportController::class, 'exportpdfInc'
 Route::post('exports/{incidencia}/csv', [ExportController::class, 'exportcsvInc'])->name('exports.exportcsvInc')->middleware('auth');
 
 Route::prefix('/exports/informe')->group(function () {
-    Route::get('/resueltas-admin', [ExportController::class, 'informeResueltasPorAdmin'])->name('export.informe.resueltas.admin');
-    Route::get('/resueltas-admin/pdf', [ExportController::class, 'informeResueltasPorAdminPdf'])->name('export.informe.resueltas.admin.Pdf');
-    Route::get('/resueltas-admin/csv', [ExportController::class, 'informeResueltasPorAdminCsv'])->name('export.informe.resueltas.admin.Csv');
+    Route::get('/resueltas-admin', [InformeController::class, 'informeResueltasPorAdmin'])->name('export.informe.resueltas.admin');
+    Route::get('/resueltas-admin/pdf', [InformeController::class, 'informeResueltasPorAdminPdf'])->name('export.informe.resueltas.admin.Pdf');
+    Route::get('/resueltas-admin/csv', [InformeController::class, 'informeResueltasPorAdminCsv'])->name('export.informe.resueltas.admin.Csv');
 
-    Route::get('/abiertas-usuario', [ExportController::class, 'informeAbiertasPorUsuario'])->name('export.informe.abiertas.usuario');
-    Route::get('/abiertas-usuario/csv', [ExportController::class, 'informeAbiertasPorUsuarioCsv'])->name('export.informe.abiertas.usuario.Csv');
-    Route::get('/abiertas-usuario/pdf', [ExportController::class, 'informeAbiertasPorUsuarioPdf'])->name('export.informe.abiertas.usuario.Pdf');
+    Route::get('/abiertas-usuario', [InformeController::class, 'informeAbiertasPorUsuario'])->name('export.informe.abiertas.usuario');
+    Route::get('/abiertas-usuario/csv', [InformeController::class, 'informeAbiertasPorUsuarioCsv'])->name('export.informe.abiertas.usuario.Csv');
+    Route::get('/abiertas-usuario/pdf', [InformeController::class, 'informeAbiertasPorUsuarioPdf'])->name('export.informe.abiertas.usuario.Pdf');
 
-    Route::get('/estadisticas-tipos', [ExportController::class, 'informeEstadisticasTipos'])->name('export.informe.estadisticas.tipos');
-    Route::get('/estadisticas-tipos/csv', [ExportController::class, 'informeEstadisticasTiposCsv'])->name('export.informe.estadisticas.tipos.Csv');
-    Route::get('/estadisticas-tipos/pdf', [ExportController::class, 'informeEstadisticasTiposPdf'])->name('export.informe.estadisticas.tipos.Pdf');
+    Route::get('/estadisticas-tipos', [InformeController::class, 'informeEstadisticasTipos'])->name('export.informe.estadisticas.tipos');
+    Route::get('/estadisticas-tipos/csv', [InformeController::class, 'informeEstadisticasTiposCsv'])->name('export.informe.estadisticas.tipos.Csv');
+    Route::get('/estadisticas-tipos/pdf', [InformeController::class, 'informeEstadisticasTiposPdf'])->name('export.informe.estadisticas.tipos.Pdf');
 
-    Route::get('/tiempo-dedicado', [ExportController::class, 'informeTiempoDedicadoPorIncidencia'])->name('export.informe.tiempo.dedicado');
-    Route::get('/tiempo-dedicado/csv', [ExportController::class, 'informeTiempoDedicadoPorIncidenciaCsv'])->name('export.informe.tiempo.dedicado.Csv');
-    Route::get('/tiempo-dedicado/pdf', [ExportController::class, 'informeTiempoDedicadoPorIncidenciaPdf'])->name('export.informe.tiempo.dedicado.Pdf');
+    Route::get('/tiempo-dedicado', [InformeController::class, 'informeTiempoDedicadoPorIncidencia'])->name('export.informe.tiempo.dedicado');
+    Route::get('/tiempo-dedicado/csv', [InformeController::class, 'informeTiempoDedicadoPorIncidenciaCsv'])->name('export.informe.tiempo.dedicado.Csv');
+    Route::get('/tiempo-dedicado/pdf', [InformeController::class, 'informeTiempoDedicadoPorIncidenciaPdf'])->name('export.informe.tiempo.dedicado.Pdf');
 
-    Route::get('/tiempos-resolucion-tipo', [ExportController::class, 'informeTiemposResolucionPorTipo'])->name('export.informe.tiempos.resolucion.tipo');
-    Route::get('/tiempos-resolucion-tipo/csv', [ExportController::class, 'informeTiemposResolucionPorTipoCsv'])->name('export.informe.tiempos.resolucion.tipo.Csv');
-    Route::get('/tiempos-resolucion-tipo/pdf', [ExportController::class, 'informeTiemposResolucionPorTipoPdf'])->name('export.informe.tiempos.resolucion.tipo.Pdf');
+    Route::get('/tiempos-resolucion-tipo', [InformeController::class, 'informeTiemposResolucionPorTipo'])->name('export.informe.tiempos.resolucion.tipo');
+    Route::get('/tiempos-resolucion-tipo/csv', [InformeController::class, 'informeTiemposResolucionPorTipoCsv'])->name('export.informe.tiempos.resolucion.tipo.Csv');
+    Route::get('/tiempos-resolucion-tipo/pdf', [InformeController::class, 'informeTiemposResolucionPorTipoPdf'])->name('export.informe.tiempos.resolucion.tipo.Pdf');
 
-    Route::get('/tiempo-dedicado-e-incidencias-admin', [ExportController::class, 'informeTiempoDedicadoEIncidenciasPorAdministrador'])->name('export.informe.tiempo.dedicado.e.incidencias.admin');
-    Route::get('/tiempo-dedicado-e-incidencias-admin/csv', [ExportController::class, 'informeTiempoDedicadoEIncidenciasPorAdministradorCsv'])->name('export.informe.tiempo.dedicado.e.incidencias.admin.Csv');
-    Route::get('/tiempo-dedicado-e-incidencias-admin/pdf', [ExportController::class, 'informeTiempoDedicadoEIncidenciasPorAdministradorPdf'])->name('export.informe.tiempo.dedicado.e.incidencias.admin.Pdf');
+    Route::get('/tiempo-dedicado-e-incidencias-admin', [InformeController::class, 'informeTiempoDedicadoEIncidenciasPorAdministrador'])->name('export.informe.tiempo.dedicado.e.incidencias.admin');
+    Route::get('/tiempo-dedicado-e-incidencias-admin/csv', [InformeController::class, 'informeTiempoDedicadoEIncidenciasPorAdministradorCsv'])->name('export.informe.tiempo.dedicado.e.incidencias.admin.Csv');
+    Route::get('/tiempo-dedicado-e-incidencias-admin/pdf', [InformeController::class, 'informeTiempoDedicadoEIncidenciasPorAdministradorPdf'])->name('export.informe.tiempo.dedicado.e.incidencias.admin.Pdf');
 });
 
 
