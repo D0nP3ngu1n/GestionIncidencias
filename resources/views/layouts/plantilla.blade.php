@@ -13,14 +13,14 @@
 <body class="bg-colorPrincipal">
     @include('layouts.partials.header')
 
-    <div class="row g-0">
+    <main class="row g-0">
         <div class="col-2">
             @include('layouts.partials.nav')
         </div>
-        <div class="col-10 p-5 ">
+        <div class="col-10 p-5">
             @yield('contenido')
         </div>
-    </div>
+    </main>
     @include('layouts.partials.footer')
 
 </body>
