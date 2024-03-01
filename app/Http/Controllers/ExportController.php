@@ -22,15 +22,8 @@ class ExportController extends Controller
     {
         $incidencias = json_decode($request->input('incidencias'));
 
-
-        // Verificar si hay incidencias
-        if ($incidencias && !empty($incidencias)) {
-            // Realizar la exportación de las incidencias filtradas
-            return Excel::download(new IncidenciaExport($incidencias), 'incidencias.xlsx');
-        } else {
-            // Si no hay incidencias, cargar todas las incidencias
-            return Excel::download(new IncidenciaExport, 'incidencias.xlsx');
-        }
+        // Realizar la exportación de las incidencias filtradas
+        return Excel::download(new IncidenciaExport($incidencias), 'incidencias.xlsx');
     }
 
     public function exportpdf()
