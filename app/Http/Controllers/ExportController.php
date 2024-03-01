@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Incidencia;
 use Illuminate\Http\Request;
-use App\Exports\IncidenciaExport;
 use App\Exports\informeExport;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Exports\IncidenciaExport;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -17,14 +18,18 @@ class ExportController extends Controller
         return view('exports.index', ['incidencias' => $incidencias]);
     }
 
-    public function export()
+    public function export(Request $request)
     {
-        return Excel::download(new IncidenciaExport, 'incidencias.xlsx');
+        $incidencias = json_decode($request->input('incidencias'));
+
+        // Realizar la exportación de las incidencias
+        return Excel::download(new IncidenciaExport($incidencias), 'incidencias.xlsx');
     }
 
     public function exportpdf()
     {
-        return Excel::download(new IncidenciaExport, 'incidencias.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+        $pdf = Pdf::loadView('exports.pdf', ['incidencias' => Incidencia::all()]);
+        return $pdf->download('incidencias.pdf');
     }
 
     public function exportcsv()
@@ -46,7 +51,10 @@ class ExportController extends Controller
 
     public function exportpdfInc(Incidencia $incidencia)
     {
-        return Excel::download(new IncidenciaExport($incidencia), 'incidencia_' . $incidencia->id . '.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+        //return Excel::download(new IncidenciaExport($incidencia), 'incidencia_' . $incidencia->id . '.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+
+        $pdf = PDF::loadView('exports.showpdf', ['incidencia' => $incidencia]);
+        return $pdf->download('incidencia_' . $incidencia->id . '.pdf');
     }
 
     public function exportcsvInc(Incidencia $incidencia)
