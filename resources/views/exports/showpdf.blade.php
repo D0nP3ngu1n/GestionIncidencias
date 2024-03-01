@@ -30,7 +30,12 @@
                     <td class=" text-truncate">{{ $incidencia->fecha_creacion }}</td>
                     <td class="text-truncate" style="max-width: 150px;">{{ $incidencia->descripcion }}</td>
                     <td class=" text-truncate">{{ $incidencia->tipo }}</td>
+                    @if ($incidencia->equipo!=null)
                     <td class=" text-truncate">{{ $incidencia->equipo->aula->codigo }}</td>
+                    @else
+                    <td class=" text-truncate"></td>
+                    @endif
+
                     <td class=" text-truncate">{{ $incidencia->creador->nombre_completo }}</td>
                     <td class=" text-truncate">
                         @empty($incidencia->responsable_id)
