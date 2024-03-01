@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::resource('incidencias', IncidenciaController::class)->middleware('auth');
 
 Route::post('incidencias/filtrar', [IncidenciaController::class, 'filtrar'])->name('incidencias.filtrar')->middleware('auth');
+Route::get('/descargar/{incidencia}', [IncidenciaController::class, 'descargarArchivo'])->name('descargar.archivo');
 
 Route::get('exports', [ExportController::class, 'index'])->name('exports.index')->middleware('auth');
 Route::get('exports/{incidencia}', [ExportController::class, 'show'])->name('exports.show')->middleware('auth');
@@ -57,8 +58,8 @@ Route::middleware([
         if (auth()->check()) {
             return redirect()->route('incidencias.index');
         }
-            return view('auth.login');
-        })->name('dashboard');
+        return view('auth.login');
+    })->name('dashboard');
 });
 
 
