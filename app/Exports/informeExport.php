@@ -10,6 +10,11 @@ use Maatwebsite\Excel\Concerns\FromView;
 
 class InformeExport implements FromView
 {
+    /**
+     * Método para generar la vista de exportación de incidencias resueltas.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function view(): View
     {
         $incidencias = Incidencia::where('estado', 'resuelta')

@@ -17,65 +17,74 @@ use PhpOffice\PhpSpreadsheet\Calculation\TextData\Format;
 
 class InformeController extends Controller
 {
+    /**
+     * Genera un informe en formato Excel con las incidencias resueltas, agrupadas por administrador.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function informeResueltasPorAdmin()
     {
         return Excel::download(new informeExport(), 'incidencias_resueltas.xlsx');
     }
 
+    /**
+     * Genera un informe en formato CSV con las incidencias resueltas, agrupadas por administrador.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function informeResueltasPorAdminCsv()
     {
         return Excel::download(new informeExport(), 'incidencias_resueltas.csv', \Maatwebsite\Excel\Excel::CSV);
     }
+
+    /**
+     * Genera un informe en formato PDF con las incidencias resueltas, agrupadas por administrador.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
 
     public function informeResueltasPorAdminPdf()
     {
         return Excel::download(new informeExport(), 'incidencias_resueltas.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
 
-    public function informeAbiertasPorUsuario(Request $request)
+    /**
+     * Genera un informe en formato Excel con las incidencias abiertas por cada usuario.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+
+    public function informeAbiertasPorUsuario()
     {
-        $filtros = [
-            'descripcion' => $request->filled('descripcion'),
-            'tipo' => $request->filled('tipo'),
-            'estado' => $request->filled('estado'),
-            'creador' => $request->filled('creador'),
-            'prioridad' => $request->filled('prioridad'),
-            'aula' => $request->filled('aula'),
-            'desde' => $request->filled('desde'),
-            'hasta' => $request->filled('hasta'),
-            // Agrega más filtros según sea necesario
-        ];
-        return Excel::download(new InformeAbiertasExport($filtros), 'informe_abiertas_usuario.xlsx');
+        return Excel::download(new InformeAbiertasExport(), 'informe_abiertas_usuario.xlsx');
     }
+
+    /**
+     * Genera un informe en formato CSV con las incidencias abiertas por cada usuario.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function informeAbiertasPorUsuarioCsv(Request $request)
     {
-        $filtros = [
-            'descripcion' => $request->filled('descripcion'),
-            'tipo' => $request->filled('tipo'),
-            'estado' => $request->filled('estado'),
-            'creador' => $request->filled('creador'),
-            'prioridad' => $request->filled('prioridad'),
-            'aula' => $request->filled('aula'),
-            'desde' => $request->filled('desde'),
-            'hasta' => $request->filled('hasta'),
-            // Agrega más filtros según sea necesario
-        ];
-        return Excel::download(new InformeAbiertasExport($filtros), 'informe_abiertas_usuario.csv', \Maatwebsite\Excel\Excel::CSV);
+        return Excel::download(new InformeAbiertasExport(), 'informe_abiertas_usuario.csv', \Maatwebsite\Excel\Excel::CSV);
     }
-    public function informeAbiertasPorUsuarioPdf(Request $request)
+
+    /**
+     * Genera un informe en formato PDF con las incidencias abiertas por cada usuario.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function informeAbiertasPorUsuarioPdf()
     {
-        $filtros = [
-            'descripcion' => $request->filled('descripcion'),
-            'tipo' => $request->filled('tipo'),
-            'estado' => $request->filled('estado'),
-            'creador' => $request->filled('creador'),
-            'prioridad' => $request->filled('prioridad'),
-            'aula' => $request->filled('aula'),
-            'desde' => $request->filled('desde'),
-            'hasta' => $request->filled('hasta'),
-        ];
-        return Excel::download(new InformeAbiertasExport($filtros), 'informe_abiertas_usuario.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+
+        return Excel::download(new InformeAbiertasExport(), 'informe_abiertas_usuario.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
+
+    /**
+     * Genera un informe en formato Excel con estadísticas sobre los tipos de incidencias.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
 
     public function informeEstadisticasTipos()
     {
@@ -83,55 +92,114 @@ class InformeController extends Controller
         return Excel::download(new EstadisticasEstadoExport(), 'informe_estadisticas_tipos.xlsx');
     }
 
+    /**
+     * Genera un informe en formato CSV con estadísticas sobre los tipos de incidencias.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+
     public function informeEstadisticasTiposCsv()
     {
         return Excel::download(new EstadisticasEstadoExport(), 'informe_estadisticas_tipos.csv', \Maatwebsite\Excel\Excel::CSV);
     }
+
+    /**
+     * Genera un informe en formato PDF con estadísticas sobre los tipos de incidencias.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+
     public function informeEstadisticasTiposPdf()
     {
         return Excel::download(new EstadisticasEstadoExport(), 'informe_estadisticas_tipos.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
+
+    /**
+     * Genera un informe en formato Excel con el tiempo dedicado a cada incidencia.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
 
     public function informeTiempoDedicadoPorIncidencia()
     {
         return Excel::download(new TiempoDedicadoExport(), 'informe_tiempo_dedicado.xlsx');
     }
 
+
+    /**
+     * Genera un informe en formato CSV con el tiempo dedicado a cada incidencia.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+
     public function informeTiempoDedicadoPorIncidenciaCsv()
     {
-        return Excel::download(new TiempoDedicadoExport(), 'informe_tiempo_dedicado.csv',\Maatwebsite\Excel\Excel::CSV);
+        return Excel::download(new TiempoDedicadoExport(), 'informe_tiempo_dedicado.csv', \Maatwebsite\Excel\Excel::CSV);
     }
 
-    public function informeTiempoDedicadoPorIncidenciaPdf()
-    {
-        return Excel::download(new TiempoDedicadoExport(), 'informe_tiempo_dedicado.pdf',\Maatwebsite\Excel\Excel::DOMPDF);
-        }
+    /**
+     * Genera un informe en formato PDF con el tiempo dedicado a cada incidencia.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
 
+    /**
+     * Genera un informe en formato Excel con los tiempos de resolución por tipo de incidencia.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function informeTiemposResolucionPorTipo()
     {
         return Excel::download(new TiempoResolucionPorTipoExport(), 'informe_resolucion_tipo.xslx');
-     }
+    }
+
+    /**
+     * Genera un informe en formato CSV con los tiempos de resolución por tipo de incidencia.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function informeTiemposResolucionPorTipoCsv()
     {
-        return Excel::download(new TiempoResolucionPorTipoExport(), 'informe_resolucion_tipo.csv',\Maatwebsite\Excel\Excel::CSV);
+        return Excel::download(new TiempoResolucionPorTipoExport(), 'informe_resolucion_tipo.csv', \Maatwebsite\Excel\Excel::CSV);
     }
+
+    /**
+     * Genera un informe en formato PDF con los tiempos de resolución por tipo de incidencia.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function informeTiemposResolucionPorTipoPdf()
     {
-        return Excel::download(new TiempoResolucionPorTipoExport(), 'informe_resolucion_tipo.pdf',\Maatwebsite\Excel\Excel::DOMPDF);
+        return Excel::download(new TiempoResolucionPorTipoExport(), 'informe_resolucion_tipo.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
 
+    /**
+     * Genera un informe en formato Excel con el tiempo dedicado a cada incidencia por administrador.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function informeTiempoDedicadoEIncidenciasPorAdministrador()
     {
-        return Excel::download(new ListaAdminExport(), 'informe_tiempo_dedicado_e_incidencias_por_admin.xslx',);
+        return Excel::download(new ListaAdminExport(), 'informe_tiempo_dedicado_e_incidencias_por_admin.xslx');
     }
 
+    /**
+     * Genera un informe en formato CSV con el tiempo dedicado a cada incidencia por administrador.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function informeTiempoDedicadoEIncidenciasPorAdministradorCsv()
     {
-        return Excel::download(new ListaAdminExport(), 'informe_tiempo_dedicado_e_incidencias_por_admin.csv',\Maatwebsite\Excel\Excel::CSV);
+        return Excel::download(new ListaAdminExport(), 'informe_tiempo_dedicado_e_incidencias_por_admin.csv', \Maatwebsite\Excel\Excel::CSV);
     }
 
+    /**
+     * Genera un informe en formato PDF con el tiempo dedicado a cada incidencia por administrador.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function informeTiempoDedicadoEIncidenciasPorAdministradorPdf()
     {
-        return Excel::download(new ListaAdminExport(), 'informe_tiempo_dedicado_e_incidencias_por_admin.pdf',\Maatwebsite\Excel\Excel::DOMPDF);
+        return Excel::download(new ListaAdminExport(), 'informe_tiempo_dedicado_e_incidencias_por_admin.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
 }
