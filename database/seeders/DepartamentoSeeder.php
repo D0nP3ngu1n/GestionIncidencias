@@ -47,5 +47,10 @@ class DepartamentoSeeder extends Seeder
             'nombre' => 'testRobotica',
             'activo' => true,
         ),
+        array(
+            'cod' => 'Earum',
+            'nombre' => 'Informatica',
+            'activo' => true,
+        )
     );
 }

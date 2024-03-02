@@ -9,14 +9,16 @@ use Maatwebsite\Excel\Concerns\FromView;
 
 class ListaAdminExport implements FromView
 {
+    /**
+     * Método para generar la vista de exportación de las incidencias asignadas a un administrador.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function view(): View
     {
         $incidencias = Incidencia::whereNotNull('responsable_id')
-        ->orderBy('responsable_id')
-        ->get();
+            ->orderBy('responsable_id')
+            ->get();
         return view('exports.listaAdmin', ['incidencias' => $incidencias]);
     }
-    /**
-     * @return \Illuminate\Support\Collection
-     */
 }

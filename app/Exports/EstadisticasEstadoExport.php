@@ -10,11 +10,16 @@ use Maatwebsite\Excel\Concerns\FromView;
 
 class EstadisticasEstadoExport implements FromView
 {
+    /**
+     * Método para generar la vista de exportación de las estadisticas segun el estado.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function view(): View
     {
         $estadisticas = Incidencia::select('tipo', DB::raw('COUNT(*) as total'))
-        ->groupBy('tipo')
-        ->get();
+            ->groupBy('tipo')
+            ->get();
 
         return view('exports.estadisticas', ['estadisticas' => $estadisticas]);
     }
