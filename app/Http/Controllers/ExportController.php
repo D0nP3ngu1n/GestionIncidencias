@@ -13,13 +13,23 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ExportController extends Controller
 {
-    //Metodo de prueba para mostrar todas las incidencias creadas
+    /**
+     * Muestra todas las incidencias creadas
+     *  @param null
+     * @return mixed Devuelve una vista de todas las incidencias
+     */
     public function index()
     {
         $incidencias = Incidencia::all();
         return view('exports.index', ['incidencias' => $incidencias]);
     }
-    //Recibe la variable $incidencias (ya filtradas) del incidencias.index, las convierte en formato json y exporta el excel
+    
+    /**
+     * Exportar las incidencias filtradas a excel
+     * @param Request $request formulario que trae los datos del filtrado
+     * @return mixed Descarga el fichero excel
+     * Recibe la variable $incidencias (ya filtradas) del incidencias.index, las convierte en formato json y exporta el excel
+     */
     public function export(Request $request)
     {
         $incidencias = json_decode($request->input('incidencias'));
@@ -28,8 +38,13 @@ class ExportController extends Controller
         return Excel::download(new IncidenciaExport($incidencias), 'incidencias.xlsx');
     }
 
-    //Recibe la variable $incidencias (ya filtradas) del incidencias.index, las convierte en formato json, 
-    //carga la relacion creador y exporta el pdf
+    /**
+     * Exportar las incidencias filtradas a pdf
+     * @param Request $request formulario que trae los datos del filtrado
+     * @return mixed Descarga el fichero pdf
+     * Recibe la variable $incidencias (ya filtradas) del incidencias.index, las convierte en formato json, 
+     * carga la relacion creador y exporta el pdf
+     */
     public function exportpdf(Request $request)
     {
         $data = json_decode($request->input('incidencias'));
@@ -47,7 +62,12 @@ class ExportController extends Controller
         return $pdf->download('incidencias.pdf');
     }
 
-    //Recibe la variable $incidencias (ya filtradas) del incidencias.index, las convierte en formato json y exporta el csv
+    /**
+     * Exportar las incidencias filtradas a csv
+     * @param Request $request formulario que trae los datos del filtrado
+     * @return mixed Descarga el fichero csv
+     * Recibe la variable $incidencias (ya filtradas) del incidencias.index, las convierte en formato json y exporta el csv
+     */
     public function exportcsv(Request $request)
     {
         $incidencias = json_decode($request->input('incidencias'));
@@ -55,20 +75,33 @@ class ExportController extends Controller
         return Excel::download(new IncidenciaExport($incidencias), 'incidencias.csv', \Maatwebsite\Excel\Excel::CSV);
     }
 
-
-    //Metodo de prueba para mostrar la incidencia seleccionada
+    /**
+     * Muestra la incidencias seleccionada
+     * @param null
+     * @return mixed Devuelve una vista de la incidencia
+     */
     public function show(Incidencia $incidencia)
     {
         return view('exports.show', ['incidencia' => $incidencia]);
     }
 
-    //Recibe la incidencia y exporta un excel de dicha incidencia
+    /**
+     * Exportar la incidencia a excel
+     * @param Incidencia $incidencia recibe la incidencia seleccionada
+     * @return mixed Descarga el fichero excel
+     * Recibe la incidencia y exporta un excel de dicha incidencia
+     */
     public function exportInc(Incidencia $incidencia)
     {
         return Excel::download(new IncidenciaExport($incidencia), 'incidencia_' . $incidencia->id . '.xlsx');
     }
 
-    //Recibe la incidencia y exporta un pdf de dicha incidencia
+    /**
+     * Exportar la incidencia a pdf
+     * @param Incidencia $incidencia recibe la incidencia seleccionada
+     * @return mixed Descarga el fichero pdf
+     * Recibe la incidencia y exporta un pdf de dicha incidencia
+     */
     public function exportpdfInc(Incidencia $incidencia)
     {
         //return Excel::download(new IncidenciaExport($incidencia), 'incidencia_' . $incidencia->id . '.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
@@ -77,7 +110,12 @@ class ExportController extends Controller
         return $pdf->download('incidencia_' . $incidencia->id . '.pdf');
     }
 
-    //Recibe la incidencia y exporta un csv de dicha incidencia
+    /**
+     * Exportar la incidencia a csv
+     * @param Incidencia $incidencia recibe la incidencia seleccionada
+     * @return mixed Descarga el fichero csv
+     * Recibe la incidencia y exporta un csv de dicha incidencia
+     */
     public function exportcsvInc(Incidencia $incidencia)
     {
         return Excel::download(new IncidenciaExport($incidencia), 'incidencia_' . $incidencia->id . '.csv', \Maatwebsite\Excel\Excel::CSV);
