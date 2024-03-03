@@ -6,8 +6,9 @@ use App\Models\Incidencia;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class TiempoResolucionPorTipoExport implements FromView
+class TiempoResolucionPorTipoExport implements FromView, ShouldAutoSize
 {
     /**
      * Método para generar la vista de exportación de las incidencias resueltas y el tiempo que llevaron.
