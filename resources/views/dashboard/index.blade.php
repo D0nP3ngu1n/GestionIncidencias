@@ -13,8 +13,12 @@
             <canvas id="prioridadChart" width="100" height="100"></canvas>
         </div>
         <div class="p-3 w-25 h-25 m-1 rounded-4 bg-colorSecundario">
-            Incidencias por abiertas y cerradas:
+            Incidencias por estado:
             <canvas id="estadoChart" width="100" height="100"></canvas>
+        </div>
+        <div class="p-3 w-25 h-25 m-1 rounded-4 bg-colorSecundario">
+            Incidencias por Administrador:
+            <canvas id="responsableChart" width="100" height="100"></canvas>
         </div>
         <script>
             var jsonData = @json($incidencias);
@@ -50,10 +54,19 @@
                     return counts;
                 }
 
+                function contarIncidenciasPorResponsable(data) {
+                    var counts = {};
+                    data.forEach(function(item) {
+                        counts[item.responsable_id] = (counts[item.responsable_id] || 0) + 1;
+                    });
+                    return counts;
+                }
+
                 // Obtener los recuentos
                 var incidenciasPorTipo = contarIncidenciasPorTipo(jsonData);
                 var incidenciasPorPrioridad = contarIncidenciasPorPrioridad(jsonData);
                 var incidenciasPorEstado = contarIncidenciasPorEstado(jsonData);
+                var incidenciasPorResponsable = contarIncidenciasPorResponsable(jsonData);
 
                 // Configurar los gráficos
                 var tipoCtx = document.getElementById('tipoChart').getContext('2d');
@@ -142,6 +155,35 @@
                         }]
                     }
                 });
+
+                // Configurar los datos para el gráfico
+    var responsables = Object.keys(incidenciasPorResponsable);
+    var incidenciasPorResponsableData = Object.values(incidenciasPorResponsable);
+
+    // Configurar el gráfico con Chart.js
+    var responsableCtx = document.getElementById('responsableChart').getContext('2d');
+    var responsableChart = new Chart(responsableCtx, {
+        type: 'bar',
+        data: {
+            labels: responsables,
+            datasets: [{
+                label: 'Incidencias por Responsable',
+                data: incidenciasPorResponsableData,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
             });
         </script>
     </div>

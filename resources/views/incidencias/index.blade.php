@@ -27,21 +27,6 @@
                     <span>Crear Incidencia</span>
                 </a>
             </div>
-            <div class="col -2">
-                <a id="botonCrear" href="{{ route('export.informe.resueltas.admin') }}">
-                    <div class="svg-wrapper-1">
-                        <div class="svg-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2"
-                                stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24"
-                                fill="none" class="svg">
-                                <line y2="19" y1="5" x2="12" x1="12"></line>
-                                <line y2="12" y1="12" x2="19" x1="5"></line>
-                            </svg>
-                        </div>
-                    </div>
-                    <span>Exportar</span>
-                </a>
-            </div>
         </div>
     </div>
 
@@ -61,12 +46,36 @@
 
 
     <div class="bg-colorSecundario rounded-3 p-3">
-        <!-- Filtros -->
-        <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#collapseExample" role="button"
-            aria-expanded="false" aria-controls="collapseExample">
-            Filtros
-            <i class="bi bi-filter"></i>
-        </a>
+        <div class="d-flex justify-content-between">
+            <!-- Filtros -->
+
+            <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                aria-expanded="false" aria-controls="collapseExample">
+                Filtros
+                <i class="bi bi-filter"></i>
+            </a>
+
+            <form id="exportForm" action="{{ route('exports.export') }}" method="POST" class="form">
+                @csrf
+                <input type="hidden" name="incidencias" value="{{ json_encode($incidencias) }}">
+                <label for="exportOption">Exportar como:</label>
+                <select id="exportOption" name="exportOption" class="form-select" aria-label="Default select example">
+                    <option value="">--Elija una opción--</option>
+                    <option value="{{ route('exports.export') }}">Excel</option>
+                    <option value="{{ route('exports.pdf') }}">PDF</option>
+                    <option value="{{ route('exports.csv') }}">CSV</option>
+                </select>
+            </form>
+            <script>
+                document.getElementById('exportOption').addEventListener('change', function() {
+                    if (this.value !== '') {
+                        document.getElementById('exportForm').action = this.value;
+                        document.getElementById('exportForm').submit();
+                    }
+                });
+            </script>
+        </div>
+
         <div class="collapse my-2" id="collapseExample">
             <form class="card card-body" id="formFiltros" action='{{ route('incidencias.filtrar') }}' method="POST">
                 @csrf
@@ -158,25 +167,6 @@
             </form>
         </div>
 
-        <form id="exportForm" action="{{ route('exports.export') }}" method="POST">
-            @csrf
-            <input type="hidden" name="incidencias" value="{{ json_encode($incidencias) }}">
-            <label for="exportOption">Exportar como:</label>
-            <select id="exportOption" name="exportOption">
-                <option value="">--Elija una opción--</option>
-                <option value="{{ route('exports.export') }}">Excel</option>
-                <option value="{{ route('exports.pdf') }}">PDF</option>
-                <option value="{{ route('exports.csv') }}">CSV</option>
-            </select>
-        </form>
-        <script>
-            document.getElementById('exportOption').addEventListener('change', function() {
-                if (this.value !== '') {
-                    document.getElementById('exportForm').action = this.value;
-                    document.getElementById('exportForm').submit();
-                }
-            });
-        </script>
         <!-- Fin Filtros -->
         @if (count($incidencias) > 0)
             <div class="table-responsive">
@@ -226,36 +216,32 @@
                                     @endempty
                                 </td>
                                 <td>
-                                    <div class="dropdown">
-                                        <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownAccionLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="bi bi-gear"></i>
+                                    <div class="d-flex gap-3">
+
+
+                                    <a class="btn btn-primary text-white" role="button"
+                                        href="{{ route('incidencias.show', $incidencia) }}">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+
+                                    @hasrole('Administrador')
+                                        <a class="btn btn-success" role="button"
+                                            href="{{ route('incidencias.edit', $incidencia) }}">
+                                            <i class="bi bi-pencil-square"></i>
                                         </a>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownAccionLink">
-                                            <li class="px-3">
-                                                <a class="btn btn-primary text-white" role="button" href="{{ route('incidencias.show', $incidencia) }}">
-                                                    <i class="bi bi-eye"></i>
-                                                </a>
-                                            </li>
-                                            <li class="px-3 pt-1">
-                                                @hasrole('Administrador')
-                                                    <a class="btn btn-success" role="button" href="{{ route('incidencias.edit', $incidencia) }}">
-                                                        <i class="bi bi-pencil-square"></i>
-                                                    </a>
-                                                @endhasrole
-                                            </li>
-                                            <li>
-                                                @hasrole('Administrador')
-                                                    <form action="{{ route('incidencias.destroy', $incidencia) }}" class="dropdown-item" method="POST">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button type="submit" class="btn btn-danger">
-                                                            <i class="bi bi-trash-fill"></i>
-                                                        </button>
-                                                    </form>
-                                                @endhasrole
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    @endhasrole
+
+                                    @hasrole('Administrador')
+                                        <form action="{{ route('incidencias.destroy', $incidencia) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-danger">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                        </form>
+                                    @endhasrole
+                                </div>
                                 </td>
                             </tr>
                         @endforeach

@@ -297,20 +297,19 @@ class IncidenciaController extends Controller
             //el campo Creador id viene dado por el usuario actualmente logeado
             $incidencia->creador_id = auth()->user()->id;
 
-
             //si el request recibe un subtipo, buscamos el subtipo en la tabla subtipos y añadimos el id a la incidencia
-            if ($request->has('subtipo') && $request->filled('subtipo')) {
+            if ($request->has('subtipo') && $request->filled('subtipo') && $request->subtipo != 'null') {
                 $subtipo = $request->subtipo;
                 $sub_final = IncidenciaSubtipo::where('subtipo_nombre', $subtipo)->first()->id;
                 $incidencia->subtipo_id = $sub_final;
             }
-
             //si el reuest recibe un sub-subtipo, buscamos el subtipo con los dos datos
             if ($request->has('sub-subtipo') && $request->filled('sub-subtipo')) {
                 $subtipo = $request->subtipo;
                 $sub_subtipo = $request->sub_subtipo;
                 $sub_final = IncidenciaSubtipo::where('subtipo_nombre', $subtipo)->where('sub_subtipo', $sub_subtipo)->first()->id;
             }
+
 
             //si el request recibe el numero de etiqueta, buscamos el equipo segun la etiqueta que nos llega y lo añadimos el id a la incidencia
             if ($request->has('numero_etiqueta') && $request->filled('numero_etiqueta') && $request->numero_etiqueta != 'null') {

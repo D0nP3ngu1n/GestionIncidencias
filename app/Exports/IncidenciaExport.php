@@ -22,6 +22,8 @@ class IncidenciaExport implements FromCollection, WithHeadings
         $this->incidencias = $incidencias;
     }
 
+    //Si recibe una incidencia, la devuelve
+    //Sino, extrae los datos del array data, del json y devuelve la coleccion de incidencias filtradas recibidas 
     public function collection()
     {
         //dd($this->incidencias);
@@ -34,8 +36,7 @@ class IncidenciaExport implements FromCollection, WithHeadings
         }
     }
 
-
-
+    //Cabecera para las exportaciones json y excel
     public function headings(): array
     {
         return [

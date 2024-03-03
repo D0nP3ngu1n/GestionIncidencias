@@ -22,15 +22,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/* Parte de las incidencias*/
+
 Route::resource('incidencias', IncidenciaController::class)->middleware('auth');
+/* filtro de las incidencias*/
 
 Route::post('incidencias/filtrar', [IncidenciaController::class, 'filtrar'])->name('incidencias.filtrar')->middleware('auth');
+/* descargar un archivo de la incidencia*/
+
 Route::get('/descargar/{incidencia}', [IncidenciaController::class, 'descargarArchivo'])->name('descargar.archivo');
+
+/* Parte de los comentarios*/
 
 Route::get('incidencias/{incidencia}/crearComentario',  [ComentarioController::class, 'create'])->name('comentario.create')->middleware('auth');
 Route::post('incidencias/{incidencia}',  [ComentarioController::class, 'store'])->name('comentario.store')->middleware('auth');
 Route::delete('comentarios/{comentario}/eliminar',  [ComentarioController::class, 'destroy'])->name('comentario.destroy')->middleware('auth','role:Administrador');
 
+/* ----------------Exports----------------*/
 
 Route::get('exports', [ExportController::class, 'index'])->name('exports.index')->middleware('auth','role:Administrador');
 Route::get('exports/{incidencia}', [ExportController::class, 'show'])->name('exports.show')->middleware('auth','role:Administrador');
@@ -70,8 +78,9 @@ Route::prefix('/exports/informe')->group(function () {
 });
 
 /* Parte de los charts*/
-Route::get('/dashboard', [DashController::class, 'index'])->name('dasboard.index')->middleware('auth','role:Administrador');;
+Route::get('/dashboard', [DashController::class, 'index'])->name('dashboard.index')->middleware('auth','role:Administrador');;
 
+/* Parte de los usuarios*/
 
 Route::controller(UserController::class)->group(function () {
     Route::get('usuarios', 'index')->name('usuarios.index')->middleware('auth','role:Administrador');
