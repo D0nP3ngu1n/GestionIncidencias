@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-md bg-gradient-primary p-3 d-flex flex-column align-content-start" id="sidebar">
     <div>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -14,8 +15,8 @@
                     </a>
                 </li>
 
-                 <!-- Nav Item - Informes -->
-                 <li class="nav-item">
+                <!-- Nav Item - Informes -->
+                <li class="nav-item">
                     <a class="nav-link texto-nav d-flex" href="{{ route('exports.index') }}">
                         <i class="bi bi-speedometer2 px-1"></i>
                         <span>Informes</span>
@@ -30,15 +31,24 @@
                             <span>Gestión Usuario</span>
                         </a>
                     </li>
-                @endhasrole
 
-                 <!-- Nav Item - Dashboard -->
-                 <li class="nav-item">
-                    <a class="nav-link texto-nav d-flex" href="{{ route('dashboard.index') }}">
-                        <i class="bi bi-speedometer px-1"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
+
+                    <!-- Nav Item - Dashboard -->
+                    <li class="nav-item">
+                        <a class="nav-link texto-nav d-flex" href="{{ route('dashboard.index') }}">
+                            <i class="bi bi-speedometer px-1"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <!-- Nav Item - aulas -->
+                    <li class="nav-item">
+                        <a class="nav-link texto-nav d-flex" href="{{ route('aulas.index') }}">
+                            <i class="bi bi-house px-1"></i>
+                            <span>Aulas</span>
+                        </a>
+                    </li>
+                @endhasrole
             </ul>
         </div>
     </div>

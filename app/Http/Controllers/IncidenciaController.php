@@ -235,7 +235,7 @@ class IncidenciaController extends Controller
                 }
 
                 //guardo el fichero y cojo su ruta para guardarla en la URL de la incidencia
-                $url = $request->fichero->store('', 'ficheros');
+                $url = $request->adjunto->store('', 'ficheros');
                 $incidencia->adjunto_url = $url;
             }
 
