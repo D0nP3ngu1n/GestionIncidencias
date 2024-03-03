@@ -34,7 +34,7 @@
 
                  <!-- Nav Item - Dashboard -->
                  <li class="nav-item">
-                    <a class="nav-link texto-nav d-flex" href="#">
+                    <a class="nav-link texto-nav d-flex" href="{{ route('dashboard.index') }}">
                         <i class="bi bi-speedometer px-1"></i>
                         <span>Dashboard</span>
                     </a>

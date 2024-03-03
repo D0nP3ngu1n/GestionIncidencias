@@ -26,6 +26,12 @@ class ComentarioController extends Controller
         return view('comentarios.create', ['incidencia' => $incidencia]);
     }
 
+     /**
+     * Crear un comentario
+     *  @param CrearComentarioRequest $request formulario que trae los datos del comentario
+     *  @param Incidencia $incidencias contiene la incidencia a la que va a ir asociado el comentario
+     * @return mixed Devuelve una vista de una comentario concreta
+     */
     public function store(CrearComentarioRequest $request, Incidencia $incidencia)
     {
 

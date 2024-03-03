@@ -55,16 +55,26 @@
                     <input type="text" id="tipo" name="tipo" class="form-control readonly-custom"
                         value="{{ $incidencia->tipo }}" readonly>
                 </div>
-                <div id="sel1"class="form-group col-sm-4">
-                    <label for="subtipo" class="form-label">Subtipo:</label>
-                    <input type="text" id="subtipo" name="subtipo" class="form-control readonly-custom"
-                        value="{{ $incidencia->subtipo->subtipo_nombre }}" readonly>
-                </div>
-                <div id="sel2"class="form-group col-sm-4">
-                    <label for="sub_subtipo" class="form-label">Sub_subtipo</label>
-                    <input type="text" id="sub_subtipo" name="sub_subtipo" class="form-control readonly-custom"
-                        value="{{ $incidencia->subtipo->sub_subtipo ?? 'No tiene subtipo' }}" readonly>
-                </div>
+            </div>
+
+            @empty($incidencia->subtipo->subtipo_nombre)
+            @else
+            <div id="sel1"class="form-group col-sm-4">
+                <label for="subtipo" class="form-label">Subtipo:</label>
+                <input type="text" id="subtipo" name="subtipo" class="form-control readonly-custom"
+                    value="{{ $incidencia->subtipo->subtipo_nombre }}" readonly>
+            </div>
+            @endempty
+            @empty($incidencia->subtipo->sub_subtipo)
+            @else
+            <div id="sel2"class="form-group col-sm-4">
+                <label for="sub_subtipo" class="form-label">Sub_subtipo</label>
+                <input type="text" id="sub_subtipo" name="sub_subtipo" class="form-control readonly-custom"
+                    value="{{ $incidencia->subtipo->sub_subtipo ?? 'No tiene subtipo' }}" readonly>
+            </div>
+            @endempty
+
+
             </div>
             <div class="row">
                 <div class="form-group col-sm-4">
