@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie-edge">
+    <link data-require="sweet-alert@*" data-semver="0.4.2" rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>@yield('titulo')</title>
     @vite('resources/sass/app.scss', 'resources/js/app.js', 'resources/sass/_nav.scss')
     @vite('resources/css/navbar.css')

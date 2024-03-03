@@ -219,29 +219,59 @@
                                     <div class="d-flex gap-3">
 
 
-                                    <a class="btn btn-primary text-white" role="button"
-                                        href="{{ route('incidencias.show', $incidencia) }}">
-                                        <i class="bi bi-eye"></i>
-                                    </a>
-
-                                    @hasrole('Administrador')
-                                        <a class="btn btn-success" role="button"
-                                            href="{{ route('incidencias.edit', $incidencia) }}">
-                                            <i class="bi bi-pencil-square"></i>
+                                        <a class="btn btn-primary text-white" role="button"
+                                            href="{{ route('incidencias.show', $incidencia) }}">
+                                            <i class="bi bi-eye"></i>
                                         </a>
-                                    @endhasrole
 
-                                    @hasrole('Administrador')
-                                        <form action="{{ route('incidencias.destroy', $incidencia) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn btn-danger">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </button>
-                                        </form>
-                                    @endhasrole
-                                </div>
+                                        @hasrole('Administrador')
+                                            <a class="btn btn-success" role="button"
+                                                href="{{ route('incidencias.edit', $incidencia) }}">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </a>
+                                        @endhasrole
+
+                                        @hasrole('Administrador')
+                                            <form action="{{ route('incidencias.destroy', $incidencia) }}" method="POST"
+                                                id="formBorrar">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>
+                                            </form>
+                                            <script>
+                                                document.querySelector('#formBorrar').addEventListener('submit', function(e) {
+                                                    var form = this;
+
+                                                    e.preventDefault();
+
+                                                    swal({
+                                                        title: "Borrar Incidencia",
+                                                        text: "¿Quieres borrar la incidencia incidencia?",
+                                                        icon: "warning",
+                                                        buttons: [
+                                                            'No, cancelar',
+                                                            'Si, Estoy Seguro'
+                                                        ],
+                                                        dangerMode: true,
+                                                    }).then(function(isConfirm) {
+                                                        if (isConfirm) {
+                                                            swal({
+                                                                title: '¡HECHO!',
+                                                                text: 'La incidencia ha sido borrarda',
+                                                                icon: 'success'
+                                                            }).then(function() {
+                                                                form.submit();
+                                                            });
+                                                        } else {
+                                                            swal("Cancelado", "La incidencia no ha sido eliminada", "error");
+                                                        }
+                                                    });
+                                                });
+                                            </script>
+                                        @endhasrole
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
