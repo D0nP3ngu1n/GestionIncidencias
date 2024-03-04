@@ -22,13 +22,16 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 /* Parte de aulas*/
 Route::resource('aulas', AulaController::class)->middleware('auth', 'role:Administrador');
+
 /* Parte de las incidencias*/
 Route::resource('equipos', EquipoController::class)->middleware('auth','role:Administrador');
 
 /* Parte de las incidencias*/
 Route::resource('incidencias', IncidenciaController::class)->middleware('auth');
+
 /* filtro de las incidencias*/
 Route::post('incidencias/filtrar', [IncidenciaController::class, 'filtrar'])->name('incidencias.filtrar')->middleware('auth');
 /* descargar un archivo de la incidencia*/
