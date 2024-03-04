@@ -296,7 +296,6 @@
     <div class="d-flex justify-content-center">
         {{ $incidencias->links() }}
     </div>
-    @push('scripts')
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
             $(document).ready(function() {
@@ -322,7 +321,6 @@
                 }
             });
         </script>
-    @endpush
     </div>
     </div>
     </div>

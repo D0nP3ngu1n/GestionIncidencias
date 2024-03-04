@@ -17,9 +17,6 @@ class DashController extends Controller
 
         $incidencias = Incidencia::all();
 
-
-        // $incidencias = Incidencia::paginate(10); // 10 registros por página
-
         return view('dashboard.index', ['incidencias' => $incidencias]);
     }
 }

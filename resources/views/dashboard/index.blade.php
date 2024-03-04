@@ -20,14 +20,12 @@
             Incidencias por Administrador:
             <canvas id="responsableChart" width="100" height="100"></canvas>
         </div>
-        @push('script')
 
         <script>
             var jsonData = @json($incidencias);
             console.log(jsonData);
 
             document.addEventListener("DOMContentLoaded", function() {
-
 
                 // Función para contar incidencias por tipo
                 function contarIncidenciasPorTipo(data) {
@@ -188,6 +186,5 @@
     });
             });
         </script>
-        @endpush
     </div>
 @endsection

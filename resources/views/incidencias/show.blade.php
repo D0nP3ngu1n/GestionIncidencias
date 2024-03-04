@@ -103,7 +103,6 @@
             </p>
         </div>
     </div>
-    @push('scripts')
         <script>
             var cadena = document.getElementById('ruta').textContent;
             console.log(cadena);
@@ -149,7 +148,6 @@
                     break;
             }
         </script>
-    @endpush
 
 
     <div class="mt-3 p-3 w-auto rounded-4 bg-colorSecundario">
