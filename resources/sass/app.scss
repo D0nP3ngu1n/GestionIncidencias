@@ -20,48 +20,13 @@
     background-color: #F7F7F9;
 }
 
-.bg-c-blue {
-    background: linear-gradient(45deg, #4099ff, #73b4ff);
-}
-
-.bg-c-green {
-    background: linear-gradient(45deg, #20c74a, #2ba11b);
-}
-
-.bg-c-yellow {
-    background: linear-gradient(45deg, #d4c81d, #ffcb80);
-}
-
-.bg-c-red {
-    background: linear-gradient(45deg, #FF5370, #ff869a);
-}
-
-.card {
-    border-radius: 5px;
-    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-    box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
-    border: none;
-    margin-bottom: 30px;
-    -webkit-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-}
-
-.f-left {
-    float: left;
-}
-
-.f-right {
-    float: right;
-}
-
-
 /* Boton para crear */
 #botonCrear {
     text-decoration: none;
     font-family: inherit;
     font-size: 20px;
-    background: royalblue;
-    color: white;
+    background: $blue;
+    color: $white;
     padding: 0.7em 1em;
     display: flex;
     align-items: center;
@@ -130,8 +95,13 @@
     font-size: 16px;
 }
 
+.shadow {
+    box-shadow: 0 0.15rem 1.75rem 0 $color-sombra;
+}
+
+
 /* Estilo body */
-body{
+body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -139,7 +109,7 @@ body{
 }
 
 /* Estilo main */
-main{
+main {
     flex: 1;
 }
 
@@ -150,11 +120,6 @@ main{
     border-radius: 5px;
 }
 
-/* Estilo sombreado */
-.shadow {
-    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
-}
-
 /* Estilo para el card del filtro en 'Lista de incidencias' */
 #formFiltros {
     background: linear-gradient(45deg, #8b7a7a65, #d6d6d6);
@@ -162,7 +127,7 @@ main{
 
 /* Estilo para menú lateral */
 #sidebar {
-    background: royalblue;
+    background: $blue;
     height: 100%;
 }
 
@@ -171,12 +136,12 @@ main{
     font-size: 17px;
 }
 
-.texto-nav > span{
+.texto-nav>span {
     display: block;
 }
 
 
-/* Estilo responsivo navbar */
+/* Estilos responsivos navbar */
 @media (max-width: 856px) {
     .texto-nav {
         font-size: 14px;
@@ -208,6 +173,7 @@ body.sidebar-toggled footer.sticky-footer {
     width: 100%;
 }
 
+/* Estilo para formularios (Crear incidencia etc) */
 #caja-formulario {
     background-color: #fff;
     border: #737c86 solid 1px;
@@ -219,19 +185,18 @@ body.sidebar-toggled footer.sticky-footer {
     background-color: #c3ccd8;
     color: #363535;
 }
-.descripcion{
-    border:2px #737c86 solid ;
+
+.descripcion {
+    border: 2px #737c86 solid;
     border-radius: 5px;
     padding: 1%;
     margin-bottom: 10px;
 }
 
-.caja-archivos{
-    border:2px #737c86 solid ;
+.caja-archivos {
+    border: 2px #737c86 solid;
     border-radius: 5px;
     padding: 1%;
     margin: 5px;
     height: 60%;
 }
-
-

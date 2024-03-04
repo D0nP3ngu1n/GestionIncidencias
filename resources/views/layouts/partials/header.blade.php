@@ -30,7 +30,6 @@
                     </a>
                 </li>
                 <li>
-                    <span class="text-white mb-1 lg:mr-4 lg:mb-0">{{ auth()->user()->nombre }}</span>
                     <form class="dropdown-item" id="logout-form" action="{{ route('logout') }}" method="POST">
                         {{ csrf_field() }}
                         <i class="bi bi-box-arrow-right"></i>
