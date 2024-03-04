@@ -73,7 +73,7 @@ return [
                     'name' => 'cn',
                     'email' => 'mail',
                     'nombre_completo' => 'DisplayName',
-                    //'departamento_id' => 'Department',
+                    'departamento_id' => 'Department',
                     'DistinguishedName' => 'DistinguishedName',
                     'nombre' => 'Name',
                     'nombre_usuario' => 'SamAccountName',

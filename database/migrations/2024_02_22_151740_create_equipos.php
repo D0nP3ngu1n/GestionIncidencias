@@ -22,7 +22,7 @@ return new class extends Migration
             $table->tinyInteger('baja')->default(0)->nullable();
             $table->unsignedBigInteger('aula_num');
             $table->integer('puesto')->nullable();
-            $table->foreign('aula_num')->references('num')->on('aulas');
+            $table->foreign('aula_num')->references('num')->on('aulas')->onDelete('cascade');
         });
     }
 
