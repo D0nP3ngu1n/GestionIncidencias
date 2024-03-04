@@ -80,7 +80,7 @@ class ComentarioController extends Controller
         return redirect()->route('incidencias.index')->with('error', 'Error general al borrar el comentario '.$e->getMessage());
     }
 
-    return redirect()->route('incidencias.show', ['incidencia' => $incidencia->id])->with('success', 'Comentario creado');
+    return redirect()->route('incidencias.show', ['incidencia' => $incidencia->id])->with('success', 'Comentario borrado');
 }
 
 }
