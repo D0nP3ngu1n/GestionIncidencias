@@ -50,31 +50,31 @@
             <!-- Filtros -->
 
             <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#collapseExample" role="button"
-                aria-expanded="false" aria-controls="collapseExample">
+                aria-expanded="false" aria-controls="collapseExample" id="boton-collapse">
                 Filtros
                 <i class="bi bi-filter"></i>
             </a>
             @hasrole('Administrador')
-            <form id="exportForm" action="{{ route('exports.export') }}" method="POST" class="form">
-                @csrf
-                <input type="hidden" name="incidencias" value="{{ json_encode($incidencias) }}">
-                <label for="exportOption">Exportar como:</label>
-                <select id="exportOption" name="exportOption" class="form-select" aria-label="Default select example">
-                    <option value="">--Elija una opción--</option>
-                    <option value="{{ route('exports.export') }}">Excel</option>
-                    <option value="{{ route('exports.pdf') }}">PDF</option>
-                    <option value="{{ route('exports.csv') }}">CSV</option>
-                </select>
-            </form>
+                <form id="exportForm" action="{{ route('exports.export') }}" method="POST" class="form">
+                    @csrf
+                    <input type="hidden" name="incidencias" value="{{ json_encode($incidencias) }}">
+                    <label for="exportOption">Exportar como:</label>
+                    <select id="exportOption" name="exportOption" class="form-select" aria-label="Default select example">
+                        <option value="">--Elija una opción--</option>
+                        <option value="{{ route('exports.export') }}">Excel</option>
+                        <option value="{{ route('exports.pdf') }}">PDF</option>
+                        <option value="{{ route('exports.csv') }}">CSV</option>
+                    </select>
+                </form>
 
-            <script>
-                document.getElementById('exportOption').addEventListener('change', function() {
-                    if (this.value !== '') {
-                        document.getElementById('exportForm').action = this.value;
-                        document.getElementById('exportForm').submit();
-                    }
-                });
-            </script>
+                <script>
+                    document.getElementById('exportOption').addEventListener('change', function() {
+                        if (this.value !== '') {
+                            document.getElementById('exportForm').action = this.value;
+                            document.getElementById('exportForm').submit();
+                        }
+                    });
+                </script>
             @endhasrole
         </div>
 
@@ -152,13 +152,13 @@
                     </div>
 
 
-                    <div class="col-md-2">
+                    <div class="col-md-2" id="select-fechas">
                         <label for="desde">Desde:</label>
                         <input type="date" id="desde" name="desde" class="form-control">
                     </div>
 
 
-                    <div class="col-md-2">
+                    <div class="col-md-2" id="select-fechas">
                         <label for="hasta">Hasta:</label>
                         <input type="date" id="hasta" name="hasta" class="form-control">
                     </div>
@@ -278,7 +278,6 @@
                                                     });
                                                 });
                                             </script>
-
                                         @endhasrole
                                     </div>
                                 </td>
@@ -296,31 +295,31 @@
     <div class="d-flex justify-content-center">
         {{ $incidencias->links() }}
     </div>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                // Maneja el envío del formulario de filtros
-                $('#formFiltros').submit(function(event) {
-                    event.preventDefault(); // Evita que se recargue la página al enviar el formulario
-                    filtrar(); // Llama a la función de filtrar
-                });
-
-                // Función para filtrar mediante AJAX
-                function filtrar() {
-                    $.ajax({
-                        url: '{{ route('incidencias.filtrar') }}', // Ruta definida en las rutas de Laravel
-                        type: 'POST',
-                        data: $('#formFiltros').serialize(), // Serializa los datos del formulario
-                        success: function(response) {
-                            $('#lista-incidencias').html(response); // Actualiza la lista de incidencias
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(error); // Maneja los errores, si los hay
-                        }
-                    });
-                }
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Maneja el envío del formulario de filtros
+            $('#formFiltros').submit(function(event) {
+                event.preventDefault(); // Evita que se recargue la página al enviar el formulario
+                filtrar(); // Llama a la función de filtrar
             });
-        </script>
+
+            // Función para filtrar mediante AJAX
+            function filtrar() {
+                $.ajax({
+                    url: '{{ route('incidencias.filtrar') }}', // Ruta definida en las rutas de Laravel
+                    type: 'POST',
+                    data: $('#formFiltros').serialize(), // Serializa los datos del formulario
+                    success: function(response) {
+                        $('#lista-incidencias').html(response); // Actualiza la lista de incidencias
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error); // Maneja los errores, si los hay
+                    }
+                });
+            }
+        });
+    </script>
     </div>
     </div>
     </div>
