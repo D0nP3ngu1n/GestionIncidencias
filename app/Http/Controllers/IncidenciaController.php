@@ -351,7 +351,6 @@ class IncidenciaController extends Controller
     {
 
         if ($incidencia) {
-
             // Redirige a la URL del archivo para iniciar la descarga
             return Response::download('assets/ficheros/' . $incidencia->adjunto_url);
         } else {

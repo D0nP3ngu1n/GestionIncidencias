@@ -241,35 +241,42 @@
                                                 </button>
                                             </form>
                                             <script>
-                                                document.querySelector('#formBorrar').addEventListener('submit', function(e) {
-                                                    var form = this;
+                                                // Seleccionar todos los elementos con el id #formBorrar
+                                                var forms = document.querySelectorAll('#formBorrar');
 
-                                                    e.preventDefault();
+                                                // Iterar sobre cada elemento y agregar un evento de escucha
+                                                forms.forEach(function(form) {
+                                                    form.addEventListener('submit', function(e) {
+                                                        e.preventDefault();
 
-                                                    swal({
-                                                        title: "Borrar Incidencia",
-                                                        text: "¿Quieres borrar la incidencia incidencia?",
-                                                        icon: "warning",
-                                                        buttons: [
-                                                            'No, cancelar',
-                                                            'Si, Estoy Seguro'
-                                                        ],
-                                                        dangerMode: true,
-                                                    }).then(function(isConfirm) {
-                                                        if (isConfirm) {
-                                                            swal({
-                                                                title: '¡HECHO!',
-                                                                text: 'La incidencia ha sido borrarda',
-                                                                icon: 'success'
-                                                            }).then(function() {
-                                                                form.submit();
-                                                            });
-                                                        } else {
-                                                            swal("Cancelado", "La incidencia no ha sido eliminada", "error");
-                                                        }
+                                                        var currentForm = this;
+
+                                                        swal({
+                                                            title: "Borrar Incidencia",
+                                                            text: "¿Quieres borrar la incidencia?",
+                                                            icon: "warning",
+                                                            buttons: [
+                                                                'No, cancelar',
+                                                                'Si, Estoy Seguro'
+                                                            ],
+                                                            dangerMode: true,
+                                                        }).then(function(isConfirm) {
+                                                            if (isConfirm) {
+                                                                swal({
+                                                                    title: '¡HECHO!',
+                                                                    text: 'La incidencia ha sido borrada',
+                                                                    icon: 'success'
+                                                                }).then(function() {
+                                                                    currentForm.submit();
+                                                                });
+                                                            } else {
+                                                                swal("Cancelado", "La incidencia no ha sido eliminada", "error");
+                                                            }
+                                                        });
                                                     });
                                                 });
                                             </script>
+
                                         @endhasrole
                                     </div>
                                 </td>
@@ -278,7 +285,7 @@
                     </tbody>
                 </table>
             @else
-                <p>No existen incidencias</p>
+                <h2 class="text-center">No existen incidencias</h2>
         @endif
     </div>
 

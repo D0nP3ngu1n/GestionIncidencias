@@ -3,6 +3,7 @@
 use App\Http\Controllers\chartsController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\DashController;
+use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\IncidenciaController;
 use App\Http\Controllers\InformeController;
@@ -21,9 +22,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+/* Parte de las incidencias*/
+Route::resource('equipos', EquipoController::class)->middleware('auth','role:Administrador');
 
 /* Parte de las incidencias*/
-
 Route::resource('incidencias', IncidenciaController::class)->middleware('auth');
 /* filtro de las incidencias*/
 
