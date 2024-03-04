@@ -148,14 +148,25 @@
                             <span>Gestión Usuario</span>
                         </a>
                     </li>
+
+
+                    <!-- Nav Item - Dashboard -->
+                    <li class="nav-item">
+                        <a class="nav-link texto-nav d-flex" href="{{ route('dashboard.index') }}">
+                            <i class="bi bi-speedometer px-1"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <!-- Nav Item - aulas -->
+                    <li class="nav-item">
+                        <a class="nav-link texto-nav d-flex" href="{{ route('aulas.index') }}">
+                            <i class="bi bi-house px-1"></i>
+                            <span>Aulas</span>
+                        </a>
+                    </li>
                 @endhasrole
-                 <!-- Nav Item - Dashboard -->
-                 <li class="nav-item">
-                    <a class="nav-link texto-nav d-flex" href="{{ route('dashboard.index') }}">
-                        <i class="bi bi-speedometer px-1"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
+
             </ul>
         </div>
     </div>

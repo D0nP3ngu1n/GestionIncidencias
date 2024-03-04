@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\chartsController;
+use App\Http\Controllers\AulaController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\DashController;
 use App\Http\Controllers\ExportController;
@@ -21,35 +21,47 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+/* Parte de aulas*/
+Route::resource('aulas', AulaController::class)->middleware('auth', 'role:Administrador');
 
 /* Parte de las incidencias*/
 
 Route::resource('incidencias', IncidenciaController::class)->middleware('auth');
 /* filtro de las incidencias*/
-
 Route::post('incidencias/filtrar', [IncidenciaController::class, 'filtrar'])->name('incidencias.filtrar')->middleware('auth');
 /* descargar un archivo de la incidencia*/
-
 Route::get('/descargar/{incidencia}', [IncidenciaController::class, 'descargarArchivo'])->name('descargar.archivo');
 
-/* Parte de los comentarios*/
-
+/* Parte de los comentarios de las icnidencias*/
 Route::get('incidencias/{incidencia}/crearComentario',  [ComentarioController::class, 'create'])->name('comentario.create')->middleware('auth');
 Route::post('incidencias/{incidencia}',  [ComentarioController::class, 'store'])->name('comentario.store')->middleware('auth');
-Route::delete('comentarios/{comentario}/eliminar',  [ComentarioController::class, 'destroy'])->name('comentario.destroy')->middleware('auth','role:Administrador');
+Route::delete('comentarios/{comentario}/eliminar',  [ComentarioController::class, 'destroy'])->name('comentario.destroy')->middleware('auth', 'role:Administrador');
 
+
+
+/* Parte de los charts*/
+Route::get('/dashboard', [DashController::class, 'index'])->name('dashboard.index')->middleware('auth', 'role:Administrador');
+
+/* Parte de los usuarios*/
+
+Route::controller(UserController::class)->group(function () {
+    Route::get('usuarios', 'index')->name('usuarios.index')->middleware('auth', 'role:Administrador');
+    Route::get('usuarios/{usuario}', 'show')->name('usuarios.show')->middleware('auth');
+    Route::get('usuarios/{usuario}/edit', 'edit')->name('usuarios.edit')->middleware('auth');
+    Route::put('usuarios/{usuario}', 'update')->name('usuarios.update')->middleware('auth');
+})->middleware('auth');
 /* ----------------Exports----------------*/
 
-Route::get('exports', [ExportController::class, 'index'])->name('exports.index')->middleware('auth','role:Administrador');
-Route::get('exports/{incidencia}', [ExportController::class, 'show'])->name('exports.show')->middleware('auth','role:Administrador');
+Route::get('exports', [ExportController::class, 'index'])->name('exports.index')->middleware('auth', 'role:Administrador');
+Route::get('exports/{incidencia}', [ExportController::class, 'show'])->name('exports.show')->middleware('auth', 'role:Administrador');
 
-Route::post('exports', [ExportController::class, 'export'])->name('exports.export')->middleware('auth','role:Administrador');
-Route::post('exports/pdf', [ExportController::class, 'exportpdf'])->name('exports.pdf')->middleware('auth','role:Administrador');
-Route::post('exports/csv', [ExportController::class, 'exportcsv'])->name('exports.csv')->middleware('auth','role:Administrador');
+Route::post('exports', [ExportController::class, 'export'])->name('exports.export')->middleware('auth', 'role:Administrador');
+Route::post('exports/pdf', [ExportController::class, 'exportpdf'])->name('exports.pdf')->middleware('auth', 'role:Administrador');
+Route::post('exports/csv', [ExportController::class, 'exportcsv'])->name('exports.csv')->middleware('auth', 'role:Administrador');
 
-Route::post('exports/{incidencia}', [ExportController::class, 'exportInc'])->name('exports.exportInc')->middleware('auth','role:Administrador');
-Route::post('exports/{incidencia}/pdf', [ExportController::class, 'exportpdfInc'])->name('exports.exportpdfInc')->middleware('auth','role:Administrador');
-Route::post('exports/{incidencia}/csv', [ExportController::class, 'exportcsvInc'])->name('exports.exportcsvInc')->middleware('auth','role:Administrador');
+Route::post('exports/{incidencia}', [ExportController::class, 'exportInc'])->name('exports.exportInc')->middleware('auth', 'role:Administrador');
+Route::post('exports/{incidencia}/pdf', [ExportController::class, 'exportpdfInc'])->name('exports.exportpdfInc')->middleware('auth', 'role:Administrador');
+Route::post('exports/{incidencia}/csv', [ExportController::class, 'exportcsvInc'])->name('exports.exportcsvInc')->middleware('auth', 'role:Administrador');
 
 Route::prefix('/exports/informe')->group(function () {
     Route::get('/resueltas-admin', [InformeController::class, 'informeResueltasPorAdmin'])->name('export.informe.resueltas.admin');
@@ -77,17 +89,6 @@ Route::prefix('/exports/informe')->group(function () {
     Route::get('/tiempo-dedicado-e-incidencias-admin/pdf', [InformeController::class, 'informeTiempoDedicadoEIncidenciasPorAdministradorPdf'])->name('export.informe.tiempo.dedicado.e.incidencias.admin.Pdf');
 });
 
-/* Parte de los charts*/
-Route::get('/dashboard', [DashController::class, 'index'])->name('dashboard.index')->middleware('auth','role:Administrador');;
-
-/* Parte de los usuarios*/
-
-Route::controller(UserController::class)->group(function () {
-    Route::get('usuarios', 'index')->name('usuarios.index')->middleware('auth','role:Administrador');
-    Route::get('usuarios/{usuario}', 'show')->name('usuarios.show')->middleware('auth');
-    Route::get('usuarios/{usuario}/edit', 'edit')->name('usuarios.edit')->middleware('auth');
-    Route::put('usuarios/{usuario}', 'update')->name('usuarios.update')->middleware('auth');
-})->middleware('auth');
 
 Route::get('/', function () {
     return redirect('/incidencias');
