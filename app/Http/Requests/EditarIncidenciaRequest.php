@@ -24,7 +24,7 @@ class EditarIncidenciaRequest extends FormRequest
         return [
             'nombre' => 'required|max:50',
             'descripcion' => 'max:256',
-            'fichero' => 'mimes:jpg,pdf,csv,rtf',
+            'fichero' => 'mimes:jpg,pdf,csv,rtf,doc,docx',
         ];
     }
 
@@ -40,7 +40,7 @@ class EditarIncidenciaRequest extends FormRequest
             'nombre.required' => 'El campo nombre es obligatorio.',
             'nombre.max' => 'El campo nombre debe tener menos de 25 caracteres.',
             'descripcion.max' => 'El campo descripcion debe tener menos de 256 caracteres.',
-            'fichero.mimes' => 'El formato del fichero debe ser csv, jpg, rtf o pdf',
+            'fichero.mimes' => 'El formato del fichero debe ser csv, jpg, rtf, pdf, doc y docx',
         ];
     }
 }

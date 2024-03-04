@@ -26,7 +26,7 @@ class CrearIncidenciaRequest extends FormRequest
             'departamento' => 'required|max:45',
             'tipo' => 'required|in:EQUIPOS,CUENTAS,WIFI,INTERNET,SOFTWARE',
             'descripcion' => 'required|max:256',
-            'adjunto' => 'mimes:jpg,pdf,csv,rtf',
+            'adjunto' => 'mimes:jpg,pdf,csv,rtf,doc,docx',
         ];
     }
 
@@ -47,7 +47,7 @@ class CrearIncidenciaRequest extends FormRequest
             'tipo.in' => 'Las posibles opciones de tipo de incidencia son:
              Equipos,Cuentas,Wifi,Internet,Software.',
             'descripcion.max' => 'El campo descripcion debe tener menos de 256 caracteres.',
-            'adjunto.mimes' => 'El formato del fichero debe ser csv, jpg, rtf o pdf',
+            'adjunto.mimes' => 'El formato del fichero debe ser csv, jpg, rtf, pdf, doc y docx',
         ];
     }
 }
