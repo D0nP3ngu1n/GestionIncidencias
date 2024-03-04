@@ -9,8 +9,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>@yield('titulo')</title>
-    @vite('resources/sass/app.scss', 'resources/js/app.js', 'resources/sass/_nav.scss')
-    @vite('resources/css/navbar.css')
+    @vite('resources/sass/app.scss', 'resources/js/app.js')
 </head>
 
 <body class="bg-colorPrincipal">
