@@ -29,8 +29,7 @@
             @csrf
             <div class="col-sm-12">
                 <label for="texto" class="form-label">Texto:</label>
-                <textarea id="texto" name="texto" cols="66" rows="2" placeholder="Introduce aqui tu comentario.">
-                </textarea>
+                <textarea id="texto" name="texto" cols="66" rows="2" placeholder="Introduce aqui tu comentario." class="md-textarea form-control"></textarea>
             </div>
 
             <div class="d-flex justify-content-center mt-3">
