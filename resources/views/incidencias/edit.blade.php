@@ -157,6 +157,12 @@
                 </div>
             </div>
             <script>
+                /**
+                 * Metodo que lanza un modal al pulsar el botón de editar incidencia, hace que se controle si se quieren guardar los cambios o no
+                 *
+                 * @param mixed recibe un formulario para prevenir su funcionamiento por defecto
+                 * @return {none} no devuelve nada, ejecuta acciones según los botones que se pulsan
+                 */
                 document.querySelector('#formulario1').addEventListener('submit', function(e) {
                     var form = this;
 
