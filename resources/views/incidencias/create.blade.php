@@ -96,7 +96,6 @@
                     <select id="sub_subtipo" name="sub_subtipo" class="form-select"></select>
                 </div>
             </div>
-            @push('scripts')
                 <script>
                     window.addEventListener('load', inicio, false);
                     let array = new Array();
@@ -221,7 +220,6 @@
                         }
                     }
                 </script>
-            @endpush
 
             <div class="form-outline col-sm-12">
                 <label for="descripcion" class="form-label">Descripcion:</label>

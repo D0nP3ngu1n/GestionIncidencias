@@ -165,8 +165,16 @@
                             <span>Aulas</span>
                         </a>
                     </li>
-                @endhasrole
 
+
+                   <!-- Nav Item - Dashboard -->
+                   <li class="nav-item">
+                    <a class="nav-link texto-nav d-flex" href="{{ route('equipos.index') }}">
+                        <i class="bi bi-pc-display px-1"></i>
+                        <span>Equipos</span>
+                    </a>
+                </li>
+                @endhasrole
             </ul>
         </div>
     </div>

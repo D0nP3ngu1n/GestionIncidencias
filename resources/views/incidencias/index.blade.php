@@ -54,7 +54,7 @@
                 Filtros
                 <i class="bi bi-filter"></i>
             </a>
-
+            @hasrole('Administrador')
             <form id="exportForm" action="{{ route('exports.export') }}" method="POST" class="form">
                 @csrf
                 <input type="hidden" name="incidencias" value="{{ json_encode($incidencias) }}">
@@ -66,6 +66,7 @@
                     <option value="{{ route('exports.csv') }}">CSV</option>
                 </select>
             </form>
+
             <script>
                 document.getElementById('exportOption').addEventListener('change', function() {
                     if (this.value !== '') {
@@ -74,6 +75,7 @@
                     }
                 });
             </script>
+            @endhasrole
         </div>
 
         <div class="collapse my-2" id="collapseExample">
@@ -241,35 +243,42 @@
                                                 </button>
                                             </form>
                                             <script>
-                                                document.querySelector('#formBorrar').addEventListener('submit', function(e) {
-                                                    var form = this;
+                                                // Seleccionar todos los elementos con el id #formBorrar
+                                                var forms = document.querySelectorAll('#formBorrar');
 
-                                                    e.preventDefault();
+                                                // Iterar sobre cada elemento y agregar un evento de escucha
+                                                forms.forEach(function(form) {
+                                                    form.addEventListener('submit', function(e) {
+                                                        e.preventDefault();
 
-                                                    swal({
-                                                        title: "Borrar Incidencia",
-                                                        text: "¿Quieres borrar la incidencia incidencia?",
-                                                        icon: "warning",
-                                                        buttons: [
-                                                            'No, cancelar',
-                                                            'Si, Estoy Seguro'
-                                                        ],
-                                                        dangerMode: true,
-                                                    }).then(function(isConfirm) {
-                                                        if (isConfirm) {
-                                                            swal({
-                                                                title: '¡HECHO!',
-                                                                text: 'La incidencia ha sido borrarda',
-                                                                icon: 'success'
-                                                            }).then(function() {
-                                                                form.submit();
-                                                            });
-                                                        } else {
-                                                            swal("Cancelado", "La incidencia no ha sido eliminada", "error");
-                                                        }
+                                                        var currentForm = this;
+
+                                                        swal({
+                                                            title: "Borrar Incidencia",
+                                                            text: "¿Quieres borrar la incidencia?",
+                                                            icon: "warning",
+                                                            buttons: [
+                                                                'No, cancelar',
+                                                                'Si, Estoy Seguro'
+                                                            ],
+                                                            dangerMode: true,
+                                                        }).then(function(isConfirm) {
+                                                            if (isConfirm) {
+                                                                swal({
+                                                                    title: '¡HECHO!',
+                                                                    text: 'La incidencia ha sido borrada',
+                                                                    icon: 'success'
+                                                                }).then(function() {
+                                                                    currentForm.submit();
+                                                                });
+                                                            } else {
+                                                                swal("Cancelado", "La incidencia no ha sido eliminada", "error");
+                                                            }
+                                                        });
                                                     });
                                                 });
                                             </script>
+
                                         @endhasrole
                                     </div>
                                 </td>
@@ -278,7 +287,7 @@
                     </tbody>
                 </table>
             @else
-                <p>No existen incidencias</p>
+                <h2 class="text-center">No existen incidencias</h2>
         @endif
     </div>
 
@@ -287,7 +296,6 @@
     <div class="d-flex justify-content-center">
         {{ $incidencias->links() }}
     </div>
-    @push('scripts')
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
             $(document).ready(function() {
@@ -313,7 +321,6 @@
                 }
             });
         </script>
-    @endpush
     </div>
     </div>
     </div>
