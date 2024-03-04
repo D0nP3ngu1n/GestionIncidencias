@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Equipo;
 use App\Models\Incidencia;
 use App\Models\IncidenciaSubtipo;
 use App\Models\Persona;
@@ -22,7 +23,10 @@ class IncidenciaSeeder extends Seeder
         $subtiposId = IncidenciaSubtipo::pluck('id')->toArray();
         //Recoger todos los Id de la tabla users en un array
         $personaId = User::pluck('id')->toArray();
+
+        $equipoId = Equipo::pluck('id')->toArray();
         //Array de las incidencias que vamos a crear
+
         $indencias = array(
             array(
                 'tipo' => 'equipos',
@@ -31,7 +35,7 @@ class IncidenciaSeeder extends Seeder
                 'estado' => 'abierta',
                 'creador_id' => $personaId[0],
                 'prioridad' => 'baja',
-                'equipo_id' => '2'
+                'equipo_id' => $equipoId[0],
             ),
             array(
                 'tipo' => 'cuentas',
@@ -40,7 +44,7 @@ class IncidenciaSeeder extends Seeder
                 'estado' => 'en proceso',
                 'creador_id' => $personaId[0],
                 'prioridad' => 'media',
-                'equipo_id' => '3'
+                'equipo_id' => $equipoId[0]
             ),
             array(
                 'tipo' => 'Wifi',
@@ -49,7 +53,7 @@ class IncidenciaSeeder extends Seeder
                 'estado' => 'asignada',
                 'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
-                'equipo_id' => '4'
+                'equipo_id' => $equipoId[0]
             ),
             array(
                 'tipo' => 'equipos',
@@ -58,7 +62,7 @@ class IncidenciaSeeder extends Seeder
                 'estado' => 'enviada a Infortec',
                 'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
-                'equipo_id' => '3'
+                'equipo_id' => $equipoId[0]
             ),
             array(
                 'tipo' => 'equipos',
@@ -67,7 +71,7 @@ class IncidenciaSeeder extends Seeder
                 'estado' => 'resuelta',
                 'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
-                'equipo_id' => '2'
+                'equipo_id' => $equipoId[0]
             ),
             array(
                 'tipo' => 'equipos',
@@ -76,7 +80,7 @@ class IncidenciaSeeder extends Seeder
                 'estado' => 'cerrada',
                 'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
-                'equipo_id' => '1'
+                'equipo_id' => $equipoId[0]
             ),
             array(
                 'tipo' => 'equipos',
@@ -85,7 +89,7 @@ class IncidenciaSeeder extends Seeder
                 'estado' => 'abierta',
                 'creador_id' => $personaId[0],
                 'prioridad' => 'baja',
-                'equipo_id' => '2'
+                'equipo_id' => $equipoId[0]
             ),
             array(
                 'tipo' => 'cuentas',
@@ -94,7 +98,7 @@ class IncidenciaSeeder extends Seeder
                 'estado' => 'en proceso',
                 'creador_id' => $personaId[0],
                 'prioridad' => 'media',
-                'equipo_id' => '3'
+                'equipo_id' => $equipoId[0]
             ),
             array(
                 'tipo' => 'Wifi',
@@ -103,7 +107,7 @@ class IncidenciaSeeder extends Seeder
                 'estado' => 'asignada',
                 'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
-                'equipo_id' => '4'
+                'equipo_id' => $equipoId[0]
             ),
             array(
                 'tipo' => 'equipos',
@@ -112,7 +116,7 @@ class IncidenciaSeeder extends Seeder
                 'estado' => 'enviada a Infortec',
                 'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
-                'equipo_id' => '3'
+                'equipo_id' => $equipoId[0]
             ),
             array(
                 'tipo' => 'equipos',
@@ -121,7 +125,7 @@ class IncidenciaSeeder extends Seeder
                 'estado' => 'resuelta',
                 'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
-                'equipo_id' => '2'
+                'equipo_id' => $equipoId[0]
             ),
             array(
                 'tipo' => 'equipos',
@@ -130,7 +134,7 @@ class IncidenciaSeeder extends Seeder
                 'estado' => 'cerrada',
                 'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
-                'equipo_id' => '1'
+                'equipo_id' => $equipoId[0]
             ),
             array(
                 'tipo' => 'equipos',
@@ -139,7 +143,7 @@ class IncidenciaSeeder extends Seeder
                 'estado' => 'abierta',
                 'creador_id' => $personaId[0],
                 'prioridad' => 'baja',
-                'equipo_id' => '2'
+                'equipo_id' => $equipoId[0]
             ),
             array(
                 'tipo' => 'cuentas',
@@ -148,7 +152,7 @@ class IncidenciaSeeder extends Seeder
                 'estado' => 'en proceso',
                 'creador_id' => $personaId[0],
                 'prioridad' => 'media',
-                'equipo_id' => '3'
+                'equipo_id' => $equipoId[0]
             ),
             array(
                 'tipo' => 'Wifi',
@@ -157,7 +161,7 @@ class IncidenciaSeeder extends Seeder
                 'estado' => 'asignada',
                 'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
-                'equipo_id' => '4'
+                'equipo_id' => $equipoId[0]
             ),
             array(
                 'tipo' => 'equipos',
@@ -166,7 +170,7 @@ class IncidenciaSeeder extends Seeder
                 'estado' => 'enviada a Infortec',
                 'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
-                'equipo_id' => '3'
+                'equipo_id' => $equipoId[0]
             ),
             array(
                 'tipo' => 'equipos',
@@ -175,7 +179,7 @@ class IncidenciaSeeder extends Seeder
                 'estado' => 'resuelta',
                 'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
-                'equipo_id' => '2'
+                'equipo_id' => $equipoId[0]
             ),
             array(
                 'tipo' => 'equipos',
@@ -184,8 +188,188 @@ class IncidenciaSeeder extends Seeder
                 'estado' => 'cerrada',
                 'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
-                'equipo_id' => '1'
+                'equipo_id' => $equipoId[0]
             ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 18',
+                'estado' => 'resuelta',
+                'creador_id' => $personaId[0],
+                'prioridad' => 'alta',
+                'equipo_id' => $equipoId[0]
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 19',
+                'estado' => 'cerrada',
+                'creador_id' => $personaId[0],
+                'prioridad' => 'alta',
+                'equipo_id' => $equipoId[0]
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 20',
+                'estado' => 'cerrada',
+                'creador_id' => $personaId[0],
+                'prioridad' => 'alta',
+                'equipo_id' => $equipoId[0]
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 21',
+                'estado' => 'cerrada',
+                'creador_id' => $personaId[0],
+                'prioridad' => 'alta',
+                'equipo_id' => $equipoId[0]
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 22',
+                'estado' => 'cerrada',
+                'creador_id' => $personaId[0],
+                'prioridad' => 'alta',
+                'equipo_id' => $equipoId[0]
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 23',
+                'estado' => 'cerrada',
+                'creador_id' => $personaId[0],
+                'prioridad' => 'alta',
+                'equipo_id' => $equipoId[0]
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 24',
+                'estado' => 'cerrada',
+                'creador_id' => $personaId[0],
+                'prioridad' => 'alta',
+                'equipo_id' => $equipoId[0]
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 25',
+                'estado' => 'cerrada',
+                'creador_id' => $personaId[0],
+                'prioridad' => 'alta',
+                'equipo_id' => $equipoId[0]
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 26',
+                'estado' => 'cerrada',
+                'creador_id' => $personaId[0],
+                'prioridad' => 'alta',
+                'equipo_id' => $equipoId[0]
+            ),  array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 27',
+                'estado' => 'cerrada',
+                'creador_id' => $personaId[0],
+                'prioridad' => 'alta',
+                'equipo_id' => $equipoId[0]
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 28',
+                'estado' => 'cerrada',
+                'creador_id' => $personaId[0],
+                'prioridad' => 'alta',
+                'equipo_id' => $equipoId[0]
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 29',
+                'estado' => 'cerrada',
+                'creador_id' => $personaId[0],
+                'prioridad' => 'alta',
+                'equipo_id' => $equipoId[0]
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 30',
+                'estado' => 'asignada',
+                'creador_id' => $personaId[0],
+                'prioridad' => 'alta',
+                'equipo_id' => $equipoId[0]
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 31',
+                'estado' => 'cerrada',
+                'creador_id' => $personaId[0],
+                'prioridad' => 'alta',
+                'equipo_id' => $equipoId[0]
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 32',
+                'estado' => 'cerrada',
+                'creador_id' => $personaId[0],
+                'prioridad' => 'alta',
+                'equipo_id' => $equipoId[0]
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 33',
+                'estado' => 'asignada',
+                'creador_id' => $personaId[0],
+                'prioridad' => 'alta',
+                'equipo_id' => $equipoId[0]
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 34',
+                'estado' => 'cerrada',
+                'creador_id' => $personaId[0],
+                'prioridad' => 'alta',
+                'equipo_id' => $equipoId[0]
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 35',
+                'estado' => 'asignada',
+                'creador_id' => $personaId[0],
+                'prioridad' => 'alta',
+                'equipo_id' => $equipoId[0]
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 36',
+                'estado' => 'cerrada',
+                'creador_id' => $personaId[0],
+                'prioridad' => 'alta',
+                'equipo_id' => $equipoId[0]
+            ),
+            array(
+                'tipo' => 'equipos',
+                'subtipo_id' => $subtiposId[3],
+                'descripcion' => 'incidencia de prueba 37',
+                'estado' => 'cerrada',
+                'creador_id' => $personaId[0],
+                'prioridad' => 'alta',
+                'equipo_id' => $equipoId[0]
+            ),
+
         );
         //recorrer el array de incidencias para cargar en la base de datos
         foreach ($indencias as $incidencia) {
