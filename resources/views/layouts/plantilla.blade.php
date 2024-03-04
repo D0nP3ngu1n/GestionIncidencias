@@ -9,7 +9,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>@yield('titulo')</title>
-    @vite('resources/sass/app.scss', 'resources/js/app.js')
+    @vite('resources/sass/app.scss')
 </head>
 
 <body class="bg-colorPrincipal">
