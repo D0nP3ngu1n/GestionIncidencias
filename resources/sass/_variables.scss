@@ -1,27 +1,12 @@
 // Override Bootstrap default variables here
 
 // Colores
-$blue: #4e73df !default;
+$blue: #4e73df;
+$white: #fff;
+$color-sombra: #3a3b4526;
 
-$white: #fff !default;
-$gray-100: #f8f9fc !default;
-$gray-200: #eaecf4 !default;
-$gray-300: #dddfeb !default;
-$gray-400: #d1d3e2 !default;
-$gray-500: #b7b9cc !default;
-$gray-600: #858796 !default;
-$gray-700: #6e707e !default;
-$gray-800: #5a5c69 !default;
-$gray-900: #3a3b45 !default;
-$black: #000 !default;
-
-// Body
-$body-bg: #f8fafc;
 
 // Typography
 $font-family-sans-serif: 'Nunito', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
-
-// Sombras
-$box-shadow: 0 0.15rem 1.75rem 0 rgba($gray-900, .15) !default;
