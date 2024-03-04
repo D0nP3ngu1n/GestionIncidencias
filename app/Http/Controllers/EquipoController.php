@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\CrearEquipoRequest;
 use App\Models\Aula;
 use App\Models\Equipo;
@@ -14,98 +13,129 @@ use PDOException;
 class EquipoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Devuelve la vista de todos los equipos
+     *
+     * @return mixed Devuelve una vista con todos  los equipos
      */
     public function index()
     {
-        $equipos = Equipo::all();
+        $equipos = Equipo::paginate(10);
         return view('equipos.index', ['equipos' => $equipos]);
-
     }
-
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $tipos = ['altavoces','impresora','monitor','pantalla interactiva','portátil de aula','portátil Consejería','proyector'];
-        $aulas = Aula::all();
-        return view('equipos.create',['aulas' => $aulas,'tipos' => $tipos]);
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-
-        try {
-            //empiezo una transaccion por si al intentar crear el comentario falla algo poder volver atras
-            DB::beginTransaction();
-
-            $equipo = new Equipo();
-            $equipo->tipo_equipo = $request->tipo_equipo;
-            $equipo->fecha_adquisicion = $request->fecha_adquisicion;
-            $equipo->etiqueta = $request->etiqueta;
-            $equipo->marca = $request->marca;
-            $equipo->descripcion = $request->descripcion;
-            $equipo->baja = $request->baja;
-            $equipo->aula_num = $request->aula_num;
-            $equipo->puesto = $request->puesto;
-
-
-            $equipo->save();
-            DB::commit();
-            //si se crea correctamente redirigo a la pagina de la incidencia con un mensaje de succes
-            return redirect()->route('equipos.index')->with('success', 'equipo creado');
-        } catch (PDOException $e) {
-            DB::rollBack();
-            return redirect()->route('equipos.index')->with('error', 'Error al crear el equipo ' . $e->getMessage());
-        } catch (Exception $e) {
-            DB::rollBack();
-            return redirect()->route('equipos.show', ['equipo' => $equipo])->with('error', 'Error al crear el comentario ' . $e->getMessage());
-        }
-    }
-
-    /**
-     * Display the specified resource.
+     * Devuelve la vista de detalle de un equipo
+     *
+     * @return mixed Devuelve la vista de detalle de un equipo
      */
     public function show(Equipo $equipo)
     {
-        return view('equipos.show',$equipo);
+        return view('equipos.show', ['equipo' => $equipo]);
     }
 
+
     /**
-     * Show the form for editing the specified resource.
+     * Devuelve la vista de crear de un equipo
+     *
+     * @return mixed Devuelve la vista de crear de un equipo
      */
-    public function edit(Request $request,Equipo $equipo)
+    public function create()
     {
-        //
+        //cogo todas las aulas para pasarselas a la vista de crear
+        $aulas = Aula::all();
+        $tipos = ['altavoces', 'impresora', 'monitor', 'pantalla interactiva', 'portátil de aula', 'portátil Consejería', 'proyector'];
+        return view('equipos.create', ['aulas' => $aulas, 'tipos' => $tipos]);
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function store(CrearEquipoRequest $request)
     {
-        //
+        try {
+            //empiezo una transaccion por si al intentar crear el equipo falla algo poder volver atras
+            DB::beginTransaction();
+
+            $equipo = new Equipo();
+
+            //si el request recibe el tipo vacio, da fallo
+            if ($request->has('tipo_equipo') && $request->filled('tipo_equipo') && $request->tipo_equipo != '') {
+                $equipo->tipo_equipo = $request->tipo_equipo;
+            }
+            //si el request recibe el aula_num vacio, da fallo
+            if ($request->has('aula_num') && $request->filled('aula_num') && $request->aula_num != '') {
+                $equipo->aula_num = $request->aula_num;
+            }
+
+            $equipo->fecha_adquisicion = $request->fecha_adquisicion;
+            $equipo->etiqueta = $request->etiqueta;
+            $equipo->marca = $request->marca;
+            $equipo->modelo = $request->modelo;
+            $equipo->puesto = $request->puesto;
+            $equipo->descripcion = $request->descripcion;
+
+            $equipo->save();
+            DB::commit();
+            return redirect()->route('equipos.show', ['equipo' => $equipo])->with('success', 'Equipo creado');
+        } catch (PDOException $e) {
+
+            DB::rollBack();
+            return redirect()->route('equipos.index')->with('error', 'Error de base de datos al crear el Equipo. Detalles: ' . $e->getMessage());
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->route('equipos.index')->with('error', 'Error al crear el Equipo. Detalles: ' . $e->getMessage());
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    public function edit(Equipo $equipo)
+    {
+
+        //cogo todas las aulas para pasarselas a la vista de crear
+        $aulas = Aula::all();
+        $tipos = ['altavoces', 'impresora', 'monitor', 'pantalla interactiva', 'portátil de aula', 'portátil Consejería', 'proyector'];
+
+        return view('equipos.edit', ['equipo' => $equipo, 'aulas' => $aulas, 'tipos' => $tipos]);
+    }
+
+    public function update(Equipo $equipo,CrearEquipoRequest $request)
+    {
+        try {
+            //empiezo una transaccion por si al intentar editar el equipo falla algo poder volver atras
+            DB::beginTransaction();
+
+            //si el request recibe el tipo vacio, da fallo
+            if ($request->has('tipo_equipo') && $request->filled('tipo_equipo') && $request->tipo_equipo != '') {
+                $equipo->tipo_equipo = $request->tipo_equipo;
+            }
+            //si el request recibe el aula_num vacio, da fallo
+            if ($request->has('aula_num') && $request->filled('aula_num') && $request->aula_num != '') {
+                $equipo->aula_num = $request->aula_num;
+            }
+
+            $equipo->fecha_adquisicion = $request->fecha_adquisicion;
+            $equipo->etiqueta = $request->etiqueta;
+            $equipo->marca = $request->marca;
+            $equipo->modelo = $request->modelo;
+            $equipo->puesto = $request->puesto;
+            $equipo->descripcion = $request->descripcion;
+
+            $equipo->save();
+            DB::commit();
+            return redirect()->route('equipos.show', ['equipo' => $equipo])->with('success', 'Equipo editado');
+        } catch (PDOException $e) {
+
+            DB::rollBack();
+            return redirect()->route('equipos.index')->with('error', 'Error de base de datos al editar el Equipo. Detalles: ' . $e->getMessage());
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->route('equipos.index')->with('error', 'Error al editar el Equipo. Detalles: ' . $e->getMessage());
+        }
+    }
+
     public function destroy(Equipo $equipo)
     {
         try {
             $equipo->delete();
-
         } catch (PDOException $e) {
             return redirect()->route('equipos.index')->with('error', 'Error de base de datos al borrar el equipo ' . $e->getMessage());
         } catch (Exception $e) {
             return redirect()->route('equipos.index')->with('error', 'Error al borrar el equipo ' . $e->getMessage());
         }
         return redirect()->route('equipos.index')->with('success', 'Equipo borrado');
-
     }
 }

@@ -54,7 +54,7 @@
                 Filtros
                 <i class="bi bi-filter"></i>
             </a>
-
+            @hasrole('Administrador')
             <form id="exportForm" action="{{ route('exports.export') }}" method="POST" class="form">
                 @csrf
                 <input type="hidden" name="incidencias" value="{{ json_encode($incidencias) }}">
@@ -66,6 +66,7 @@
                     <option value="{{ route('exports.csv') }}">CSV</option>
                 </select>
             </form>
+
             <script>
                 document.getElementById('exportOption').addEventListener('change', function() {
                     if (this.value !== '') {
@@ -74,6 +75,7 @@
                     }
                 });
             </script>
+            @endhasrole
         </div>
 
         <div class="collapse my-2" id="collapseExample">
@@ -219,36 +221,73 @@
                                     <div class="d-flex gap-3">
 
 
-                                    <a class="btn btn-primary text-white" role="button"
-                                        href="{{ route('incidencias.show', $incidencia) }}">
-                                        <i class="bi bi-eye"></i>
-                                    </a>
-
-                                    @hasrole('Administrador')
-                                        <a class="btn btn-success" role="button"
-                                            href="{{ route('incidencias.edit', $incidencia) }}">
-                                            <i class="bi bi-pencil-square"></i>
+                                        <a class="btn btn-primary text-white" role="button"
+                                            href="{{ route('incidencias.show', $incidencia) }}">
+                                            <i class="bi bi-eye"></i>
                                         </a>
-                                    @endhasrole
 
-                                    @hasrole('Administrador')
-                                        <form action="{{ route('incidencias.destroy', $incidencia) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn btn-danger">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </button>
-                                        </form>
-                                    @endhasrole
-                                </div>
+                                        @hasrole('Administrador')
+                                            <a class="btn btn-success" role="button"
+                                                href="{{ route('incidencias.edit', $incidencia) }}">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </a>
+                                        @endhasrole
+
+                                        @hasrole('Administrador')
+                                            <form action="{{ route('incidencias.destroy', $incidencia) }}" method="POST"
+                                                id="formBorrar">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>
+                                            </form>
+                                            <script>
+                                                // Seleccionar todos los elementos con el id #formBorrar
+                                                var forms = document.querySelectorAll('#formBorrar');
+
+                                                // Iterar sobre cada elemento y agregar un evento de escucha
+                                                forms.forEach(function(form) {
+                                                    form.addEventListener('submit', function(e) {
+                                                        e.preventDefault();
+
+                                                        var currentForm = this;
+
+                                                        swal({
+                                                            title: "Borrar Incidencia",
+                                                            text: "¿Quieres borrar la incidencia?",
+                                                            icon: "warning",
+                                                            buttons: [
+                                                                'No, cancelar',
+                                                                'Si, Estoy Seguro'
+                                                            ],
+                                                            dangerMode: true,
+                                                        }).then(function(isConfirm) {
+                                                            if (isConfirm) {
+                                                                swal({
+                                                                    title: '¡HECHO!',
+                                                                    text: 'La incidencia ha sido borrada',
+                                                                    icon: 'success'
+                                                                }).then(function() {
+                                                                    currentForm.submit();
+                                                                });
+                                                            } else {
+                                                                swal("Cancelado", "La incidencia no ha sido eliminada", "error");
+                                                            }
+                                                        });
+                                                    });
+                                                });
+                                            </script>
+
+                                        @endhasrole
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             @else
-                <p>No existen incidencias</p>
+                <h2 class="text-center">No existen incidencias</h2>
         @endif
     </div>
 

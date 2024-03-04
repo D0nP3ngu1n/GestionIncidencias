@@ -1,11 +1,11 @@
 @extends('layouts.plantilla')
-@section('titulo', 'Detalle de equipo')
+@section('titulo', 'Detalle de Aula')
 @section('contenido')
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('equipos.index') }}">Equipos</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Ver equipo</li>
+            <li class="breadcrumb-item"><a href="{{ route('aulas.index') }}">Aulas</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Ver aula</li>
         </ol>
     </nav>
     <div id="caja-formulario">
@@ -25,9 +25,9 @@
         </div>
 
         <div class="row">
-            <h1 class="text-2xl font-bold mx-8 col-10">Equipo Nº {{ $equipo->etiqueta }}</h1>
+            <h1 class="text-2xl font-bold mx-8 col-10">AULA CODIGO {{ $aula->codigo }}</h1>
             <div class="col-2">
-                <a id="botonCrear" href="{{ route('equipos.edit', $equipo) }}">
+                <a id="botonCrear" href="{{ route('aulas.edit', $aula) }}">
                     <div class="svg-wrapper-1">
                         <div class="svg-wrapper">
                             <?xml version="1.0" ?><svg class="feather feather-edit" fill="none" height="24"
@@ -38,7 +38,7 @@
                             </svg>
                         </div>
                     </div>
-                    <span>Editar Equipo</span>
+                    <span>Editar Aula </span>
                 </a>
             </div>
         </div>
@@ -47,32 +47,18 @@
 
         <div class="col-md-12">
 
-            <div class="project-info-box mt-0">
-                <h5>DESCRIPCION</h5>
-                <p class="descripcion">{{ $equipo->descripcion }}</p>
-            </div>
             <div class="row">
                 <div class="col-md-7">
                     <div class="row">
-                        <p class="col-sm-4"><strong>Tipo de equipo:</strong> {{ $equipo->tipo_equipo }}</p>
+                        <p class="col-sm-4"><strong>Codigo del aula:</strong> {{ $aula->codigo }}</p>
+                        <p class="col-sm-3"><strong>Planta:</strong> {{ $aula->planta }}</p>
                     </div>
-                    <p> <strong>Aula:</strong>
-                        {{ $equipo->aula->codigo }}
-                    </p>
-                    <p><strong>Fecha:</strong> {{ $equipo->fecha_adquisicion }}</p>
-                    <p><strong>Marca:</strong> {{ $equipo->marca }}</p>
-                    <p><strong>Modelo:</strong> {{ $equipo->modelo }}</p>
-                    <p><strong>Puesto:</strong> {{ $equipo->puesto }}</p>
                 </div>
+            </div>
+            <div class="project-info-box mt-0">
+                <strong>Descripcion del aula:</strong>
+                <p class="descripcion">{{ $aula->descripcion }}</p>
             </div>
         </div>
     </div>
-
-
-
-    </div>
-
-
-
-
 @endsection

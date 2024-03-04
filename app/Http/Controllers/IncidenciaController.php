@@ -235,7 +235,7 @@ class IncidenciaController extends Controller
                 }
 
                 //guardo el fichero y cojo su ruta para guardarla en la URL de la incidencia
-                $url = $request->fichero->store('', 'ficheros');
+                $url = $request->adjunto->store('', 'ficheros');
                 $incidencia->adjunto_url = $url;
             }
 
@@ -351,7 +351,6 @@ class IncidenciaController extends Controller
     {
 
         if ($incidencia) {
-
             // Redirige a la URL del archivo para iniciar la descarga
             return Response::download('assets/ficheros/' . $incidencia->adjunto_url);
         } else {

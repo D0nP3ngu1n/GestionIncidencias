@@ -80,7 +80,7 @@
                         </tbody>
                     </table>
                 @else
-                    <h3>No existen Usuarios</h3>
+                <h2 class="text-center">No existen incidencias</h2>
             @endif
         </div>
     </div>

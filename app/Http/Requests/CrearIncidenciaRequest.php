@@ -25,7 +25,7 @@ class CrearIncidenciaRequest extends FormRequest
             'nombre' => 'required|max:50',
             'departamento' => 'required|max:45',
             'tipo' => 'required|in:EQUIPOS,CUENTAS,WIFI,INTERNET,SOFTWARE',
-            'descripcion' => 'max:256',
+            'descripcion' => 'required|max:256',
             'adjunto' => 'mimes:jpg,pdf,csv,rtf',
         ];
     }

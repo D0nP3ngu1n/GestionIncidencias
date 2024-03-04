@@ -20,6 +20,8 @@
             Incidencias por Administrador:
             <canvas id="responsableChart" width="100" height="100"></canvas>
         </div>
+        @push('script')
+
         <script>
             var jsonData = @json($incidencias);
             console.log(jsonData);
@@ -186,5 +188,6 @@
     });
             });
         </script>
+        @endpush
     </div>
 @endsection

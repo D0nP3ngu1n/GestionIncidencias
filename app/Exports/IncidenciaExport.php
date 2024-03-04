@@ -8,8 +8,9 @@ use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class IncidenciaExport implements FromCollection, WithHeadings
+class IncidenciaExport implements FromCollection, WithHeadings, ShouldAutoSize
 {
     /**
      * @return \Illuminate\Support\Collection
@@ -22,8 +23,10 @@ class IncidenciaExport implements FromCollection, WithHeadings
         $this->incidencias = $incidencias;
     }
 
-    //Si recibe una incidencia, la devuelve
-    //Sino, extrae los datos del array data, del json y devuelve la coleccion de incidencias filtradas recibidas 
+    /**
+     * @return Si recibe una incidencia, la devuelve
+     * @return Sino, extrae los datos del array data, del json y devuelve la coleccion de incidencias filtradas recibidas
+     */
     public function collection()
     {
         //dd($this->incidencias);
@@ -36,7 +39,9 @@ class IncidenciaExport implements FromCollection, WithHeadings
         }
     }
 
-    //Cabecera para las exportaciones json y excel
+    /**
+     * @return Cabecera para las exportaciones json y excel
+     */
     public function headings(): array
     {
         return [

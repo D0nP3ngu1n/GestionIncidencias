@@ -7,8 +7,9 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class InformeExport implements FromView
+class InformeExport implements FromView, ShouldAutoSize
 {
     /**
      * Método para generar la vista de exportación de incidencias resueltas.

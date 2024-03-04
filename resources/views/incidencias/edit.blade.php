@@ -20,7 +20,8 @@
         </div>
     @endif
     <div class="container" id="caja-formulario">
-        <form action="{{ route('incidencias.update', $incidencia) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('incidencias.update', $incidencia) }}" method="POST" enctype="multipart/form-data"
+            id="formulario1">
             @csrf
             @method('put')
             <div class="row">
@@ -55,24 +56,24 @@
                     <input type="text" id="tipo" name="tipo" class="form-control readonly-custom"
                         value="{{ $incidencia->tipo }}" readonly>
                 </div>
-            </div>
 
-            @empty($incidencia->subtipo->subtipo_nombre)
-            @else
-            <div id="sel1"class="form-group col-sm-4">
-                <label for="subtipo" class="form-label">Subtipo:</label>
-                <input type="text" id="subtipo" name="subtipo" class="form-control readonly-custom"
-                    value="{{ $incidencia->subtipo->subtipo_nombre }}" readonly>
-            </div>
-            @endempty
-            @empty($incidencia->subtipo->sub_subtipo)
-            @else
-            <div id="sel2"class="form-group col-sm-4">
-                <label for="sub_subtipo" class="form-label">Sub_subtipo</label>
-                <input type="text" id="sub_subtipo" name="sub_subtipo" class="form-control readonly-custom"
-                    value="{{ $incidencia->subtipo->sub_subtipo ?? 'No tiene subtipo' }}" readonly>
-            </div>
-            @endempty
+
+                @empty($incidencia->subtipo->subtipo_nombre)
+                @else
+                    <div id="sel1"class="form-group col-sm-4">
+                        <label for="subtipo" class="form-label">Subtipo:</label>
+                        <input type="text" id="subtipo" name="subtipo" class="form-control readonly-custom"
+                            value="{{ $incidencia->subtipo->subtipo_nombre }}" readonly>
+                    </div>
+                @endempty
+                @empty($incidencia->subtipo->sub_subtipo)
+                @else
+                    <div id="sel2"class="form-group col-sm-4">
+                        <label for="sub_subtipo" class="form-label">Sub_subtipo</label>
+                        <input type="text" id="sub_subtipo" name="sub_subtipo" class="form-control readonly-custom"
+                            value="{{ $incidencia->subtipo->sub_subtipo ?? 'No tiene subtipo' }}" readonly>
+                    </div>
+                @endempty
 
 
             </div>
@@ -155,6 +156,43 @@
                         value="Editar Incidencia">
                 </div>
             </div>
+            <script>
+                /**
+                 * Metodo que lanza un modal al pulsar el botón de editar incidencia, hace que se controle si se quieren guardar los cambios o no
+                 *
+                 * @param mixed recibe un formulario para prevenir su funcionamiento por defecto
+                 * @return {none} no devuelve nada, ejecuta acciones según los botones que se pulsan
+                 */
+                document.querySelector('#formulario1').addEventListener('submit', function(e) {
+                    var form = this;
+
+                    e.preventDefault();
+
+                    swal({
+                        title: "GUARDAR CAMBIOS",
+                        text: "¿Quieres guardar los cambios en la incidencia?",
+                        icon: "warning",
+                        buttons: [
+                            'No, cancelar',
+                            'Si, Estoy Seguro'
+                        ],
+                        dangerMode: true,
+                    }).then(function(isConfirm) {
+                        if (isConfirm) {
+                            swal({
+                                title: '¡HECHO!',
+                                text: 'La incidencia ha sido editada',
+                                icon: 'success'
+                            }).then(function() {
+                                form.submit();
+                            });
+                        } else {
+                            swal("Cancelado", "La incidencia no ha sido editada", "error");
+                        }
+                    });
+                });
+            </script>
+
         </form>
     </div>
 @endsection

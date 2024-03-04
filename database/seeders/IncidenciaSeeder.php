@@ -21,7 +21,7 @@ class IncidenciaSeeder extends Seeder
         //Recoger todos los Id de la tabla incidencias_subtipo en un array
         $subtiposId = IncidenciaSubtipo::pluck('id')->toArray();
         //Recoger todos los Id de la tabla users en un array
-        $personaId = '1';
+        $personaId = User::pluck('id')->toArray();
         //Array de las incidencias que vamos a crear
         $indencias = array(
             array(
@@ -29,7 +29,7 @@ class IncidenciaSeeder extends Seeder
                 'subtipo_id' => $subtiposId[0],
                 'descripcion' => 'incidencia de prueba 1',
                 'estado' => 'abierta',
-                'creador_id' => $personaId,
+                'creador_id' => $personaId[0],
                 'prioridad' => 'baja',
                 'equipo_id' => '2'
             ),
@@ -38,7 +38,7 @@ class IncidenciaSeeder extends Seeder
                 'subtipo_id' => $subtiposId[12],
                 'descripcion' => 'incidencia de prueba 2',
                 'estado' => 'en proceso',
-                'creador_id' => $personaId,
+                'creador_id' => $personaId[0],
                 'prioridad' => 'media',
                 'equipo_id' => '3'
             ),
@@ -47,7 +47,7 @@ class IncidenciaSeeder extends Seeder
                 'subtipo_id' => $subtiposId[14],
                 'descripcion' => 'incidencia de prueba 3',
                 'estado' => 'asignada',
-                'creador_id' => $personaId,
+                'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
                 'equipo_id' => '4'
             ),
@@ -56,7 +56,7 @@ class IncidenciaSeeder extends Seeder
                 'subtipo_id' => $subtiposId[1],
                 'descripcion' => 'incidencia de prueba 4',
                 'estado' => 'enviada a Infortec',
-                'creador_id' => $personaId,
+                'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
                 'equipo_id' => '3'
             ),
@@ -65,7 +65,7 @@ class IncidenciaSeeder extends Seeder
                 'subtipo_id' => $subtiposId[2],
                 'descripcion' => 'incidencia de prueba 5',
                 'estado' => 'resuelta',
-                'creador_id' => $personaId,
+                'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
                 'equipo_id' => '2'
             ),
@@ -74,7 +74,7 @@ class IncidenciaSeeder extends Seeder
                 'subtipo_id' => $subtiposId[3],
                 'descripcion' => 'incidencia de prueba 6',
                 'estado' => 'cerrada',
-                'creador_id' => $personaId,
+                'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
                 'equipo_id' => '1'
             ),
@@ -83,7 +83,7 @@ class IncidenciaSeeder extends Seeder
                 'subtipo_id' => $subtiposId[0],
                 'descripcion' => 'incidencia de prueba 7',
                 'estado' => 'abierta',
-                'creador_id' => $personaId,
+                'creador_id' => $personaId[0],
                 'prioridad' => 'baja',
                 'equipo_id' => '2'
             ),
@@ -92,7 +92,7 @@ class IncidenciaSeeder extends Seeder
                 'subtipo_id' => $subtiposId[12],
                 'descripcion' => 'incidencia de prueba 8',
                 'estado' => 'en proceso',
-                'creador_id' => $personaId,
+                'creador_id' => $personaId[0],
                 'prioridad' => 'media',
                 'equipo_id' => '3'
             ),
@@ -101,7 +101,7 @@ class IncidenciaSeeder extends Seeder
                 'subtipo_id' => $subtiposId[14],
                 'descripcion' => 'incidencia de prueba 9',
                 'estado' => 'asignada',
-                'creador_id' => $personaId,
+                'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
                 'equipo_id' => '4'
             ),
@@ -110,7 +110,7 @@ class IncidenciaSeeder extends Seeder
                 'subtipo_id' => $subtiposId[1],
                 'descripcion' => 'incidencia de prueba 10',
                 'estado' => 'enviada a Infortec',
-                'creador_id' => $personaId,
+                'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
                 'equipo_id' => '3'
             ),
@@ -119,7 +119,7 @@ class IncidenciaSeeder extends Seeder
                 'subtipo_id' => $subtiposId[2],
                 'descripcion' => 'incidencia de prueba 11',
                 'estado' => 'resuelta',
-                'creador_id' => $personaId,
+                'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
                 'equipo_id' => '2'
             ),
@@ -128,7 +128,7 @@ class IncidenciaSeeder extends Seeder
                 'subtipo_id' => $subtiposId[3],
                 'descripcion' => 'incidencia de prueba 12',
                 'estado' => 'cerrada',
-                'creador_id' => $personaId,
+                'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
                 'equipo_id' => '1'
             ),
@@ -137,7 +137,7 @@ class IncidenciaSeeder extends Seeder
                 'subtipo_id' => $subtiposId[0],
                 'descripcion' => 'incidencia de prueba 13',
                 'estado' => 'abierta',
-                'creador_id' => $personaId,
+                'creador_id' => $personaId[0],
                 'prioridad' => 'baja',
                 'equipo_id' => '2'
             ),
@@ -146,7 +146,7 @@ class IncidenciaSeeder extends Seeder
                 'subtipo_id' => $subtiposId[12],
                 'descripcion' => 'incidencia de prueba 14',
                 'estado' => 'en proceso',
-                'creador_id' => $personaId,
+                'creador_id' => $personaId[0],
                 'prioridad' => 'media',
                 'equipo_id' => '3'
             ),
@@ -155,7 +155,7 @@ class IncidenciaSeeder extends Seeder
                 'subtipo_id' => $subtiposId[14],
                 'descripcion' => 'incidencia de prueba 15',
                 'estado' => 'asignada',
-                'creador_id' => $personaId,
+                'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
                 'equipo_id' => '4'
             ),
@@ -164,7 +164,7 @@ class IncidenciaSeeder extends Seeder
                 'subtipo_id' => $subtiposId[1],
                 'descripcion' => 'incidencia de prueba 16',
                 'estado' => 'enviada a Infortec',
-                'creador_id' => $personaId,
+                'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
                 'equipo_id' => '3'
             ),
@@ -173,7 +173,7 @@ class IncidenciaSeeder extends Seeder
                 'subtipo_id' => $subtiposId[2],
                 'descripcion' => 'incidencia de prueba 16',
                 'estado' => 'resuelta',
-                'creador_id' => $personaId,
+                'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
                 'equipo_id' => '2'
             ),
@@ -182,7 +182,7 @@ class IncidenciaSeeder extends Seeder
                 'subtipo_id' => $subtiposId[3],
                 'descripcion' => 'incidencia de prueba 17',
                 'estado' => 'cerrada',
-                'creador_id' => $personaId,
+                'creador_id' => $personaId[0],
                 'prioridad' => 'alta',
                 'equipo_id' => '1'
             ),
