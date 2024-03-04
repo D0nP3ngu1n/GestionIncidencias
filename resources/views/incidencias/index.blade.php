@@ -54,7 +54,7 @@
                 Filtros
                 <i class="bi bi-filter"></i>
             </a>
-
+            @hasrole('Administrador')
             <form id="exportForm" action="{{ route('exports.export') }}" method="POST" class="form">
                 @csrf
                 <input type="hidden" name="incidencias" value="{{ json_encode($incidencias) }}">
@@ -66,6 +66,7 @@
                     <option value="{{ route('exports.csv') }}">CSV</option>
                 </select>
             </form>
+
             <script>
                 document.getElementById('exportOption').addEventListener('change', function() {
                     if (this.value !== '') {
@@ -74,6 +75,7 @@
                     }
                 });
             </script>
+            @endhasrole
         </div>
 
         <div class="collapse my-2" id="collapseExample">
