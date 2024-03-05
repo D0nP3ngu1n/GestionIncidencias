@@ -36,6 +36,8 @@
                                 <th scope="col">Email</th>
                                 <th scope="col">Departamento</th>
                                 <th scope="col">Rol</th>
+                                <th scope="col" class='col-1'>Acciones</th>
+
                             </tr>
                         </thead>
                         <tbody>

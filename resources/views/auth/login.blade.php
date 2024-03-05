@@ -1,15 +1,17 @@
 @extends('layouts.app')
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6">
-                <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
-                    <div class="card p-5 mt-5 ml-5">
-                        <form method="POST" class="px-5" action="{{ route('login') }}" style="width: 29.5rem;">
+                <div class="d-flex justify-content-center align-items-center px-5 px-md-3 px-sm-1 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
+                    <div class="card p-5 ">
+                        <form method="POST" action="{{ route('login') }}">
                             @csrf
 
-                            <h3 class="fw-normal mb-3 pb-3 col-11" style="letter-spacing: 1px;">Introduce tus credenciales para acceder</h3>
-                            <div class="form-outline mb-4 col-10 col-md-8">
+                            <h2 class="fw-normal mb-3 pb-3">Introduce tus credenciales para acceder</h2> 
+
+                            <div class="form-outline mb-4 col-12 col-md-12">
                                 <input type="text" id="name" name="name"
                                     class="form-control form-control-lg @error('name') is-invalid @enderror"
                                     value="{{ old('name') }}" required autocomplete="name" autofocus />
@@ -21,7 +23,7 @@
                                 @enderror
                             </div>
 
-                            <div class="form-outline mb-4 col-10 col-md-8">
+                            <div class="form-outline mb-4 ol-12 col-md-12">
                                 <input type="password" id="password" name="password"
                                     class="form-control form-control-lg @error('password') is-invalid @enderror" required
                                     autocomplete="current-password" />

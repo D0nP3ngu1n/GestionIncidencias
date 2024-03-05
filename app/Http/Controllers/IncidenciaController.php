@@ -231,7 +231,7 @@ class IncidenciaController extends Controller
 
                 if ($request->fichero) {
                     //elimino el fichero anterior que tiene la incidencia
-                    Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
+                    Storage::disk('ficheros')->delete($incidencia->adjunto_url);
                 }
 
                 //guardo el fichero y cojo su ruta para guardarla en la URL de la incidencia
@@ -253,7 +253,7 @@ class IncidenciaController extends Controller
         } catch (PDOException $e) {
             DB::rollBack();
             // si no se completa la creacion borro el fichero que venia en el formulario de edicion
-            Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
+            Storage::disk('ficheros')->delete($incidencia->adjunto_url);
 
             return redirect()->route('incidencias.index')->with('error', 'Error de base de datos al editar la incidencia. Detalles: ' . $e->getMessage());
         } catch (Exception $e) {
@@ -335,13 +335,13 @@ class IncidenciaController extends Controller
 
             DB::rollBack();
             // si no se completa la creacion borro el fichero que venia en el formulario de edicion
-            Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
+            Storage::disk('ficheros')->delete($incidencia->adjunto_url);
             return redirect()->route('incidencias.index')->with('error', 'Error de base de datos al crear la incidencia. Detalles: ' . $e->getMessage());
         } catch (Exception $e) {
 
             DB::rollBack();
             // si no se completa la creacion borro el fichero que venia en el formulario de edicion
-            Storage::disk('ficheros')->delete(substr($incidencia->adjunto_url, 16));
+            Storage::disk('ficheros')->delete($incidencia->adjunto_url);
 
             return redirect()->route('incidencias.index')->with('error', 'Error al crear la incidencia. Detalles: ' . $e->getMessage());
         }

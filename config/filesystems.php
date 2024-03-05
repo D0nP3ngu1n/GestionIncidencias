@@ -42,10 +42,13 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw' => false,
-        ],'ficheros' => [
+        ],
+        'ficheros' => [
             'driver' => 'local',
             'root' => public_path('assets/ficheros'),
             'visibility' => 'public',
+            'throw' => false,
+
         ],
 
         's3' => [

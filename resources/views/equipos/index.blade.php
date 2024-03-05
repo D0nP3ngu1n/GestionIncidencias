@@ -79,7 +79,7 @@
                                     @endempty
                                 </td>
                                 <td class="text-truncate">{{ $equipo->aula->codigo }}</td>
-                                <td>
+                                <td class="col-1">
                                     <div class="d-flex gap-3">
 
 

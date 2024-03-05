@@ -24,27 +24,26 @@
             @endif
         </div>
 
-        <div class="row">
-            <h1 class="text-2xl font-bold mx-8 col-10">INCIDENCIA Nº {{ $incidencia->id }}</h1>
-            @hasrole('Administrador')
-                <div class="col-2">
-                    <a id="botonCrear" href="{{ route('incidencias.edit', $incidencia) }}">
-                        <div class="svg-wrapper-1">
-                            <div class="svg-wrapper">
-                                <?xml version="1.0" ?><svg class="feather feather-edit" fill="none" height="24"
-                                    stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <span>Editar Incidencia </span>
-                    </a>
+        <div class="row flex-column flex-sm-row">
+        <h1 class="text-2xl font-bold col-10 col-md-8">INCIDENCIA Nº {{ $incidencia->id }}</h1>
+    @hasrole('Administrador')
+        <div class="col-12 col-md-4 d-flex flex-column">
+            <a id="botonCrear" href="{{ route('incidencias.edit', $incidencia) }}" class="w-100">
+                <div class="svg-wrapper-1">
+                    <div class="svg-wrapper">
+                        <?xml version="1.0" ?><svg class="feather feather-edit" fill="none" height="24"
+                            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                        </svg>
+                    </div>
                 </div>
-            @endhasrole
-
+                <span class="ml-2">Editar Incidencia</span>
+            </a>
         </div>
+    @endhasrole
+</div>
 
 
 
@@ -82,7 +81,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-md-4 row-end-12">
+                <div class="col-md-4 row-end-12 mb-3">
                     <p><strong>Archivos:</strong></p>
                     <div class="caja-archivos col-md-12 rw-md-12">
                         <div id="simbolo"></div>
@@ -150,27 +149,27 @@
         </script>
 
 
-    <div class="mt-3 p-3 w-auto rounded-4 bg-colorSecundario">
-        <div class="row">
-            <h1 class="col">Comentarios</h1>
-            <div class="col-2">
-
-                <a id="botonCrear" href="{{ route('comentario.create', $incidencia) }}">
-                    <div class="svg-wrapper-1">
-                        <div class="svg-wrapper">
-                            <?xml version="1.0" ?><svg class="feather feather-edit" fill="none" height="24"
-                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                            </svg>
-                        </div>
+<div class="mt-3 p-3 w-auto rounded-4 bg-colorSecundario">
+    <div class="row">
+        <h1 class="col-8">Comentarios</h1>
+        <div class="col-12 col-md-4 d-flex flex-column">
+            <a id="botonCrear" href="{{ route('comentario.create', $incidencia) }}" class="w-100">
+                <div class="svg-wrapper-1">
+                    <div class="svg-wrapper">
+                        <?xml version="1.0" ?><svg class="feather feather-edit" fill="none" height="24"
+                            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                        </svg>
                     </div>
-                    <span>Crear Comentario</span>
-
-                </a>
-            </div>
+                </div>
+                <span class="ml-2">Crear Comentario</span>
+            </a>
         </div>
+    </div>
+</div>
+
         <ul class="list-unstyled">
             @empty($incidencia->comentarios)
                 <div class="d-flex justify-content-center">
