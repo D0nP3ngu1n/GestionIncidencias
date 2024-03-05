@@ -54,7 +54,7 @@
                 Filtros
                 <i class="bi bi-filter"></i>
             </a>
-
+            @hasrole('Administrador')
             <form id="exportForm" action="{{ route('exports.export') }}" method="POST" class="form">
                 @csrf
                 <input type="hidden" name="incidencias" value="{{ json_encode($incidencias) }}">
@@ -74,6 +74,7 @@
                     }
                 });
             </script>
+             @endrole
         </div>
 
         <div class="collapse my-2" id="collapseExample">
@@ -286,34 +287,35 @@
 
     <div class="d-flex justify-content-center">
         {{ $incidencias->links() }}
-    </div>
-    @push('scripts')
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                // Maneja el envío del formulario de filtros
-                $('#formFiltros').submit(function(event) {
-                    event.preventDefault(); // Evita que se recargue la página al enviar el formulario
-                    filtrar(); // Llama a la función de filtrar
-                });
-
-                // Función para filtrar mediante AJAX
-                function filtrar() {
-                    $.ajax({
-                        url: '{{ route('incidencias.filtrar') }}', // Ruta definida en las rutas de Laravel
-                        type: 'POST',
-                        data: $('#formFiltros').serialize(), // Serializa los datos del formulario
-                        success: function(response) {
-                            $('#lista-incidencias').html(response); // Actualiza la lista de incidencias
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(error); // Maneja los errores, si los hay
-                        }
+        </div>
+        @push('scripts')
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                $(document).ready(function() {
+                    // Maneja el envío del formulario de filtros
+                    $('#formFiltros').submit(function(event) {
+                        event.preventDefault(); // Evita que se recargue la página al enviar el formulario
+                        filtrar(); // Llama a la función de filtrar
                     });
-                }
-            });
-        </script>
-        </div>
-        </div>
-        </div>
+
+                    // Función para filtrar mediante AJAX
+                    function filtrar() {
+                        $.ajax({
+                            url: '{{ route('incidencias.filtrar') }}', // Ruta definida en las rutas de Laravel
+                            type: 'POST',
+                            data: $('#formFiltros').serialize(), // Serializa los datos del formulario
+                            success: function(response) {
+                                $('#lista-incidencias').html(response); // Actualiza la lista de incidencias
+                            },
+                            error: function(xhr, status, error) {
+                                console.error(error); // Maneja los errores, si los hay
+                            }
+                        });
+                    }
+                });
+            </script>
+            @endpush
+            </div>
+    </div>
+ </div>
     @endsection

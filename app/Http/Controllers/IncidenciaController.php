@@ -95,9 +95,21 @@ class IncidenciaController extends Controller
         }
 
         if ($request->has('creador') && $request->filled('creador')) {
-            $query->join('users', 'incidencias.creador_id', '=', 'users.id')
-                ->where('users.nombre_completo', 'LIKE', '%' . $request->input('creador') . '%');
+            $query->where('incidencias.creador_id', function($subquery) use ($request) {
+                $subquery->select('id')
+                         ->from('users')
+                         ->where('nombre_completo', '=', $request->input('creador') );
+            });
         }
+
+        if ($request->has('responsable') && $request->filled('responsable')) {
+            $query->where('incidencias.responsable_id', function($subquery) use ($request) {
+                $subquery->select('id')
+                         ->from('users')
+                         ->where('nombre_completo', '=', $request->input('responsable') );
+            });
+        }
+
 
         if ($request->has('prioridad') && $request->filled('prioridad')) {
             $query->where('prioridad', 'like', '%' . $request->input('prioridad') . '%');

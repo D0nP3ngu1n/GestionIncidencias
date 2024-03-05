@@ -70,7 +70,7 @@ return [
                 'model' => App\Models\User::class,
                 'sync_passwords' => false,
                 'sync_attributes' => [
-                    'name' => 'cn',
+                    'name' => 'SamAccountName',
                     'email' => 'mail',
                     'nombre_completo' => 'DisplayName',
                     'departamento_id' => 'Department',

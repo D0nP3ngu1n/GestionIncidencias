@@ -24,24 +24,14 @@
         </div>
     @endif
     <div class="container" id="caja-formulario">
-        <form action="{{ route('usuarios.update', $usuario) }}" method="POST" enctype="multipart/form-data"
-            id="formulario1">
-            @csrf
-            @method('put')
-            <div class="mb-3">
-                <label for="nombreCompleto" class="form-label">Nombre completo:</label>
-                <input type="text" id="nombreCompleto" name="nombreCompleto" class="form-control readonly-custom"
-                    readonly value="{{ $usuario->nombre_completo }}">
-            </div>
-
 
             <form action="{{ route('usuarios.update', $usuario) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="mb-3">
                     <label for="nombreCompleto" class="form-label">Nombre completo:</label>
-                    <input type="text" id="nombreCompleto" name="nombreCompleto" class="form-control" readonly
-                        value="{{ $usuario->nombre_completo }}">
+                    <input type="text" id="nombreCompleto" name="nombreCompleto" class="form-control readonly-custom"
+                        readonly value="{{ $usuario->nombre_completo }}">
                 </div>
 
                 <div class="mb-3">

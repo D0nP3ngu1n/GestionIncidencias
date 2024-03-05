@@ -40,6 +40,6 @@ class onlyProfesores implements Rule
         }
 
         // No puede hacer login
-        return false;
+        return true;
     }
 }

@@ -16,10 +16,10 @@
             Incidencias por estado:
             <canvas id="estadoChart" width="100" height="100"></canvas>
         </div>
-        <div class="p-3 w-25 h-25 m-1 rounded-4 bg-colorSecundario">
+        {{-- <div class="p-3 w-25 h-25 m-1 rounded-4 bg-colorSecundario">
             Incidencias por Administrador:
             <canvas id="responsableChart" width="100" height="100"></canvas>
-        </div>
+        </div> --}}
 
         <script>
             var jsonData = @json($incidencias);
@@ -57,7 +57,7 @@
                 function contarIncidenciasPorResponsable(data) {
                     var counts = {};
                     data.forEach(function(item) {
-                        counts[item.responsable_id] = (counts[item.responsable_id] || 0) + 1;
+                        counts[item.aula_num] = (counts[item.aula_num] || 0) + 1;
                     });
                     return counts;
                 }
