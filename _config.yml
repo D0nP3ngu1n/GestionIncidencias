@@ -1,0 +1,12 @@
+plugins:
+  - jekyll-relative-links
+  - jemoji
+relative_links:
+  enabled: true
+
+theme: jekyll-theme-cayman
+title: "Proyecto"
+description: "Documentación"
+github:
+  is_project_page: false
+markdown: GFM
