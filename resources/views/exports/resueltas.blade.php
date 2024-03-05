@@ -7,7 +7,7 @@
                 <th scope="col">Tipo</th>
                 <th scope="col">Subtipo</th>
                 <th scope="col">Fecha creacion</th>
-                <th scope="col">Fecha Cierre</th>
+                <th scope="col">Fecha cierre</th>
                 <th scope="col">Descripcion</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Creador</th>
