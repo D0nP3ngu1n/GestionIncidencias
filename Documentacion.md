@@ -2,31 +2,29 @@
 
 ### Índice
 
--[DESARROLLO DE APLICACIONES WEB ENTORNO SERVIDOR](#desarrollo-de-aplicaciones-web-en-entorno-servidor) 
-    -[Migraciones y Seeders](#migraciones-y-seeders) 
-    -[Modelos](#modelos) 
-    -[Gestión de Incidencias](#gestion-de-incidencias) 
-    -[LDAP](#ldap) 
-    -[Gestion de usuarios](#gestion-de-usuarios) 
-    -[Gestion de aulas](#gestion-de-aulas) 
-    -[Gestion de equipos](#gestion-de-equipos) 
-    -[Comentarios](#comentarios) 
-    -[Request](#request) 
-    -[Mail](#mail) 
-    -[Exportaciones](#exportaciones) 
-    -[Informes](#informes) 
--[DESARROLLO DE APLICACIONES WE ENTORNO CLIENTE](#desarrollo-de-aplicaciones-web-en-estorno-cliente) 
-    -[JavaScript Puro](#javascript-puro) 
-    -[Ajax para Filtrados](#filtrado-de-incidencias) 
-    -[Charts](#charts)  
--[DISEÑO DE INTERFACES WEB](#diseño-de-interfaces-web) 
-    -[Wireframes]() 
-    -[Guia de estilos]() 
-    -[Plantilla]() 
-    -[Formularios](#formularios) 
-    -[Mostrar informacion](#mostrar-información) 
-    -[Modales](#modelos) 
-    -[DESPLIEGUE DE APLICACIONES WEB](#despliegue-de-aplicaciones-web)
+-**[DESARROLLO DE APLICACIONES WEB ENTORNO SERVIDOR](#desarrollo-de-aplicaciones-web-en-entorno-servidor)**<br>
+        -[Migraciones y Seeders](#migraciones-y-seeders)<br> 
+        -[Modelos](#modelos) <br>
+        -[Gestión de Incidencias](#gestion-de-incidencias)<br> 
+        -[LDAP](#ldap) <br>
+        -[Gestion de usuarios](#gestion-de-usuarios)<br> 
+        -[Gestion de aulas](#gestion-de-aulas) <br>
+        -[Gestion de equipos](#gestion-de-equipos) <br>
+        -[Comentarios](#comentarios) <br>
+        -[Request](#request) <br>
+        -[Mail](#mail)<br> 
+        -[Exportaciones](#exportaciones) <br>
+        -[Informes](#informes) <br>
+-**[DESARROLLO DE APLICACIONES WE ENTORNO CLIENTE](#desarrollo-de-aplicaciones-web-en-estorno-cliente)** <br>
+    -[JavaScript Puro](#javascript-puro) <br>
+    -[Ajax para Filtrados](#filtrado-de-incidencias) <br>
+    -[Charts](#charts)  <br>
+-**[DISEÑO DE INTERFACES WEB](#diseño-de-interfaces-web)** <br>
+    -[Plantilla](#plantilla)<br>
+    -[Formularios](#formularios) <br>
+    -[Mostrar informacion](#mostrar-información) <br>
+    -[Modales](#modelos) <br>
+-**[DESPLIEGUE DE APLICACIONES WEB](#despliegue-de-aplicaciones-web)**
 
 ## DESARROLLO DE APLICACIONES WEB EN ENTORNO SERVIDOR
 
@@ -5435,16 +5433,7 @@ Después en el script de JavaScript, se pasa la variable incidencias de php a fo
 
 ## DISEÑO DE INTERFACES WEB
 
-Para empezar, necesitaremos unos wireframes para guiar la programación y la aplicación de estilos para nuestra web.
-
-(insertar wireframes y explicacion)
-
-Una vez generados los wireframes, realizamos una guía de estilos para seguir en la aplicación, y que se muestre de una forma coherente.
-
-(insetar guia de estilos y explicacion)
-
-Suigiendo esta guía de estilos y de acuerdo con loos wireframes, se crea una plantilla de blade que seguirán todas las vistas y que incluirá las partes gráficas comunes como son el header, el navegador o el footer.
-
+### Plantilla
 La plantilla es la base de nuestros estilos. En ela incluimos las estiquetas meta, cualquier link de scripts que necesitamos para los estilos o la extension sweetalert e incluimos loas parciales
 ``` html
 <!DOCTYPE html>
