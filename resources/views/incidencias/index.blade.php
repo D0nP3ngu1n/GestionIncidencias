@@ -162,7 +162,7 @@
                     </div>
                 </div>
                 <div class="d-flex flex-row-reverse">
-                    <button type="submit" class="btn btn-primary text-white ">Filtrar</button>
+                    <button type="submit" class="btn btn-primary text-white " value="">Filtrar</button>
                 </div>
             </form>
         </div>
@@ -313,8 +313,7 @@
                 }
             });
         </script>
-    @endpush
-    </div>
-    </div>
-    </div>
-@endsection
+        </div>
+        </div>
+        </div>
+    @endsection
