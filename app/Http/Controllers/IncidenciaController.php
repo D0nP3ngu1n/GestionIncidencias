@@ -104,13 +104,12 @@ class IncidenciaController extends Controller
         }
 
         if ($request->has('aula') && $request->filled('aula')) {
-            $incidencias = Incidencia::join('equipos', 'equipos.id', '=', 'incidencias.equipo_id')
-                ->join('aulas', 'aulas.num', '=', 'equipos.aula_num')
-                ->where('aulas.num', $request->aula);
-            //where('aula', '=', $request->input('aula'));
+            $query->whereHas('equipo', function ($query) use ($request) {
+                $query->whereHas('aula', function ($query) use ($request) {
+                    $query->where('num', $request->aula);
+                });
+            });
         }
-
-
 
         if ($request->has('desde') && $request->has('hasta') && $request->filled('desde') && $request->filled('hasta')) {
             $desde = date($request->input('desde'));

@@ -54,28 +54,26 @@
                 Filtros
                 <i class="bi bi-filter"></i>
             </a>
-            @hasrole('Administrador')
-                <form id="exportForm" action="{{ route('exports.export') }}" method="POST" class="form">
-                    @csrf
-                    <input type="hidden" name="incidencias" value="{{ json_encode($incidencias) }}">
-                    <label for="exportOption">Exportar como:</label>
-                    <select id="exportOption" name="exportOption" class="form-select" aria-label="Default select example">
-                        <option value="">--Elija una opción--</option>
-                        <option value="{{ route('exports.export') }}">Excel</option>
-                        <option value="{{ route('exports.pdf') }}">PDF</option>
-                        <option value="{{ route('exports.csv') }}">CSV</option>
-                    </select>
-                </form>
 
-                <script>
-                    document.getElementById('exportOption').addEventListener('change', function() {
-                        if (this.value !== '') {
-                            document.getElementById('exportForm').action = this.value;
-                            document.getElementById('exportForm').submit();
-                        }
-                    });
-                </script>
-            @endhasrole
+            <form id="exportForm" action="{{ route('exports.export') }}" method="POST" class="form">
+                @csrf
+                <input type="hidden" name="incidencias" value="{{ json_encode($incidencias) }}">
+                <label for="exportOption">Exportar como:</label>
+                <select id="exportOption" name="exportOption" class="form-select" aria-label="Default select example">
+                    <option value="">--Elija una opción--</option>
+                    <option value="{{ route('exports.export') }}">Excel</option>
+                    <option value="{{ route('exports.pdf') }}">PDF</option>
+                    <option value="{{ route('exports.csv') }}">CSV</option>
+                </select>
+            </form>
+            <script>
+                document.getElementById('exportOption').addEventListener('change', function() {
+                    if (this.value !== '') {
+                        document.getElementById('exportForm').action = this.value;
+                        document.getElementById('exportForm').submit();
+                    }
+                });
+            </script>
         </div>
 
         <div class="collapse my-2" id="collapseExample">
@@ -243,38 +241,32 @@
                                                 </button>
                                             </form>
                                             <script>
-                                                // Seleccionar todos los elementos con el id #formBorrar
-                                                var forms = document.querySelectorAll('#formBorrar');
+                                                document.querySelector('#formBorrar').addEventListener('submit', function(e) {
+                                                    var form = this;
 
-                                                // Iterar sobre cada elemento y agregar un evento de escucha
-                                                forms.forEach(function(form) {
-                                                    form.addEventListener('submit', function(e) {
-                                                        e.preventDefault();
+                                                    e.preventDefault();
 
-                                                        var currentForm = this;
-
-                                                        swal({
-                                                            title: "Borrar Incidencia",
-                                                            text: "¿Quieres borrar la incidencia?",
-                                                            icon: "warning",
-                                                            buttons: [
-                                                                'No, cancelar',
-                                                                'Si, Estoy Seguro'
-                                                            ],
-                                                            dangerMode: true,
-                                                        }).then(function(isConfirm) {
-                                                            if (isConfirm) {
-                                                                swal({
-                                                                    title: '¡HECHO!',
-                                                                    text: 'La incidencia ha sido borrada',
-                                                                    icon: 'success'
-                                                                }).then(function() {
-                                                                    currentForm.submit();
-                                                                });
-                                                            } else {
-                                                                swal("Cancelado", "La incidencia no ha sido eliminada", "error");
-                                                            }
-                                                        });
+                                                    swal({
+                                                        title: "Borrar Incidencia",
+                                                        text: "¿Quieres borrar la incidencia incidencia?",
+                                                        icon: "warning",
+                                                        buttons: [
+                                                            'No, cancelar',
+                                                            'Si, Estoy Seguro'
+                                                        ],
+                                                        dangerMode: true,
+                                                    }).then(function(isConfirm) {
+                                                        if (isConfirm) {
+                                                            swal({
+                                                                title: '¡HECHO!',
+                                                                text: 'La incidencia ha sido borrarda',
+                                                                icon: 'success'
+                                                            }).then(function() {
+                                                                form.submit();
+                                                            });
+                                                        } else {
+                                                            swal("Cancelado", "La incidencia no ha sido eliminada", "error");
+                                                        }
                                                     });
                                                 });
                                             </script>
@@ -286,7 +278,7 @@
                     </tbody>
                 </table>
             @else
-                <h2 class="text-center">No existen incidencias</h2>
+                <p>No existen incidencias</p>
         @endif
     </div>
 
@@ -295,31 +287,33 @@
     <div class="d-flex justify-content-center">
         {{ $incidencias->links() }}
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            // Maneja el envío del formulario de filtros
-            $('#formFiltros').submit(function(event) {
-                event.preventDefault(); // Evita que se recargue la página al enviar el formulario
-                filtrar(); // Llama a la función de filtrar
-            });
-
-            // Función para filtrar mediante AJAX
-            function filtrar() {
-                $.ajax({
-                    url: '{{ route('incidencias.filtrar') }}', // Ruta definida en las rutas de Laravel
-                    type: 'POST',
-                    data: $('#formFiltros').serialize(), // Serializa los datos del formulario
-                    success: function(response) {
-                        $('#lista-incidencias').html(response); // Actualiza la lista de incidencias
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(error); // Maneja los errores, si los hay
-                    }
+    @push('scripts')
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                // Maneja el envío del formulario de filtros
+                $('#formFiltros').submit(function(event) {
+                    event.preventDefault(); // Evita que se recargue la página al enviar el formulario
+                    filtrar(); // Llama a la función de filtrar
                 });
-            }
-        });
-    </script>
+
+                // Función para filtrar mediante AJAX
+                function filtrar() {
+                    $.ajax({
+                        url: '{{ route('incidencias.filtrar') }}', // Ruta definida en las rutas de Laravel
+                        type: 'POST',
+                        data: $('#formFiltros').serialize(), // Serializa los datos del formulario
+                        success: function(response) {
+                            $('#lista-incidencias').html(response); // Actualiza la lista de incidencias
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error); // Maneja los errores, si los hay
+                        }
+                    });
+                }
+            });
+        </script>
+    @endpush
     </div>
     </div>
     </div>
