@@ -132,4 +132,14 @@ class User extends Authenticatable implements LdapAuthenticatable
     {
         return $this->belongsTo(Departamento::class, 'departamento_id', 'id');
     }
+
+        /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
 }

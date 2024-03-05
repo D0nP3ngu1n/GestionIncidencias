@@ -70,7 +70,15 @@ class UserController extends Controller
      */
     public function show(User $usuario)
     {
-        return view('usuarios.show', ['usuario' => $usuario]);
+        //checkeo para que un usuario no pueda ver a otro usuario
+        if(auth()->user()->roles->pluck('name')[0] == 'Administrador'){
+            return view('usuarios.show', ['usuario' => $usuario]);
+        }else{
+            if($usuario->id != auth()->user()->id){
+                return redirect()->route('usuarios.index')->with('error', 'No tienes permisos para entrar en otros usuarios');
+            }
+            return view('usuarios.show', ['usuario' => $usuario]);
+        }
     }
 
     /**
@@ -81,7 +89,16 @@ class UserController extends Controller
     public function edit(User $usuario)
     {
         $departamentos = Departamento::all();
-        return view('usuarios.edit', ['departamentos' => $departamentos, 'usuario' => $usuario]);
+
+        //checkeo para que un usuario no pueda editar a otro usuario
+        if(auth()->user()->roles->pluck('name')[0] == 'Administrador'){
+            return view('usuarios.edit', ['departamentos' => $departamentos, 'usuario' => $usuario]);
+        }else{
+            if($usuario->id != auth()->user()->id){
+                return redirect()->route('usuarios.index')->with('error', 'No tienes permisos para entrar en otros usuarios');
+            }
+            return view('usuarios.edit', ['departamentos' => $departamentos, 'usuario' => $usuario]);
+        }
     }
 
     /**

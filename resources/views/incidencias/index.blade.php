@@ -164,7 +164,7 @@
                     </div>
                 </div>
                 <div class="d-flex flex-row-reverse">
-                    <button type="submit" class="btn btn-primary text-white ">Filtrar</button>
+                    <button type="submit" class="btn btn-primary text-white " value="">Filtrar</button>
                 </div>
             </form>
         </div>
@@ -311,7 +311,7 @@
                     type: 'POST',
                     data: $('#formFiltros').serialize(), // Serializa los datos del formulario
                     success: function(response) {
-                        $('#lista-incidencias').html(response); // Actualiza la lista de incidencias
+                        $('document').html(response); // Actualiza la lista de incidencias
                     },
                     error: function(xhr, status, error) {
                         console.error(error); // Maneja los errores, si los hay
