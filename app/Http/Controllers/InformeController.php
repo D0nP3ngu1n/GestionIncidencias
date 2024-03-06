@@ -150,7 +150,7 @@ class InformeController extends Controller
      */
     public function informeTiemposResolucionPorTipo()
     {
-        return Excel::download(new TiempoResolucionPorTipoExport(), 'informe_resolucion_tipo.xslx');
+        return Excel::download(new TiempoResolucionPorTipoExport(), 'informe_resolucion_tipo.xlsx');
     }
 
     /**
@@ -180,7 +180,7 @@ class InformeController extends Controller
      */
     public function informeTiempoDedicadoEIncidenciasPorAdministrador()
     {
-        return Excel::download(new ListaAdminExport(), 'informe_tiempo_dedicado_e_incidencias_por_admin.xslx');
+        return Excel::download(new ListaAdminExport(), 'informe_tiempo_dedicado_e_incidencias_por_admin.xlsx');
     }
 
     /**
