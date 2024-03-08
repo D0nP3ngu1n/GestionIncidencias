@@ -21,6 +21,7 @@ Paquete | Version
 | Lucía Ferreras|
 
 Link a la presentacion (https://drive.google.com/file/d/17Wlg0VyDZbeWx45HC19b1KeEf6VIBHA3/view?usp=sharing);
+Link de la Ova  "usuario y contraseña en la descripcion de la maquina" (https://drive.google.com/file/d/1BhMy9UmECMfMECJbryjQW4G5-9vI4nta/view?usp=sharing)
 
 ## INDICE
 1-[DOCUMENTACION](Documentacion.md)
