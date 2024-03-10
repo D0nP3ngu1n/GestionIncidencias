@@ -340,6 +340,7 @@ class IncidenciaController extends Controller
             y en el send le mando el email configurado, pasando la vista y el usuario
             */
             DB::commit();
+
             Mail::to($usuario->email)->send(new IncidenciaMail($incidencia, $usuario));
             return redirect()->route('incidencias.show', ['incidencia' => $incidencia])->with('success', 'Incidencia creada');
         } catch (PDOException $e) {
@@ -363,7 +364,7 @@ class IncidenciaController extends Controller
 
         if ($incidencia) {
             // Redirige a la URL del archivo para iniciar la descarga
-            return Response::download('assets/ficheros/' . $incidencia->adjunto_url);
+            return Response::download(public_path('assets/ficheros/' . $incidencia->adjunto_url));
         } else {
             // Maneja el caso en el que la incidencia no se encuentre
             abort(404, 'Incidencia no encontrada');
