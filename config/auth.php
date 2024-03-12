@@ -73,8 +73,7 @@ return [
                     'name' => 'SamAccountName',
                     'email' => 'mail',
                     'nombre_completo' => 'DisplayName',
-                    //comentado por que el darpatamento viene como un ID no como un nombre
-                    //'departamento_id' => 'Department',
+                    'departamento_id' => 'Department',
                     'DistinguishedName' => 'DistinguishedName',
                     'nombre' => 'Name',
                     'nombre_usuario' => 'SamAccountName',
